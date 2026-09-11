@@ -16,10 +16,20 @@ def test_basic():
                                atol=1e-5, rtol=1e-5)
 
 
-def test_wide_rows():
+@pytest.mark.parametrize("n", [1000, 1025, 4095, 4096])
+def test_wide_rows(n):
     torch.manual_seed(1)
-    x = torch.randn(8, 1000, device="cuda")
+    x = torch.randn(8, n, device="cuda")
     torch.testing.assert_close(softmax(x), torch.softmax(x, dim=-1),
+                               atol=1e-5, rtol=1e-5)
+
+
+def test_negative_ragged_rows():
+    # 若越界列错误地补 0，行最大值会被抬高，exp(-1000) 下溢后产生 0/0。
+    x = torch.full((3, 33), -1000.0, device="cuda")
+    got = softmax(x)
+    assert torch.isfinite(got).all(), "padding 不应影响真实行的最大值与分母"
+    torch.testing.assert_close(got, torch.softmax(x, dim=-1),
                                atol=1e-5, rtol=1e-5)
 
 

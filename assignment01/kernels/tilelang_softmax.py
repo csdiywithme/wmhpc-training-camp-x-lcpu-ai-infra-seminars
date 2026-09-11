@@ -19,10 +19,76 @@ contract：
 Tip: elementwise + 行内归约的 kernel 大概率是带宽瓶颈，可以想想理论上限是多少。
 """
 
+from functools import lru_cache
+
 import torch
 import tilelang
 import tilelang.language as T
 
 
+def make_softmax(M, N):
+    # 逻辑行宽和物理线程数是两回事。至少补到一个 warp 的宽度，
+    # 再向上取 2 的幂，方便布局推断；例如 N=1000 时 block_N=1024。
+    block_N = max(32, 1 << (N - 1).bit_length())
+    threads = min(256, block_N)
+
+    @T.prim_func
+    def main(
+        X: T.Tensor((M, N), "float32"),
+        Y: T.Tensor((M, N), "float32"),
+    ):
+        # 总共 M 个 block，每个 block 独立处理一整行。
+        with T.Kernel(M, threads=threads) as row:
+            # 整个 block 协作持有 block_N 个值，不是每线程各持有这么多。
+            values = T.alloc_fragment((block_N,), "float32")
+            row_max = T.alloc_fragment((1,), "float32")
+            row_sum = T.alloc_fragment((1,), "float32")
+
+            # 1. 读入一行；越界列补 -inf，不参与最大值竞争。
+            for j in T.Parallel(block_N):
+                values[j] = T.if_then_else(j < N, X[row, j], -T.infinity("float32"))
+
+            # 2. 沿唯一的维度归约，结果写到 row_max[0]。
+            # clear=True 自动用 -inf 初始化归约输出。
+            # 线程内局部归约、线程间交换与同步由编译器安排。
+            T.reduce_max(values, row_max, dim=0, clear=True)
+
+            # 3. 先减整行最大值再取 exp，避免大正数导致 exp 溢出。
+            # 对有限输入，补齐列此时变成 exp(-inf)=0。
+            for j in T.Parallel(block_N):
+                values[j] = T.exp(values[j] - row_max[0])
+
+            # 4. 求分母；补齐列的 0 不影响求和。
+            T.reduce_sum(values, row_sum, dim=0, clear=True)
+
+            # 5. 归一化，只写回实际存在的 N 列。
+            for j in T.Parallel(block_N):
+                if j < N:
+                    Y[row, j] = values[j] / row_sum[0]
+
+    return main
+
+
+@lru_cache(maxsize=128)
+def _compiled_softmax(M, N, device_index):
+    # 按形状和 GPU 缓存编译结果；out_idx=[1] 指定第二个参数 Y 是输出。
+    with torch.cuda.device(device_index):
+        return tilelang.compile(make_softmax(M, N), out_idx=[1])
+
+
 def softmax(x: torch.Tensor) -> torch.Tensor:
-    raise NotImplementedError("从这里开始写")
+    if x.ndim != 2:
+        raise ValueError("softmax expects a 2D tensor")
+    if x.dtype != torch.float32 or not x.is_cuda:
+        raise ValueError("softmax expects a float32 CUDA tensor")
+
+    M, N = x.shape
+    if not 1 <= N <= 4096:
+        raise ValueError("softmax requires 1 <= N <= 4096")
+    if M == 0:
+        return torch.empty_like(x)
+
+    # kernel 声明的是紧密排列的二维 Tensor；先处理可能不连续的输入。
+    with torch.cuda.device(x.device):
+        kernel = _compiled_softmax(M, N, x.device.index)
+        return kernel(x.contiguous())

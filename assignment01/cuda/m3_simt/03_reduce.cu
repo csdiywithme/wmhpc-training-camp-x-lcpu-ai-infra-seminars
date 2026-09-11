@@ -40,10 +40,60 @@
 
 __global__ void reduce_interleaved(const float *in, float *out) {
     // TODO：从这里开始写（交错配对版本）
+    int idx = blockIdx.x * BLOCK + threadIdx.x;
+    __shared__ float buf[BLOCK];
+    buf[threadIdx.x] = in[idx];
+    __syncthreads();
+    for (int s = 1; s < blockDim.x; s *= 2) {
+        if (threadIdx.x % (2 * s) == 0) {
+            buf[threadIdx.x] += buf[threadIdx.x + s];
+        }
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        out[blockIdx.x] = buf[0];
+    }
 }
 
 __global__ void reduce_contiguous(const float *in, float *out) {
     // TODO：从这里开始写（连续配对版本）
+    int idx = blockIdx.x * BLOCK + threadIdx.x;
+    __shared__ float buf[BLOCK];
+    buf[threadIdx.x] = in[idx];
+    __syncthreads();
+    for (int s = blockDim.x / 2; s > 0; s /= 2) {
+        if (threadIdx.x < s) {
+            buf[threadIdx.x] += buf[threadIdx.x + s];
+        }
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        out[blockIdx.x] = buf[0];
+    }
+}
+
+__global__ void reduce_shuffle(const float *in, float *out) {
+    // TODO：从这里开始写（shuffle 版本）
+    int idx = blockIdx.x * BLOCK + threadIdx.x;
+    __shared__ float buf[BLOCK];
+    buf[threadIdx.x] = in[idx];
+    __syncthreads();
+    for (int s = blockDim.x / 2; s >= 32; s /= 2) {
+        if (threadIdx.x < s) {
+            buf[threadIdx.x] += buf[threadIdx.x + s];
+        }
+        __syncthreads();
+    }
+    // 最后 warp 内的归约用 shuffle 指令做
+    float val = buf[threadIdx.x];
+    if(threadIdx.x < 32) {
+        for (int offset = 16; offset > 0; offset /= 2)
+            val += __shfl_down_sync(0xFFFFFFFF, val, offset);
+    }
+
+    if (threadIdx.x == 0) {
+        out[blockIdx.x] = val;
+    }
 }
 
 // ---------------- 以下是判测与计时，不要修改 ----------------
@@ -98,14 +148,21 @@ int main() {
                          h_partial, nblocks);
     float ms_c = run_one(reduce_contiguous, "contiguous ", d_in, d_out, h_out,
                          h_partial, nblocks);
+    float ms_s = run_one(reduce_shuffle, "shuffle", d_in, d_out, h_out,
+                        h_partial, nblocks);
     // 阈值 1.5x：A100 实测 2.22x、V100 实测 2.33x，两版写成一样时是 ~1x。
     float ratio = report_speedup("interleaved / contiguous", ms_i, ms_c, 1.5f,
                                  "两版耗时几乎一样，检查是不是写成同一个实现了");
+    float ratio2 = report_speedup("interleaved / shuffle", ms_i, ms_s, 1.5f,
+                                  "两版耗时几乎一样，检查是不是写成同一个实现了");
 
     char metrics[192];
     snprintf(metrics, sizeof(metrics),
              "{\"interleaved_ms\":%.4f,\"contiguous_ms\":%.4f,\"ratio\":%.3f}",
              ms_i, ms_c, ratio);
+    snprintf(metrics, sizeof(metrics),
+             "{\"shuffle_ms\":%.4f,\"contiguous_ms\":%.4f,\"ratio\":%.3f}",
+             ms_s, ms_c, ratio2);
     emit_result("3.5", "pass", metrics);
     return 0;
 }
