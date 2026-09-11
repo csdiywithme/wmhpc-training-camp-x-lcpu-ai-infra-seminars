@@ -2,9 +2,27 @@
 % 编译：xelatex -interaction=nonstopmode assignment01.tex（跑两遍）
 \documentclass[11pt,a4paper,fontset=none]{ctexart}
 
+\IfFontExistsTF{Noto Serif CJK SC}{
 \setCJKmainfont[BoldFont={Noto Serif CJK SC Bold}]{Noto Serif CJK SC}
 \setCJKsansfont[BoldFont={Noto Sans CJK SC Bold}]{Noto Sans CJK SC}
 \setCJKmonofont{Noto Sans CJK SC}
+}{
+  % macOS 优先使用系统中文字体，避免部分渲染器中 Fandol 中文显示空白。
+  \IfFontExistsTF{Songti SC}{
+    \setCJKmainfont{Songti SC}
+    \IfFontExistsTF{PingFang SC}{
+      \setCJKsansfont{PingFang SC}
+      \setCJKmonofont{PingFang SC}
+    }{
+      \setCJKsansfont{Songti SC}
+      \setCJKmonofont{Songti SC}
+    }
+  }{
+    \setCJKmainfont[BoldFont=FandolSong-Bold.otf]{FandolSong-Regular.otf}
+    \setCJKsansfont[BoldFont=FandolHei-Bold.otf]{FandolHei-Regular.otf}
+    \setCJKmonofont{FandolFang-Regular.otf}
+  }
+}
 \usepackage{geometry}
 \geometry{margin=2.3cm}
 
@@ -85,6 +103,10 @@
 
 AI Policy: \texttt{CLAUDE.md} 或 \texttt{AGENTS.md}。核心原则是“AI 可以帮你理解，但不能替你实现”。
 
+\begin{tcolorbox}[colback=blue!3,colframe=accent,title={个人实验记录（整理至 2026-09-11）}]
+本稿保留原题，并按题号录入已提供的终端测量和已确认的学习记录；未填写处仍待完成，不代表整份作业已完成。记录中的 PASS 来自远程终端输出，未在本地重新运行 CUDA。模块 0、1 的硬件记录为 RTX 3080 Ti（compute capability 8.6）；模块 7 的 softmax benchmark 再次打印确认 GPU 为 RTX 3080 Ti。模块 2.3 的两组重复测量来自同一新容器，当时未记录的 GPU 型号仍不作追溯推定。现已补充模块 7 的讨论、测试与性能数据，以及模块 8 的作答、PTX 观察和编译兼容性实验。
+\end{tcolorbox}
+
 \subsection*{Content}
 
 \begin{center}\small
@@ -127,6 +149,10 @@ make run/m0_env/01_hello
 
 看看输出的结果，建议至少运行 5 次，可以留意输出各行顺序的变化。源码可以先不细读，Module 8 会回头看 \texttt{nvcc} 对它做了什么。
 
+\begin{tcolorbox}[title={0.1 实验记录}]
+运行 5 次，每次 32 行（4 个 block，每个 8 个线程）。第 1、2、4、5 次 block 输出顺序为 $1\to2\to0\to3$，第 3 次为 $2\to1\to0\to3$。观察到 block 输出顺序不固定。
+\end{tcolorbox}
+
 \prob{0.2}{FILL-IN}[cuda/m0\_env/02\_device\_query.cu]
 \texttt{02\_device\_query.cu} 的五个空都是 \texttt{cudaDeviceProp} 的字段名，对照 CUDA Runtime API 文档补全，然后编译运行。
 
@@ -142,12 +168,12 @@ make run/m0_env/02_device_query
 \toprule
 项目 & 你的卡 \\
 \midrule
-型号 / compute capability & \\
-SM 数量 & \\
-warp 大小 & \\
-shared memory / block & \\
-最大常驻线程 / SM & \\
-显存总量 & \\
+型号 / compute capability & NVIDIA GeForce RTX 3080 Ti / 8.6 \\
+SM 数量 & 80 \\
+warp 大小 & 32 \\
+shared memory / block & 49152 字节（48 KiB） \\
+最大常驻线程 / SM & 1536 \\
+显存总量 & 12489195520 字节（约 11.63 GiB） \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -176,8 +202,21 @@ Guide 1.1、1.2.1--1.2.2；LCPU 讲义\footnote{\url{https://github.com/interest
   \item “算力 1000 TFLOPS”意味着每次运算的延迟是 $10^{-15}$ 秒。
 \end{enumerate}
 
+\begin{tcolorbox}[title={1.1 作答（讨论后整理）},breakable]
+\begin{enumerate}[label=(\alph*)]
+  \item 错。GPU 能通过大量线程并发执行获得高吞吐；TFLOPS 是吞吐指标，GHz 是时钟频率，不能仅凭这两个数字判断单条指令延迟。
+  \item 对。零散访问可能触及更多缓存行或内存事务，而每次搬运的数据只有一部分被使用，有效数据利用率低，难以达到标称带宽。
+  \item 对。每一步依赖上一步的结果，无法充分并行，增加并行计算能力难以显著加速这条串行依赖链。
+  \item 错。TFLOPS 表示每秒浮点运算数，不是单次运算延迟。已知指令延迟周期数时，延迟等于周期数除以频率；例如 20 个周期、2 GHz 对应 10 ns。
+\end{enumerate}
+\end{tcolorbox}
+
 \prob{1.2}{CONCEPT}
 Session 1 讲座里提过“N 方过百万”这个例子。总计算量 $10^{12}$ FLOP 在当代 GPU 上的运算时间大概是毫秒级，那为什么一个严格在线的串行算法仍然做不到几秒内跑完？（从“延迟”和“吞吐”的角度考虑）
+
+\begin{tcolorbox}[title={1.2 作答（讨论后整理）},breakable]
+大量独立运算在有足够并行度时，计算耗时可近似为总工作量除以实际达到的吞吐量。严格串行算法的下一步必须等待前一步结果，耗时取决于依赖链上各步延迟的累加；若每步延迟相同，可近似为步数乘以单步延迟。因此不能直接用 GPU 的峰值吞吐量估算严格串行算法耗时。
+\end{tcolorbox}
 
 \prob{1.3}{CONCEPT}
 补全下表（thread 一行已填好作为示例）
@@ -195,8 +234,20 @@ grid &  &  &  &  \\
 \end{tabular}
 \end{center}
 
+\begin{tcolorbox}[title={1.3 已回答部分（其余待补）},breakable]
+一个 warp 包含 32 个线程，线程来自同一个 block，不能跨 block 组成 warp。线程不能像读取自己的变量一样直接读取另一线程的寄存器。已提出的通信方式：通过 shared memory 交换数据；使用时需要正确同步。一个 block 可以包含多个 warp，256 个线程对应 8 个 warp。一个 block 只能在一个 SM 上执行；在资源允许时，一个 SM 可以同时容纳多个 block。同一 block 中的线程可通过 shared memory 交换数据，并使用 \texttt{\_\_syncthreads()} 进行 block 范围的同步。
+
+一次 kernel 启动产生的所有 block 合起来构成一个 grid，各 block 可被调度到不同 SM。普通 grid 编程模型下，跨 block 共享的结果应放在 global memory；\texttt{\_\_syncthreads()} 只同步本 block，不能让 block 0 等待 block 1。普通 block 之间不能依赖固定执行次序，这是 CUDA 可伸缩编程模型的约束。补充：SM90 及以后支持 thread block cluster 和 distributed shared memory，但这是显式使用的扩展层次，不改变普通 grid/block 题目的答案。
+
+warp 是 SM 上的调度和指令发射单位，由 warp scheduler 从 ready warp 中选择并发射指令；它不是 Tensor Core。warp 内线程可用 \texttt{\_\_shfl\_sync} 一类 shuffle intrinsic 直接交换寄存器值。普通 grid 的全局阶段同步最简单的方式是结束当前 kernel，再在同一 stream 中启动下一个 kernel：前一个 kernel 的完成构成 kernel 边界。若必须在单个 kernel 内进行 grid-wide 同步，则需要 cooperative launch 等额外机制及其驻留约束。
+\end{tcolorbox}
+
 \prob{1.4}{CONCEPT}
 SIMD 与 SIMT 的区别？另：判断正误——Nvidia GPU 在 Volta 之后每个线程有独立的 program counter，所以 branch divergence 不再有性能代价。
+
+\begin{tcolorbox}[title={1.4 作答（讨论后整理）},breakable]
+SIMD 是一条指令显式作用于多个数据元素；SIMT 则让程序员编写和组织大量线程，硬件再把线程组成 warp，以带 active mask 的方式执行共同指令。题中判断错误。Volta 之后的 independent thread scheduling 为每个线程维护独立 program counter 和调用栈，改善了线程调度和同步能力，但没有消除 warp 的执行资源共享。当同一 warp 中连续的 \texttt{threadIdx.x} 因奇偶条件分别进入两条路径时会产生 branch divergence；硬件需要在不同 active mask 下执行各路径，因此仍可能产生额外代价。
+\end{tcolorbox}
 
 \prob{1.5}{EXPERIMENT}[cuda/m1\_why\_gpu/01\_scaling.cu]
 同一个向量加法，四种配置各跑一遍。
@@ -213,13 +264,19 @@ make run/m1_why_gpu/01_scaling
 \toprule
 配置 & 耗时 (ms) & ns / 元素 \\
 \midrule
-CPU 单线程 & & \\
-GPU \texttt{<<<1,1>>>} & & \\
-GPU \texttt{<<<1,256>>>} & & \\
-GPU 铺满 grid & & \\
+CPU 单线程 & 10.915 & 2.60 \\
+GPU \texttt{<<<1,1>>>} & 256.533 & 61.16 \\
+GPU \texttt{<<<1,256>>>} & 5.082 & 1.21 \\
+GPU 铺满 grid & 0.071 & 0.02 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{tcolorbox}[title={1.5 补充记录}]
+铺满 grid 的配置为 16384 blocks $\times$ 256 threads。表中 ns / 元素沿用程序打印精度，是总耗时除以元素数。GPU 计时不包含分配与 CPU/GPU 拷贝。
+
+GPU 的设计目标是高吞吐而非最低单线程延迟。只启动一个 GPU 线程时，一个 warp 中其余 lane 没有有效工作，也没有足够的其他 warp 隐藏访存等延迟，因此比面向低延迟执行的 CPU 单线程慢。\texttt{<<<1,256>>>} 虽有 256 个线程，但一个 block 只能在一个 SM 上执行，无法使用 RTX 3080 Ti 的其余 79 个 SM。从单 block 的 5.082 ms 到铺满 grid 的 0.071 ms，说明 GPU 加速主要依靠大量线程和多个计算单元并行工作来获得高吞吐。启动全部线程不表示全部同时常驻。
+\end{tcolorbox}
 
 \prob[Optional]{1.6}{FROM-SCRATCH}[kernels/simt\_sim.py]
 SIMT Simulator —— 写一个 warp 的执行模拟器：32 个 lane、共享控制流、带 mask 的分支执行与汇合。请在 \texttt{kernels/simt\_sim.py} 内完成（docstring 里面有具体实现要求）。工作量大概是 50 行以内的 Python。不需要 GPU。注：本题为 Module 3 的实验结果提供理论对照。判测命令如下：
@@ -252,6 +309,10 @@ cd assignment01/cuda
 make run/m2_first_kernel/01_vector_add
 \end{lstlisting}
 
+\begin{tcolorbox}[title={2.1 判测记录}]
+已完成填空；远程运行结果：\texttt{PASS}。下标理解检查：每 block 256 个线程时，block 2 的 thread 5 对应全局元素 $512+5=517$。
+\end{tcolorbox}
+
 \prob{2.2}{CONCEPT}
 为下列五个场景选择正确的修饰符（如 \texttt{\_\_global\_\_} 等）。
 \begin{enumerate}[label=(\alph*)]
@@ -261,6 +322,16 @@ make run/m2_first_kernel/01_vector_add
   \item 整个 kernel 运行期间不变、所有线程都要读的系数表。
   \item block 内线程共享的暂存数组。
 \end{enumerate}
+
+\begin{tcolorbox}[title={2.2 作答（讨论后订正）}]
+\begin{enumerate}[label=(\alph*)]
+  \item \texttt{\_\_global\_\_}：在 device 上执行，由 host 发起 kernel launch。
+  \item \texttt{\_\_device\_\_}：在 device 上执行，并由 device 代码调用。
+  \item 同时使用 \texttt{\_\_host\_\_} 和 \texttt{\_\_device\_\_}，分别生成 host 与 device 版本；\texttt{inline} 不是决定执行位置的修饰符。
+  \item \texttt{\_\_constant\_\_}，用于 device constant memory 中的只读系数表。
+  \item \texttt{\_\_shared\_\_}，用于一个 block 内线程共享的暂存数据。
+\end{enumerate}
+\end{tcolorbox}
 
 \prob{2.3}{MODIFY}[cuda/m2\_first\_kernel/02\_vector\_add\_um.cu]
 \texttt{02\_vector\_add\_um.cu} 代码完整，但目前是“显式内存管理”的版本。改之前先按原样编译运行一次，记下耗时——这一版会被你的改动覆盖掉，下面 (b) 要拿它做对照。然后按文件头的说明改成 unified memory 版（\texttt{cudaMallocManaged}），并保持文件头写明的计时窗口不变。
@@ -272,6 +343,22 @@ make run/m2_first_kernel/02_vector_add_um
 
 然后请回答如下问题：(a)~kernel 启动之后、CPU 读结果之前，为什么必须有一次同步？在原先的版本里这次同步发生在哪个调用里？(b)~对比两版“搬运 + kernel + 读回”的耗时，分析差距的原因（谁快谁慢都有可能，与使用的卡有关）。
 
+\begin{tcolorbox}[title={2.3 实验记录},breakable]
+已将两组数组改为同一组 managed 指针，CPU 初始化、kernel 和 CPU 校验均使用该组指针，去掉显式拷贝。调整错误检查宏的用法后，UM 版本判测为 \texttt{PASS}。分配和初始化保持在计时外，CPU 完整遍历结果保持在计时内。
+
+旧容器显式管理基准：94.3 ms（不用于跨容器直接比较）。
+
+新容器 UM 全部测量（ms，按运行顺序）：526.0、221.7、173.8、225.9、119.5、71.9、73.0、76.6、75.4、73.7。各次均为 \texttt{PASS}。
+
+新容器后续对照组（ms）：94.1、100.9、96.2、97.7、93.0、95.9、106.5、95.8。各次均为 \texttt{PASS}。\textbf{版本待确认：}该组按对话中的“切回原版”步骤暂记为显式管理版，终端输出本身未标注版本。
+
+UM 最后 5 次范围 71.9--76.6 ms，中位数 73.7 ms；对照组全部 8 次中位数 96.05 ms。在上述版本归属成立的前提下，这两组中位数对应约 23.3\% 的耗时降低（约 1.30 倍加速）。UM 前期波动明显，此处仅为后期样本比较，不能代表全部运行或证明具体性能原因。
+
+同步理解检查已回答：不等待 kernel 完成，CPU 可能读到错误结果。原程序中的 \texttt{CUDA\_CHECK\_KERNEL()} 宏内部已经调用 \texttt{cudaDeviceSynchronize()}，这是代码中实际最先发生的同步；即使删掉该宏中的同步，后续同步的 device-to-host \texttt{cudaMemcpy} 也会等待同一 stream 中排在它之前的 kernel。
+
+UM 可能更慢，因为 CPU 初始化后，GPU 首次访问 managed memory 页面可能触发 page fault，并将输入页从主机迁移到 GPU；GPU 写完结果后，CPU 遍历输出又可能触发页面向主机迁移。按需缺页处理和较细粒度迁移会带来额外管理开销。UM 也可能在特定平台和访问模式下更快，例如运行时的迁移策略可能减少普通 pageable host memory 显式拷贝所需的 staging 开销；测量噪声和系统状态也会影响本实验。当前总耗时不足以确定本机差异的具体来源，因此结论仅限于所测样本，不推广为 UM 总是更快。
+\end{tcolorbox}
+
 \prob{2.4}{CONCEPT}
 判断对错，可以顺带补一句理由。
 \begin{enumerate}[label=(\alph*)]
@@ -280,6 +367,14 @@ make run/m2_first_kernel/02_vector_add_um
   \item kernel 内部的非法访存，会在启动语句处同步地报出来。
 \end{enumerate}
 
+\begin{tcolorbox}[title={2.4 作答（讨论后整理）}]
+\begin{enumerate}[label=(\alph*)]
+  \item 错。普通 kernel launch 对 host 是异步的，启动语句返回不表示 kernel 已完成。
+  \item 对。同一 stream 中按提交顺序执行，同步的 device-to-host \texttt{cudaMemcpy} 会等待前面的 kernel，并在拷贝完成后返回。
+  \item 错。kernel 内非法访存属于执行期错误，启动语句通常已先返回；错误一般在后续同步调用处暴露。启动配置等 launch error 可用 \texttt{cudaGetLastError()} 检查，而执行期错误还需要同步才能可靠发现。本仓库的 \texttt{CUDA\_CHECK\_KERNEL()} 同时完成这两类检查。
+\end{enumerate}
+\end{tcolorbox}
+
 \prob{2.5}{DEBUG}[cuda/m2\_first\_kernel/03\_bug\_launch.cu]
 修 bug：\texttt{03\_bug\_launch.cu}，详细内容见相关文件。
 
@@ -287,6 +382,15 @@ make run/m2_first_kernel/02_vector_add_um
 cd assignment01/cuda
 make run/m2_first_kernel/03_bug_launch
 \end{lstlisting}
+
+\begin{tcolorbox}[title={2.5 调试记录},breakable]
+已提供的原始报错：
+\begin{lstlisting}
+CUDA error cudaErrorInvalidValue at
+m2_first_kernel/03_bug_launch.cu:35: invalid argument
+\end{lstlisting}
+原配置为每 block 2048 个线程，超过设备的每 block 最大线程数 1024，因而启动失败。这里的 1024 不应与每 SM 最大常驻线程数 1536 混淆：前者限制单个 block 的启动形状，后者限制一个 SM 同时驻留的所有 block/thread。CUDA Runtime 将错误状态返回或记录下来，并不会在没有检查的情况下自动替程序打印错误；需要调用 \texttt{cudaGetLastError()}、同步 API 或错误检查宏来观察它。启动前 \texttt{d\_c} 已被清零，kernel 未执行就不会写入加法结果；复制回 host 的零数组与非零参考结果不一致，因此对拍输出 \texttt{FAIL}。调整 block 大小后重新运行，结果为 \texttt{PASS}。
+\end{tcolorbox}
 
 \prob{2.6}{FILL-IN}[cuda/m2\_first\_kernel/04\_matrix\_add.cu]
 \texttt{04\_matrix\_add.cu} 用二维的 block 和 grid 处理 $1000 \times 700$ 的矩阵，请填空实现矩阵加法。测试命令：
@@ -306,6 +410,10 @@ make run/m2_first_kernel/05_grid_stride
 
 然后请回答——这种写法的价值在哪里？launch 只有 16384 个线程时，性能上要付出什么代价？
 
+\begin{tcolorbox}[title={2.7 判测记录}]
+已改为 grid-stride loop，保留 \texttt{<<<64,256>>>} 启动配置；远程判测为 \texttt{PASS}。本地代码中每轮步长为 \texttt{blockDim.x * gridDim.x}。这种写法把 launch 的 block 数与数据规模解耦：数据增加时不必按元素数同比增加 block，每个线程可循环处理后续元素，因此同一 kernel 能覆盖不同大小的输入并复用线程。代价是并行度可能不足。本机有 80 个 SM，而整个 grid 只有 64 个 block，至少有 16 个 SM 无法获得该 kernel 的 block；每个有工作的 SM 也只有一个 256-thread block（8 个 warp），可能不足以充分隐藏延迟。每个线程还需循环处理约 1024 个元素，因此相较铺满 grid 的方案会增加串行工作量和循环开销。
+\end{tcolorbox}
+
 \prob{2.8}{EXPERIMENT}[cuda/m2\_first\_kernel/06\_whoami.cu]
 运行下面的程序两三次，观察 16 个 block 打印输出的先后。
 
@@ -315,6 +423,10 @@ make run/m2_first_kernel/06_whoami
 \end{lstlisting}
 
 (a)~顺序由谁决定？(b)~程序的正确性可以依赖 block 的执行顺序吗？这条限制和 Guide 1.1 说的 scalable programming model 有什么关系？
+
+\begin{tcolorbox}[title={2.8 作答（讨论后整理）}]
+各 block 的分配和执行时机由 GPU 调度器决定，程序中的 thread 0 只负责打印观察结果，并不决定 block 顺序；device \texttt{printf} 的缓冲机制也会影响屏幕上看到的顺序。程序正确性不能依赖普通 grid 中 block 的先后顺序。正因为 block 相互独立且调度顺序不受程序假定，同一个 grid 才能在 SM 数量不同的 GPU 上执行：硬件可按可用资源分批调度 block，这体现了 scalable programming model。
+\end{tcolorbox}
 
 \begin{capstone}{prob 2.9（FROM-SCRATCH）：SAXPY \hfill {\footnotesize\ttfamily cuda/m2\_first\_kernel/saxpy.cu}}
 在 \texttt{m2\_first\_kernel/} 下写出完整的 CUDA 程序 \texttt{saxpy.cu}，实现 $y \leftarrow 2.0 \cdot x + y$（单精度）。要求如下:
@@ -358,6 +470,10 @@ Guide 2.3.1--2.3.2、1.2.2.2。3.3、3.5 要用 shared memory，用法见 Guide 
   \item 若 \texttt{blockDim = (33, 1, 1)}，占几个 warp？这样配置浪费在哪里？
 \end{enumerate}
 
+\begin{tcolorbox}[title={3.1 作答（讨论后整理）}]
+二维 block 的线性线程编号为 $3+5\times8=43$。按 0 起始编号，它位于 warp $\lfloor43/32\rfloor=1$，lane $43\bmod32=11$，即口语所说的第 2 个 warp。$8\times8=64$ 个线程恰好占 2 个 warp。33 个线程也要占 2 个 warp，其中第二个 warp 只有 1 个 active lane，剩余 31 个 lane 没有有效工作。
+\end{tcolorbox}
+
 \prob{3.2}{EXPERIMENT}[cuda/m3\_simt/01\_divergence.cu]
 \texttt{m3\_simt/01\_divergence.cu} 的两个 kernel 每线程计算量相同，分支划分不同——一个按 thread 编号的奇偶分（同一个 warp 里一半一半），一个按 warp 边界对齐分。请先预测一下哪个版本运行会更快一点，大概快几倍，然后运行验证：
 
@@ -367,6 +483,10 @@ make run/m3_simt/01_divergence
 \end{lstlisting}
 
 请解释实测比值，并回答——若两个分支的计算量一大一小，按 thread 编号奇偶分的 kernel 和按 warp 边界对齐分的 kernel 的运行时间分别由什么决定？
+
+\begin{tcolorbox}[title={3.2 实验记录（部分完成）}]
+预测按 warp 边界对齐的分支更快，约为奇偶线程分支的 2 倍，因为奇偶分支时每条路径只有约 50\% 的 lane active。实测：warp 内奇偶分支 0.779 ms，按 warp 分支 0.392 ms，比值 1.99，与预测吻合。奇偶分支使同一 warp 在不同 active mask 下分别执行两条路径；按 warp 对齐时，每个 warp 只走一条路径并保持全部 lane 有效。若路径 A、B 的工作量分别为 100 和 20 次循环，奇偶分支的每个 warp 需要在不同 mask 下执行两条路径，工作成本近似由二者之和 120 决定；按 warp 对齐时，A warp 和 B warp 分别执行 100 和 20 次，A warp 更晚完成。整个 kernel 的实际耗时还受两类 warp 的数量、调度和资源利用率影响。
+\end{tcolorbox}
 
 \prob{3.3}{EXPERIMENT}[cuda/m3\_simt/02\_sync\_matters.cu]
 \texttt{02\_sync\_matters.cu} 让每个 block 用 shared memory 把自己的 256 个元素倒序。请按文件开头的注释内容进行实验。
@@ -378,8 +498,18 @@ make run/m3_simt/02_sync_matters
 
 (a)~为什么注释掉 sync 后代码不能正确地运行？(b)~(Optional) 注释掉 sync 后，翻转后的数组错的位置比较随机，但是有些位置一直是对的，试解释原因。（tip: 算一算 $t$ 与 $255-t$ 有没有可能落在同一个 warp）
 
+\begin{tcolorbox}[title={3.3 实验记录与作答}]
+保留 \texttt{\_\_syncthreads()} 时重复运行得到 \texttt{PASS}。去掉同步后运行出现 \texttt{MISMATCH at 64: got 0, want 8.53}，另一次出现 \texttt{MISMATCH at 128: got 0, want 4.89}，最终均为 \texttt{FAIL}。原因是各线程写完 \texttt{buf[t]} 后需要读取另一线程负责写入的 \texttt{buf[255-t]}；没有 block barrier 时，读取方所在 warp 可能先于写入方所在 warp 执行读取，从而读到尚未写好的 shared memory 内容。实验中一次 \texttt{undefined reference to main} 是修改注释范围时产生的独立编译错误，不计入同步实验结论。
+
+选做分析：$t=0$ 与 $255-t=255$ 分别位于 warp 0 和 warp 7；$t=100$ 与 $155$ 分别位于 warp 3 和 warp 4。一般地，若 $t$ 位于 warp $w$，则 $255-t$ 位于 warp $7-w$，不存在整数 $w=7-w$，因此两者不可能位于同一 warp。若某个 warp 较晚执行读取，它要读取的位置可能已经被较早执行的对应 warp 写好，因此部分输出会碰巧正确；这种结果依赖实际调度，不能作为正确性保证。
+\end{tcolorbox}
+
 \prob{3.4}{CONCEPT}
 \texttt{\_\_syncthreads} 只能同步本 block 内的 threads，那需要全 grid 同步时，标准做法是什么？
+
+\begin{tcolorbox}[title={3.4 作答（复用前述讨论）}]
+标准做法是结束当前 kernel，并在同一 stream 中启动下一阶段 kernel；kernel 边界保证后一 kernel 在前一 kernel 完成后执行。若必须在单个 kernel 内进行 grid-wide 同步，则需要 cooperative launch 和 cooperative groups 等专门机制，并满足相应驻留约束。
+\end{tcolorbox}
 
 \begin{capstone}{prob 3.5（FROM-SCRATCH）：block 内归约 \hfill {\footnotesize\ttfamily cuda/m3\_simt/03\_reduce.cu}}
 在 \texttt{03\_reduce.cu} 里从零实现两个求和归约 kernel（判测与计时的代码已经写好）。两个 kernel 的 contract 见文件头。PASS 后，试解释实测性能差距的原因。
@@ -391,6 +521,14 @@ make run/m3_simt/02_sync_matters
 cd assignment01/cuda
 make run/m3_simt/03_reduce
 \end{lstlisting}
+
+\begin{tcolorbox}[title={3.5 实验记录与分析}]
+三个实现均通过正确性检查。修正统计方向后的 RTX 3080 Ti 最终实测：interleaved 平均 0.0239 ms，contiguous 平均 0.0171 ms，shuffle 平均 0.0105 ms。程序报告 interleaved/contiguous 为 1.40 倍，interleaved/shuffle 为 2.27 倍；由数据另算，contiguous/shuffle 约为 $0.0171/0.0105=1.63$ 倍。interleaved/contiguous 比值低于程序的 1.5 倍提示阈值，但仍显示 contiguous 更快；提示阈值所列 A100、V100 参考值不能视为不同架构 GPU 上必须达到的正确性条件。
+
+两版的加法次数和循环轮数相同，差异在 active lane 的分布。interleaved 第一轮中，8 个 warp 都要发射带掩码的加法指令，但每个 warp 只有偶数 lane 工作；contiguous 第一轮中，前 4 个 warp 的所有 lane 工作，后 4 个 warp 不执行加法。后续各轮中，contiguous 继续把 active lane 集中在更少的 warp 内，因此提高执行加法指令时的 lane 利用率，并减少需要执行该指令的 warp 数。interleaved 的运行期取模条件也可能带来额外指令成本。这里减少的不是循环轮数，而是低利用率的 warp 指令工作。
+
+shuffle 版先在 shared memory 中把 256 个输入归约为集中在 warp 0 的 32 个部分和，再用 \texttt{\_\_shfl\_down\_sync} 在 warp 内直接交换寄存器值完成最后阶段。它减少了后续 shared memory 访问和 block-wide barrier，因此比完整的 shared-memory contiguous 版更快。
+\end{tcolorbox}
 
 \begin{lookback}
 SIMT 让你以单线程的风格编写并行代码，但它只承诺正确性语义，不负责性能语义。本模块的题目正好分别对应这层抽象漏出来的三个口子：warp 才是真实的调度单位（prob 3.2），block 内的并行需要显式同步才能看到彼此的写入（prob 3.3），而 block 之间压根没有提供同步方法（prob 3.4）。
@@ -418,11 +556,11 @@ Guide 2.3.3--2.3.5、2.3.7、1.2.3。
 空间 & 谁可见 & 生命周期 & 片上 / 片外 & 谁管理 \\
 \midrule
 register & 单个线程 & 线程 & 片上 & 编译器 \\
-local &  &  &  &  \\
-shared &  &  &  &  \\
-global &  &  &  &  \\
-constant &  &  &  &  \\
-L1 / L2 cache &  &  &  &  \\
+local & 单个线程 & 线程 & 片外 & 编译器 \\
+shared & 单个 block & block & 片上 & 程序员声明/组织 \\
+global & 所有 device 线程（host 经 API 访问） & 从分配到释放 & 片外 & 程序员与 CUDA Runtime \\
+constant & 所有 device 线程只读 & 模块/应用期间 & 片外，片上缓存 & 程序员经 API 写入 \\
+L1 / L2 cache & L1 每 SM；L2 全 GPU 共享 & 硬件按需 & 片上 & 硬件 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -435,6 +573,10 @@ cd assignment01/cuda
 make run/m4_memory/01_stencil
 \end{lstlisting}
 
+\begin{tcolorbox}[title={4.2 判测记录}]
+static shared memory 版本与 dynamic shared memory 版本均通过判测，最终输出 \texttt{PASS}。本次运行来自新容器，GPU 型号待重新确认。
+\end{tcolorbox}
+
 \prob{4.3}{MODIFY}[cuda/m4\_memory/02\_constant\_coeff.cu]
 \texttt{02\_constant\_coeff.cu} ：按文件头的说明进行修改。修改完后测试：
 
@@ -445,12 +587,22 @@ make run/m4_memory/02_constant_coeff
 
 结果会包含两个版本的耗时（差距可能极小，甚至测不出来性能收益——想想为什么），回答 constant cache 真正的优势在哪种访问模式。
 
+\begin{tcolorbox}[title={4.3 实验记录与性能分析}]
+RTX 3080 Ti 实测：global 版本 0.1642 ms，constant 版本 0.1649 ms，程序报告 global/constant 为 1.00 倍；两版均为 \texttt{PASS}。constant 版在该次测量中约慢 0.4\%，差异很小，不足以视为有意义的性能变化。
+
+Horner 循环执行到同一个 $k$ 时，一个 warp 的 32 个线程都读取同一个 \texttt{coef[k]}，constant cache 可以把该值一次广播给整个 warp。constant cache 的主要优势正是 warp 内线程读取相同或少数几个地址的访问模式。这里系数表只有 8 个 \texttt{float}，工作集总计 32 B，global-memory 版本在首次访问后也很容易从 cache 命中；同时 kernel 还需读写大数组并执行算术，因此把这张极小的表换到 constant memory 没有改变主要瓶颈，实测收益不明显。
+\end{tcolorbox}
+
 \prob{4.4}{CONCEPT}
 判断对错，可以顺带补一句理由。
 \begin{enumerate}[label=(\alph*)]
   \item local memory 的“local”指作用域私有，它实际上在片外显存里。
   \item 对数组用运行期才知道的下标做索引，可能迫使它被放进 local memory。
 \end{enumerate}
+
+\begin{tcolorbox}[title={4.4 作答（讨论后整理）}]
+两项均正确。这里的“片”指 GPU silicon die，并非整个 GPU 设备或显卡：register、shared memory 和 cache 等 SRAM 位于计算芯片上；global/local memory 的主体位于芯片外的 GDDR/HBM 显存芯片中，但显存仍属于 GPU device。local memory 的“local”描述单线程私有的地址空间，不描述物理距离。线程私有数组若采用运行期索引，编译器可能无法将各元素静态映射到寄存器，因而放入 local memory；寄存器数量不足造成的 register spilling 也会落到 local memory。local memory 物理上通常由 device memory 支撑，并可经过 cache。
+\end{tcolorbox}
 
 \prob{4.5}{FILL-IN}[cuda/m4\_memory/03\_histogram.cu]
 请填空：\texttt{03\_histogram.cu} ，具体要求见代码注释。测试命令：
@@ -459,6 +611,10 @@ make run/m4_memory/02_constant_coeff
 cd assignment01/cuda
 make run/m4_memory/03_histogram
 \end{lstlisting}
+
+\begin{tcolorbox}[title={4.5 判测与基准记录}]
+RTX 3080 Ti 上运行 naive global-atomic 直方图，平均耗时 4.7255 ms，有效输入吞吐 3.55 GB/s，正确性判测为 \texttt{PASS}。该数据作为 4.6 私有化版本的独立参考；4.6 程序还会在同一次运行中重新测量两版，以该同进程结果作为正式性能对比。
+\end{tcolorbox}
 
 \prob{4.6}{MODIFY}[cuda/m4\_memory/04\_histogram\_priv.cu]
 \texttt{04\_histogram\_priv.cu} ：请按要求修改代码。改完测试指令：
@@ -469,6 +625,14 @@ make run/m4_memory/04_histogram_priv
 \end{lstlisting}
 
 测试结果包含与 naive 实现相比较的耗时、吞吐。试解释提速来自哪里。
+
+\begin{tcolorbox}[title={4.6 实验记录与分析}]
+RTX 3080 Ti 同进程实测：naive 版本 4.8285 ms、3.47 GB/s；shared-memory 私有化版本 0.0611 ms、274.46 GB/s；两版均为 \texttt{PASS}，naive/priv 耗时比为 78.99 倍。
+
+naive 版共执行 $2^{24}=16{,}777{,}216$ 次 global atomic；若输入均匀，每个 bucket 约承受 $2^{16}=65{,}536$ 次。私有化版主统计阶段仍有同样数量的 atomic，但它们发生在每个 block 独立的片上 shared histogram 中，消除了不同 block 在此阶段对同一组 global bucket 的竞争。最终合并只执行 $1024\times256=262{,}144$ 次 global atomic，即每个 bucket 1024 次；与 naive 的每桶 65,536 次相比，global atomic 数和每桶 global 更新次数均减少约 64 倍。
+
+shared atomic 延迟较低，竞争被限制在单个 block 内，global atomic 的长队列也大幅缩短，因此获得显著提速。78.99 倍不必等于 64 倍，因为 atomic 次数并不是完整的线性耗时模型：两版还包含输入读取、shared histogram 清零、同步和最终合并等不同成本，原子操作的争用与硬件调度也可能呈非线性，测量还存在波动。打印的 GB/s 只按输入字节数计算，是有效吞吐指标，并非全部物理内存流量。
+\end{tcolorbox}
 
 \prob{4.7}{EXPERIMENT}[cuda/m4\_memory/05\_bandwidth.cu]
 运行实验，并根据实验数据填表。
@@ -485,10 +649,18 @@ make run/m4_memory/05_bandwidth
 \toprule
 stride & 1 & 2 & 4 & 8 & 16 & 32 \\
 \midrule
-GB/s & & & & & & \\
+GB/s & 815.4 & 549.8 & 338.7 & 188.4 & 188.4 & 187.9 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{tcolorbox}[title={4.7 实验记录与趋势分析}]
+RTX 3080 Ti 实测耗时（ms）：stride 1、2、4、8、16、32 分别为 0.1646、0.2441、0.3962、0.7123、0.7123、0.7142；程序按每个元素 4 B 读加 4 B 写计算的有效带宽分别为 815.4、549.8、338.7、188.4、188.4、187.9 GB/s。
+
+stride 1 时，同一 warp 读取连续的 \texttt{float}，可合并成少量内存事务，所搬数据基本都被使用。stride 8 时，相邻线程的读取地址相隔 $8\times4=32$ B，近似使每个线程各自触及一个 32 B sector，却只使用其中 4 B，读事务的有效利用率为 12.5\%。stride 继续增大时，一个线程已无法触发比单独一个最小事务更碎片化的读取，因此带宽在 stride 8 后接近平台。
+
+输出 \texttt{out[i]} 的写入始终连续且可合并，所以程序整体指标不能只用读取侧的 12.5\% 估算。粗略按每元素 32 B 物理读取加 4 B 合并写入，而程序分子计作 8 B 有效读写，利用率约为 $8/(32+4)=22.2\%$；$815.4\times22.2\%\approx181$ GB/s，与约 188 GB/s 的平台值接近。cache、事务合并细节以及取模映射造成的数据复用会带来偏差。
+\end{tcolorbox}
 
 \prob{4.8}{EXPERIMENT}[cuda/m4\_memory/06\_occupancy.cu]
 \texttt{06\_occupancy.cu}，详细内容见相关文件。实验命令如下：
@@ -503,13 +675,21 @@ make run/m4_memory/06_occupancy
 \begin{center}\small
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
-shared memory / block (KB) & & & & & & \\
-理论驻留 block / SM & & & & & & \\
-occupancy & & & & & & \\
-实测带宽 (GB/s) & & & & & & \\
+shared memory / block (KB) & 0.0 & 13.2 & 15.0 & 18.0 & 29.0 & 55.0 \\
+理论驻留 block / SM & 6 & 6 & 6 & 5 & 3 & 1 \\
+occupancy & 100.0\% & 100.0\% & 100.0\% & 83.3\% & 50.0\% & 16.7\% \\
+实测带宽 (GB/s) & 833.6 & 833.7 & 833.8 & 836.5 & 812.9 & 410.2 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{tcolorbox}[title={4.8 实验记录与分析}]
+RTX 3080 Ti：shared memory 100 KB/SM，最大常驻 1536 threads/SM；固定 block size 为 256。各档数据见上表。\texttt{cudaOccupancyMaxPotentialBlockSize} 在 dynamic shared memory 为 0 时建议 block size 768。本机实际 occupancy 档位为 100.0\%、83.3\%、50.0\%、16.7\%，因此题目 (c) 应依据这些档位分析，而非套用讲义中面向其他设备的 75\%、37.5\%、12.5\%。
+
+以 29 KB/block 档为例，shared-memory 限制为 $\lfloor100/29\rfloor=3$ blocks/SM，线程限制为 $1536/256=6$ blocks/SM；同时满足所有资源约束要取较小值，因此最终为 3 blocks/SM。occupancy 为 $3\times256/1536=50\%$。每个 256-thread block 含 8 个 warp，所以该档为 24 个常驻 warp/SM；满 occupancy 对应 $1536/32=48$ 个 warp/SM。
+
+occupancy 从 100\% 降到 83.3\% 时，带宽由约 833.8 变为 836.5 GB/s，并未出现有意义的下降；block size 始终为 256，该约 0.3\% 差异应视为测量波动，不能解释为 block 变小或调度开销下降。50\% occupancy 时仍有 24 个常驻 warp/SM，当一个 warp 等待显存时，调度器还有足够的 ready warp 可切换，从而隐藏延迟并维持 812.9 GB/s。降到 16.7\% 时只剩 8 个常驻 warp/SM，可用于重叠显存延迟的候选 warp 不足，带宽降至 410.2 GB/s，较 50\% 档下降约 49.5\%。因此 occupancy 是隐藏延迟、提供足够在途工作的手段；达到饱和所需的阈值后，继续提高 occupancy 未必带来性能提升，性能也不会与 occupancy 成比例变化。
+\end{tcolorbox}
 
 请回答：(a)~用程序开头打印的“shared memory / SM”和“最大常驻线程 / SM”，手算其中一个的驻留 block 数和 occupancy，和 API 的结果对照。(b)~带宽为什么随 occupancy 下降？用“延迟隐藏需要足够多的常驻 warp”组织你的解释。(c)~表中带宽随 occupancy 单调下降，但明显不成正比——从 100\% 到 75\% 带宽掉了多少？从 37.5\% 到 12.5\% 又掉了多少？试解释这个差别。
 
@@ -539,6 +719,10 @@ make run/m5_async/01_timing_trap
 并回答下列问题：
 (a)~哪个数值可以当作 kernel 耗时写进报告？(b)~另外两个各具体测的是什么？
 
+\begin{tcolorbox}[title={5.1 实验记录与作答}]
+RTX 3080 Ti 实测：host 计时且不等待 GPU 为 0.0038 ms；host 计时并等待 GPU 为 0.1977 ms；CUDA event 计时为 0.1966 ms。报告 kernel 时间应采用 CUDA event 的 0.1966 ms。不同步的 host 计时主要测到 CPU 提交异步 kernel launch 的时间，并未等待计算完成。同步的 host wall-clock 计时覆盖 launch 提交、GPU 执行以及进入同步调用、host 等待和计时器等开销，所以与 kernel 时间接近但略有额外 host 成本。CUDA event 被记录在 GPU stream 时间线上，可排除大部分 host 提交和调度开销，因此更适合测量设备工作。
+\end{tcolorbox}
+
 \prob{5.2}{CONCEPT}
 判断对错，可以顺带补一句理由。
 \begin{enumerate}[label=(\alph*)]
@@ -546,6 +730,10 @@ make run/m5_async/01_timing_trap
   \item kernel 启动后，host 代码立刻继续往下执行。
   \item unified memory 下，CPU 访问一页正被 GPU 占用的内存，会触发缺页与页迁移。
 \end{enumerate}
+
+\begin{tcolorbox}[title={5.2 作答（讨论后整理）}]
+三项均正确。同一 stream 内的操作具有提交顺序，后续操作不会越过前面的操作完成其依赖工作；普通 kernel launch 对 host 是异步的，提交后 host 通常继续执行，除非遇到同步点；Unified Memory 需要维持 CPU/GPU 访问的一致性，CPU 访问当前由 GPU 占用或驻留在 GPU 侧的页面时，可能触发同步等待、缺页处理和页面迁移。
+\end{tcolorbox}
 
 \begin{lookback}
 Module 5 的两道题分量不算重，但在整个认知链条里恰好落在一个关键的位置。CUDA 里的异步并不是某种需要额外开启的特性，它更像是 kernel launch 的默认语义：你把工作提交到某条 stream 上，host 端立刻返回，device 端的执行则在另一条时间线上独立展开。正因如此，“计时”这件事本身变成了一门需要认真对待的事——warmup、同步点插在哪里、选哪种 timer、重复多少次，任何一环处理得马虎，拿到的数字就失去了意义。这次作业里，这些细节已经由写好的测试框架替你包揽了；等到将来你自己搭建 benchmark，就得把这些一一补回来。
@@ -569,6 +757,10 @@ Guide 1.2.2.3（必读，篇幅不长）、2.4.1--2.4.6（浏览）、2.2（知�
   \item 对 tile 的一次运算（如两个 tile 相加）由编译器映射到 block 内的多个线程上执行。
   \item tile 模型与 SIMT 模型互斥，一个 CUDA 程序只能选一种。
 \end{enumerate}
+
+\begin{tcolorbox}[title={6.1 作答（讨论后整理）}]
+(a) 错。tile data 是不可变的值；一次 tile 运算会产生新的 tile。需要区分 tile data 与指向内存的 tiled view：前者不是由 kernel 原地修改的显存区域，向内存写回要通过 view 的 store 操作。(b) 对。程序描述整块数据上的运算，编译器负责把它映射为 block 内多个线程的底层执行。(c) 错。tile 与 SIMT 是可以共存、混合使用的编程模型，并不要求整个 CUDA 程序只能选择其中一种。
+\end{tcolorbox}
 
 \prob{6.2}{CONCEPT}
 下面是 Guide 2.4.6 的 cuTile Python 向量加法：
@@ -603,8 +795,19 @@ def vec_add(a, b, c, TILE: ct.Constant[int]):
 \end{tabular}
 \end{center}
 
+\begin{tcolorbox}[title={6.2 cuTile 部分作答（讨论后整理）}]
+cuTile 的并行单位是 block，当前 block 在第 0 维的 tile-space 编号由 \texttt{ct.bid(0)} 取得。\texttt{tiled\_view((TILE,))} 把一维数组划分为长度为 \texttt{TILE} 的连续区域，第 $b$ 个 block 通过 \texttt{load((b,))} 处理下标 $b\cdot\texttt{TILE}$ 至 $(b+1)\cdot\texttt{TILE}-1$；例如 \texttt{TILE=256}、$b=3$ 时对应下标 768--1023。程序只描述 block 与 tile 的对应关系，tile 内元素到实际线程的映射由编译器完成。边界通过 tiled view 的边界语义处理，而不是在源码中为每个线程显式写 \texttt{if}：部分越界的 load 按 view 的 \texttt{padding\_mode} 填充越界元素，store 忽略越界位置。若算法需要确定的越界读取值，应明确选择如 \texttt{PaddingMode.ZERO}；这与 Triton 源码中常见的显式 \texttt{mask} 参数形式不同。Triton 一列留待 Module 7 补充。
+\end{tcolorbox}
+
 \prob{6.3}{CONCEPT}
 仍看上面这段代码。(a)~“每个线程对应哪个/些元素”由谁决定？(b)~列出一些在 CUDA SIMT 版向量加法里一定会出现、这里完全没体现出的概念。
+
+\begin{tcolorbox}[title={6.2--6.3 作答（讨论后整理）}]
+在 cuTile Python 中，
+\texttt{ct.bid(0)} 取得第 0 维的 block 编号；若 \texttt{TILE=256}，编号为 3 的 block 负责数组下标 $3\times256$ 到 $4\times256-1$，即 768--1023。\texttt{tiled\_view} 按 tile 形状划分数组，load/store 以 tile-space 编号访问数据。边缘 tile 由 tiled view 的 padding 与越界 store 丢弃语义处理，而不是像常见 Triton 写法那样在这段源码中显式传入 mask。
+
+tile 内每个元素具体映射到哪个线程由 cuTile 编译器决定；\texttt{bid} 只选择当前程序实例处理的 tile，并不规定 tile 内的线程分工。与 CUDA SIMT 向量加法相比，这段源码没有显式出现 \texttt{threadIdx}、warp、\texttt{blockDim}、逐线程全局下标计算、逐线程边界分支以及 block 内同步等概念。这些底层机制仍然存在，只是由编译器负责映射和生成。
+\end{tcolorbox}
 
 \begin{lookback}
 tile 并非某个 DSL 的发明。NVIDIA 自己把它与 SIMT 并列写进了 Guide 正文，这本身就说明它是一类稳定的编程方式，而不是一次工具选型。
@@ -624,6 +827,14 @@ tile 并非某个 DSL 的发明。NVIDIA 自己把它与 SIMT 并列写进了 Gu
 TileLang Language Basics\footnote{\url{https://tilelang.com/programming_guides/language_basics.html}}（建议阅读）；Triton 官方教程 01-vector-add\footnote{\url{https://triton-lang.org/main/getting-started/tutorials/}}；tilelang-puzzles\footnote{\url{https://github.com/tile-ai/tilelang-puzzles}} 。
 \end{reading}
 
+\begin{tcolorbox}[title={模块 7 实验环境与记录口径（2026-09-11）},breakable]
+实验在 AutoDL 远程容器中运行，工作目录为 \texttt{assignment01/}；7.7 的 benchmark 输出确认 GPU 为 NVIDIA GeForce RTX 3080 Ti。此前测试堆栈显示 Python 3.12；仓库可选依赖固定为 \texttt{tilelang==0.1.12}。本次未保存完整的软件版本查询输出。
+
+远程采用现有 Python 环境运行 \texttt{python3 -m pytest}，避免 \texttt{uv run} 创建独立环境后重新下载大体积依赖；下面保留题目原有的 uv 命令，并在实验记录中写出实际复跑命令。pytest 输出中的秒数是整次测试耗时，不能当作单次 kernel 延迟；性能数据另列于 7.6、7.7。
+
+7.1--7.4、7.6 及 7.7 原始四项测试已有通过记录；7.5 的 cuTile 一列和选做 7.8 仍待完成。以下概念说明按讨论内容和当前代码整理，7.7 为按学员请求提供参考实现后完成的远程验证。
+\end{tcolorbox}
+
 \prob{7.1}{FILL-IN}[kernels/vector\_add.py]
 请填空：\texttt{kernels/vector\_add.py} ，具体要求见代码注释。测试命令：
 
@@ -631,6 +842,21 @@ TileLang Language Basics\footnote{\url{https://tilelang.com/programming_guides/l
 cd assignment01
 uv run pytest tests/test_vector_add.py
 \end{lstlisting}
+
+\begin{tcolorbox}[title={7.1 实现与实验记录},breakable]
+已完成 program 编号、逻辑元素下标及 load/store 的 mask。一个 program 处理一个长度为 \texttt{BLOCK\_SIZE} 的逻辑 tile，使用 \texttt{tl.program\_id(0)} 定位；tile 内元素如何映射到实际线程由编译器安排。因此，\texttt{BLOCK\_SIZE} 不是物理线程数，也不保证这些元素同时执行。
+
+grid 向上取整以覆盖全部元素。例如 $N=2500$、\texttt{BLOCK\_SIZE=1024} 时启动 3 个 program，最后一个仅有 $2500-2\times1024=452$ 个有效位置。mask 的长度仍为 1024，只有其中 452 个位置为真；读写都需要保护边界，越界 store 可能破坏其他数据。\texttt{tl.constexpr} 表示编译期已知的参数，适合决定 \texttt{tl.arange} 的逻辑形状，并非仅表示变量不会被修改。
+
+\begin{lstlisting}
+python3 -m pytest tests/test_vector_add.py -v
+test_exact_multiple PASSED
+test_ragged         PASSED
+test_tiny           PASSED
+3 passed in 1.52s
+\end{lstlisting}
+三个用例分别覆盖长度 4096、10000、3，验证整块、不整齐尾部和极短输入。
+\end{tcolorbox}
 
 \prob{7.2}{MODIFY}[kernels/fused\_op.py]
 按文件开头注释要求修改：\texttt{kernels/fused\_op.py} 。测试命令：
@@ -642,6 +868,21 @@ uv run pytest tests/test_fused_op.py
 
 改完回答——与 Module 2 里改 CUDA kernel 相比，这次的改动主要集中在 kernel 的什么部分？主体代码为什么一行都不用动？
 
+\begin{tcolorbox}[title={7.2 实现、作答与实验记录},breakable]
+已实现 $y=\max(ax+b,0)$，保留原有 \texttt{scale} 功能。参数 $a,b$ 使用普通 kernel 参数；本题的逐元素计算不要求它们是编译期常量，避免为每组数值额外生成特化版本。
+
+改动集中在计算表达式、参数列表及调用传参；输入输出形状和数据分工没有改变，所以 program 编号、offsets、mask、load/store 与 grid 框架可以复用。这并不意味着 CUDA 每次改变运算都必须重写索引，同样的逐元素 CUDA 框架也可以复用。融合把乘、加和 ReLU 放进同一个 kernel，避免为每一步单独启动 kernel 并写出中间张量；本题只做了正确性测试，没有量化这部分提速。
+
+\begin{lstlisting}
+python3 -m pytest tests/test_fused_op.py -v
+test_scale_still_works PASSED
+test_fused             PASSED
+test_fused_other_params PASSED
+3 passed in 1.76s
+\end{lstlisting}
+测试包括原功能、常用参数以及 $a=-2.0,b=0.7$ 的另一组参数。
+\end{tcolorbox}
+
 \prob{7.3}{FILL-IN}[kernels/tilelang\_scale\_add.py]
 请填空：\texttt{kernels/tilelang\_scale\_add.py} ，具体要求见代码注释。测试命令：
 
@@ -650,6 +891,21 @@ cd assignment01
 uv sync --extra tilelang
 uv run pytest tests/test_tilelang.py -k scale_add
 \end{lstlisting}
+
+\begin{tcolorbox}[title={7.3 实现与实验记录},breakable]
+已完成二维 grid 与 \texttt{T.Parallel(block\_M, block\_N)} 遍历，实现 $Y=2X+1$。x 方向沿列取 $\lceil N/B_N\rceil$ 个 block，y 方向沿行取 $\lceil M/B_M\rceil$ 个 block；由 tile 起点和内部逻辑坐标得到全局行列号，并显式判断是否落在输入形状内。
+
+测试形状为 $(M,N)=(123,77)$，默认 tile 为 $32\times32$，因此 grid 为 $(3,4)$。一个 tile 有 1024 个逻辑元素，\texttt{threads=128} 仍可通过每线程处理多个元素完成。
+
+调用过程为：\texttt{make\_scale\_add(M,N)} 生成 \texttt{PrimFunc}；\texttt{tilelang.compile} 编译该函数，参数 \texttt{out\_idx=[1]} 指定第二个参数 $Y$ 为输出；\texttt{kernel(x)} 执行并返回结果。\texttt{T.Buffer}/\texttt{T.Tensor} 是形状和类型声明，本身不在声明处创建 PyTorch 张量。
+
+\begin{lstlisting}
+python3 -m pytest tests/test_tilelang.py -k scale_add -v
+test_scale_add PASSED
+1 passed, 2 deselected, 2 warnings in 2.74s
+\end{lstlisting}
+日志中的 \texttt{T.Buffer} 弃用警告建议改用 \texttt{T.Tensor}，本次仍正常编译、运行并通过对拍；\texttt{deselected} 表示未选中该文件内的另外两项测试。
+\end{tcolorbox}
 
 \prob{7.4}{FILL-IN}[kernels/tilelang\_copy2d.py]
 请填空：\texttt{kernels/tilelang\_copy2d.py} ，具体要求见代码注释。测试命令：
@@ -661,6 +917,19 @@ uv run pytest tests/test_tilelang.py -k copy2d
 
 填完想一想：2.6 的四个空——行号、列号、边界保护、grid 尺寸——哪些在这里还有对应？没有对应的那个去哪了？
 
+\begin{tcolorbox}[title={7.4 实现、作答与实验记录},breakable]
+已完成输入与输出的二维切片：global memory 的 tile 经 \texttt{T.copy} 搬到 shared memory，在 \texttt{T.Parallel} 中乘 2，再复制回对应输出区域。
+
+与 2.6 对照，grid 尺寸仍由用户选择；行列定位仍体现为 \texttt{by*block\_M}、\texttt{bx*block\_N} 及 tile 的范围。具体元素到线程的映射由编译器安排。源码中不再逐元素写边界 \texttt{if}，本题的 \texttt{T.copy} 根据张量形状和复制区域处理边缘 tile；用户仍须给出正确的区域与形状，算法需要的特殊 padding 值也不能一概交给默认边界行为。
+
+\begin{lstlisting}
+python3 -m pytest tests/test_tilelang.py -k copy2d -v
+test_copy2d PASSED
+1 passed, 2 deselected, 8 warnings in 8.18s
+\end{lstlisting}
+这一个 pytest 用例内部测试了 $(64,128)$、$(123,77)$、$(1,500)$、$(500,1)$ 四种形状，包含不整齐边界和单行、单列输入。所贴警告为 \texttt{T.Buffer} 的弃用提示，不是测试失败。
+\end{tcolorbox}
+
 \prob{7.5}{CONCEPT}
 补全下表，每个空填“用户”或“编译器”（二者都涉及的要写清楚各自的范围）。
 
@@ -669,13 +938,23 @@ uv run pytest tests/test_tilelang.py -k copy2d
 \toprule
 谁负责 & CUDA SIMT & cuTile & Triton & TileLang \\
 \midrule
-线程到数据的映射 & 用户 & & & \\
-边界处理 & 用户 & & & \\
-tile / block 尺寸的选择 & 用户 & & & \\
-block 内同步 & 用户 & & & \\
+线程到数据的映射 & 用户 & 待补 & 编译器 & 编译器 \\
+边界处理 & 用户 & 待补 & 用户/编译器 & 用户/编译器 \\
+tile / block 尺寸的选择 & 用户 & 待补 & 用户 & 用户 \\
+block 内同步 & 用户 & 待补 & 编译器 & 编译器 \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{tcolorbox}[title={7.5 已讨论部分与适用范围},breakable]
+上表录入已讨论的 Triton、TileLang 部分，cuTile 一列保留待补。
+\begin{enumerate}[label=(\alph*)]
+  \item 线程映射：用户决定每个 program/block 负责哪个逻辑 tile，编译器把 tile 内元素映射到线程。TileLang 中用户显式选择 shared 或 fragment 存储空间，不等于已经指定逐线程的数据分工。
+  \item 边界：Triton 7.1、7.2 的 mask 条件由用户写出，编译器将它降低为受保护的访存。TileLang 7.3 显式写 \texttt{if}，7.4 的复制边界由 \texttt{T.copy} 及编译器处理；7.7 的 $-\infty$ padding 则由用户按 softmax 的归约语义选择。
+  \item 尺寸：用户选择逻辑 tile 尺寸和启动配置；TileLang 的 \texttt{threads} 与逻辑 tile 元素数不必相等。尺寸仍影响寄存器、shared memory 和并发资源。
+  \item 同步：在本节使用的常规 DSL 运算中，编译器安排必要的 block 内同步。用户须正确表达依赖；显式异步拷贝或手工流水仍可能要求用户插入等待。block 内同步也不会自动解决跨 block 的结果合并。
+\end{enumerate}
+\end{tcolorbox}
 
 \prob{7.6}{FILL-IN}[kernels/tilelang\_matmul.py]
 请填空：\texttt{kernels/tilelang\_matmul.py} ，具体要求见代码注释。测试命令：
@@ -687,6 +966,55 @@ uv run pytest tests/test_tilelang.py -k matmul
 
 填完回答——这五个空涉及到了 shared memory、寄存器 tile、流水，而 Triton 版 matmul（Bonus 的 \texttt{kernels/matmul\_triton.py}）并未被显式指定，为什么？
 
+\begin{tcolorbox}[title={7.6 实现、作答与正确性记录},breakable]
+已完成两块 shared tile、fragment 累加器、沿 $K$ 维分块的流水循环、输入复制及 \texttt{T.gemm}。每个 block 负责 $B_M\times B_N$ 的输出 tile；输入 tile 为 $B_M\times B_K$ 和 $B_K\times B_N$，输入使用 fp16，累加器和输出使用 fp32，累加前清零。
+
+TileLang 源码显式表达了数据放在哪种存储空间、如何搬运以及流水深度；当前 Triton 版本主要表达逻辑 tile、\texttt{tl.load} 和 \texttt{tl.dot}，由编译器安排相应的底层存储、布局与调度。不过 Triton 并非完全不描述累加器：\texttt{tl.zeros(..., dtype=tl.float32)} 仍明确指定逻辑形状和精度，tile 尺寸也由用户选择。
+
+\begin{lstlisting}
+python3 -m pytest tests/test_tilelang.py -k matmul -v
+test_matmul PASSED
+1 passed, 2 deselected, 3 warnings in 4.20s
+\end{lstlisting}
+测试使用 $(M,N,K)=(256,256,128)$、$(B_M,B_N,B_K)=(64,64,32)$，与 \texttt{a.float() @ b.float()} 对拍，\texttt{atol=rtol=1e-2}。所贴警告仍为 \texttt{T.Buffer} 弃用提示。
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={7.6 matmul 参数实验（2026-09-11）},breakable]
+运行 \texttt{bench()} 的默认问题规模 $M=N=K=2048$，输入 fp16、输出 fp32；\texttt{triton.testing.do\_bench} 测量编译后的调用。吞吐量按 $2MNK/(t_{\mathrm{ms}}\times10^{-3})/10^{12}$ 计算。
+\begin{lstlisting}
+python -c "from kernels.tilelang_matmul import bench; bench()"
+\end{lstlisting}
+\begin{center}\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}rrrrrrr@{}}
+\toprule
+$B_M$ & $B_N$ & $B_K$ & threads & stages & 耗时 (ms) & TFLOPS \\
+\midrule
+64  & 64  & 32 & 128 & 1 & 0.287 & 59.8 \\
+64  & 64  & 32 & 128 & 3 & 0.290 & 59.3 \\
+128 & 128 & 32 & 128 & 3 & 0.342 & 50.3 \\
+128 & 128 & 64 & 256 & 3 & 0.374 & 46.0 \\
+128 & 256 & 64 & 256 & 3 & \multicolumn{2}{c}{启动失败} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+最后一组的日志显示编译完成；随后调用 kernel，在设置动态 shared memory 上限时报告：
+\begin{lstlisting}
+Failed to set the allowed dynamic shared memory size to 147456
+\end{lstlisting}
+这是单个 block 请求的动态 shared memory 过大。对 fp16 输入，按两块输入 tile 及流水缓冲估算：
+\[
+S_{\mathrm{stage}}=2B_K(B_M+B_N)\ \text{bytes},\qquad
+S_{\mathrm{buffer}}\approx s\cdot S_{\mathrm{stage}}.
+\]
+最后一组每级为 $2\times64\times(128+256)=49152$ bytes，即 48 KiB；三级为 144 KiB，恰好对应报错的 147456 bytes。compute capability 8.6 的每 SM shared memory 为 100 KiB，每 block 可用上限为 99 KiB，因此该请求超过硬件上限。\footnote{NVIDIA Ampere Tuning Guide，Occupancy 与 Shared Memory：\url{https://docs.nvidia.com/cuda/ampere-tuning-guide/index.html}} 前四组按同一模型估算为 8、24、48、96 KiB；具体占用仍以编译器生成结果为准。
+
+本次有效配置中 $(64,64,32,128,1)$ 最快。只把 stages 从 1 改为 3，耗时由 0.287 变为 0.290 ms，约 1\% 的差距不足以单凭一次测量认定稳定优劣。更大的 tile 或更深流水可能增加 shared memory、寄存器压力并减少并发，不能假定参数越大越快；当前没有 profiler 数据来确认具体 occupancy 或寄存器溢出。
+
+\textbf{校验范围：}当前 \texttt{bench()} 的 \texttt{checked} 标记只让第一组参数与参考结果对拍。后续打印的吞吐量证明完成了计时，不等于每组都独立通过正确性检查；最后一组没有有效性能结果。
+\end{tcolorbox}
+
 \begin{capstone}{prob 7.7（FROM-SCRATCH）：softmax in TileLang \hfill {\footnotesize\ttfamily kernels/tilelang\_softmax.py}}
 在 \texttt{kernels/tilelang\_softmax.py} 里从零实现行 softmax，具体要求见文件开头的 docstring。
 \end{capstone}
@@ -695,6 +1023,94 @@ uv run pytest tests/test_tilelang.py -k matmul
 cd assignment01
 uv run pytest tests/test_tilelang_softmax.py
 \end{lstlisting}
+
+\begin{tcolorbox}[title={7.7 参考实现与归约理解},breakable]
+一个 block 负责一整行，共启动 $M$ 个 block。逻辑行宽补为
+\[
+B_N=\max\bigl(32,2^{\lceil\log_2 N\rceil}\bigr),\qquad
+\text{threads}=\min(256,B_N).
+\]
+fragment 存储这一行的逻辑值，线程协作处理其中的元素；例如 4096 列可由 256 个线程共同处理，概念上每线程处理 16 个元素，不必把一行拆给多个 block。
+
+归约可以理解为：每线程先合并自己负责的值，再在线程间合并局部结果。\texttt{T.reduce\_max}、\texttt{T.reduce\_sum} 描述逻辑维度上的归约，由编译器安排局部计算、线程间通信和同步。当前一维 fragment 沿 \texttt{dim=0} 归约到长度为 1 的输出 fragment；API 把结果写入输出，并非返回一个可直接赋值的 Python 数。\footnote{TileLang v0.1.12 归约接口：\url{https://github.com/tile-ai/tilelang/blob/v0.1.12/tilelang/language/reduce_op.py}}
+
+数值计算顺序为：有效列加载输入、补齐列置为 $-\infty$；求行最大值 $m_i$；计算 $e_{ij}=\exp(x_{ij}-m_i)$；求 $s_i=\sum_j e_{ij}$；输出 $e_{ij}/s_i$，只写回 $j<N$ 的位置。对有限输入，padding 在指数运算后变为 0，不影响分母。列数超过线程数不是跨 block 拆行的理由；普通 block 内归约无法自动合并其他 block 的行片段。
+
+wrapper 按形状和 GPU 缓存编译结果，以 \texttt{out\_idx=[1]} 指定输出；非连续输入先转为连续存储。该实现用于学习和测试，本次没有进行额外的参数调优。
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={7.7 正确性实验记录},breakable]
+学员补充的远程输出确认原始四项测试全部通过：
+\begin{lstlisting}
+python3 -m pytest tests/test_tilelang_softmax.py -v
+test_basic               PASSED
+test_wide_rows           PASSED
+test_numerical_stability PASSED
+test_single_element_rows PASSED
+4 passed in 8.71s
+\end{lstlisting}
+对应形状为 $(33,127)$、$(8,1000)$、$(4,256)$ 和 $(5,1)$；数值稳定性用例将随机输入放大 1000 倍并检查输出有限，全部以 \texttt{atol=rtol=1e-5} 与 \texttt{torch.softmax} 比较。
+
+本地测试文件后来增加了列宽 1025、4095、4096 及全负数不整齐行的用例，但这份 \texttt{collected 4 items} 日志对应原始测试集，不能记成扩充后的全部 8 项通过。另有下述 benchmark 对 $(4096,256)$、$(4096,1024)$、$(4096,4096)$ 的逐形状对拍通过记录。
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={7.7 softmax 与 PyTorch 性能对比（2026-09-11）},breakable]
+GPU 为 NVIDIA GeForce RTX 3080 Ti，固定 $M=4096$，列宽 $N\in\{256,1024,4096\}$，输入为连续 float32 CUDA 张量，\texttt{torch.manual\_seed(0)}。两种实现使用同一输入，都通过返回新张量的接口分配输出。
+
+每种形状先调用 \texttt{softmax(x)} 触发编译，再与 \texttt{torch.softmax(x, dim=-1)} 对拍并同步；输入生成、编译和正确性检查位于计时区间之外。分别用以下参数重复测量，记录 GPU event 耗时的中位数；warmup、rep 均以毫秒为单位：
+\begin{lstlisting}[language=Python]
+triton.testing.do_bench(
+    lambda: softmax(x),
+    warmup=100, rep=300, return_mode="median",
+)
+triton.testing.do_bench(
+    lambda: torch.softmax(x, dim=-1),
+    warmup=100, rep=300, return_mode="median",
+)
+\end{lstlisting}
+\begin{center}\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}rrrrrr@{}}
+\toprule
+$N$ & TileLang (ms) & Torch (ms) & 加速比 & TL (GB/s) & Torch (GB/s) \\
+\midrule
+256  & 0.0205 & 0.0133 & $0.65\times$ & 409.6 & 630.2 \\
+1024 & 0.0461 & 0.0461 & $1.00\times$ & 728.2 & 728.2 \\
+4096 & 0.1679 & 0.1679 & $1.00\times$ & 799.2 & 799.2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+加速比定义为 $t_{\mathrm{Torch}}/t_{\mathrm{TileLang}}$，大于 1 才表示 TileLang 更快；GB/s 为下述有效带宽。表格保留终端打印精度，带宽由计时器未舍入的数值计算，因此用表内四位小数反算可能略有不同。此次没有保存多轮独立实验的波动范围。
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={7.7 有效带宽、理想下界与结论},breakable]
+对融合的 float32 softmax，按每元素从显存读一次、向显存写一次估算逻辑数据量：
+\[
+D=4MN+4MN=8MN\ \text{bytes},\qquad
+B_{\mathrm{eff}}=\frac{D}{t_{\mathrm{ms}}\times10^6}\ \text{GB/s}.
+\]
+片上的减法、指数和归约不应逐步重复计入显存字节数。这里的有效带宽按输入输出定义，区别于 profiler 测得的实际 DRAM 流量。\footnote{NVIDIA CUDA Best Practices Guide，Effective Bandwidth Calculation：\url{https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html\#effective-bandwidth-calculation}}
+
+以 RTX 3080 Ti 标称显存带宽 $P=912$ GB/s 为参考，\footnote{RTX 3080 Ti 厂商规格表列出 384-bit、19 Gbps GDDR6X 及 912 GB/s：\url{https://www.gainward.com/main/product/vga/pro/p01138/p01138_datasheet_34161026b20bff75.pdf}} 在数据经过显存、只读写各一次且带宽充分利用的模型下，理想传输时间为
+\[
+t_{\mathrm{ideal}}=\frac{8MN}{912\times10^6}\ \text{ms}.
+\]
+\begin{center}\small
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$N$ & 数据量 (MiB) & 理想耗时 ($\mu$s) & TL 实测 ($\mu$s) & $B_{\mathrm{eff}}/912$ \\
+\midrule
+256  & 8   & 9.2   & 20.5  & 44.9\% \\
+1024 & 32  & 36.8  & 46.1  & 79.8\% \\
+4096 & 128 & 147.2 & 167.9 & 87.6\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$N=256$ 时，TileLang 延迟约为 Torch 的 1.54 倍，相差约 $7.2\ \mu$s；较窄行下，固定开销、线程利用率和归约安排都可能影响结果，现有计时不能单独归因。$N=1024$ 和 4096 时，两者在本次显示精度下持平，不意味着真实耗时逐次完全相同。
+
+行宽增加时，有效带宽从约 410 提升到 799 GB/s；在 $N=4096$ 时达到标称峰值的约 87.6\%，实测 $167.9\ \mu$s 也较接近理想传输时间 $147.2\ \mu$s。宽行结果与显存带宽成为主要限制的解释相符，但尚不能证明它是唯一瓶颈。缓存、指数运算、归约、同步和调用开销都会影响结果；有效带宽与峰值的比值也不是直接测量的 GPU 利用率。
+\end{tcolorbox}
 
 \prob[Optional]{7.8}{FROM-SCRATCH}[kernels/softmax.py]
 用 Triton 重写 prob 7.7，此题可以不用 GPU。写完后可以试试对比一下此题与 7.7 ：归约、边界处理、按形状编译，二者各自是由谁处理的（用户显式处理或者编译器隐式处理）？
@@ -705,6 +1121,10 @@ uv run pytest tests/test_tilelang_softmax.py
 cd assignment01
 uv run pytest tests/test_softmax.py
 \end{lstlisting}
+
+\begin{tcolorbox}[title={7.8 进度记录}]
+选做，尚未实现。当前 \texttt{kernels/softmax.py} 仍抛出 \texttt{NotImplementedError}，没有该题测试通过或性能测量记录；与 7.7 的归约、边界和按形状编译比较留待完成后补充。
+\end{tcolorbox}
 
 \begin{lookback}
 本模块把前面写过的 kernel 用 TileLang 和 Triton 各重写了一遍。两种写法的区别，基本都收在 prob 7.5 那张对比表里：线程到数据的映射归谁管，边界归谁处理，tile 尺寸归谁选定，同步又归谁插入。DSL 的价值并不在于代码更短，而在于它把前两项交给编译器，同时把后两项——那些必须靠实测才能定下来的旋钮——继续留给你。
@@ -719,6 +1139,29 @@ uv run pytest tests/test_softmax.py
 Guide 1.3 全章（必读）、2.1.1、2.7（浏览）。
 \end{reading}
 
+\begin{tcolorbox}[title={模块 8 前置观察：hello 的 PTX（2026-09-11）},breakable]
+实验继续使用远程 RTX 3080 Ti（CC 8.6），复用 \texttt{m0\_env/01\_hello.cu}。该程序启动 4 个 block、每个 block 8 个线程，打印 block 与 thread 编号，并通过错误检查宏检查启动状态及同步结果。
+\begin{lstlisting}
+make ptx/m0_env/01_hello
+sed -n '1,80p' m0_env/01_hello.ptx
+\end{lstlisting}
+所贴文件头确认 CUDA 编译工具链为 \texttt{release 12.8, V12.8.93}，PTX 声明如下：
+\begin{lstlisting}[language={}]
+.version 8.7
+.target sm_52
+.address_size 64
+\end{lstlisting}
+三项分别表示 PTX 语言版本 8.7、生成代码时假设的目标架构特性、64 位地址。\texttt{sm\_52} 是这份 PTX 的目标声明，文件仍是 PTX，并不表示当前 GPU 是 CC 5.2。仓库的 \texttt{ptx/\%} 规则未传入 \texttt{-arch}，因此使用 NVCC 12.8 的默认目标；它与普通编译规则中的 \texttt{ARCH=native} 不同。\footnote{NVCC 12.8 默认目标与编译阶段：\url{https://docs.nvidia.com/cuda/archive/12.8.1/cuda-compiler-driver-nvcc/index.html}}
+
+\texttt{.entry \_Z5hellov()} 是 \texttt{hello()} 的 kernel 入口，名字经过 C++ 符号修饰。与源码对应的关键指令为：
+\begin{lstlisting}[language={}]
+mov.u32 %r1, %tid.x;
+mov.u32 %r2, %ctaid.x;
+st.local.v2.u32 [%rd2], {%r2, %r1};
+\end{lstlisting}
+前两条分别读取 \texttt{threadIdx.x} 和 \texttt{blockIdx.x}；第三条按 block、thread 的顺序准备两个打印参数，后续连同格式字符串传给 \texttt{vprintf}。\texttt{.reg} 声明的是 PTX 虚拟寄存器，不能直接据此计算最终物理寄存器占用；这里用于参数准备的局部存储也不能直接认定为寄存器溢出。
+\end{tcolorbox}
+
 \prob{8.1}{CONCEPT}
 判断对错，可以顺带补一句理由。
 \begin{enumerate}[label=(\alph*)]
@@ -727,6 +1170,16 @@ Guide 1.3 全章（必读）、2.1.1、2.7（浏览）。
   \item 一个 fatbin 可以同时携带多个架构的 SASS 和 PTX。
   \item JIT 编译由驱动在运行时完成。
 \end{enumerate}
+
+\begin{tcolorbox}[title={8.1 作答（讨论后整理）},breakable]
+\begin{enumerate}[label=(\alph*)]
+  \item 错。PTX 是虚拟指令集的中间表示，还需要编译成 GPU 可执行的机器码。它可以在构建时经 \texttt{ptxas} 离线编译，也可以保留到运行时再编译。
+  \item 错。本题只含 \texttt{sm\_70} SASS 的程序不能直接在 CC 9.0 GPU 上运行。这里讨论的是机器码的二进制兼容性，不能把 PTX 的前向兼容性套到 SASS 上；对本题涉及的普通目标，不同 CC 主版本之间没有这种二进制兼容保证。
+  \item 对。fatbin 是 GPU 代码容器，可以同时携带面向多个架构的 cubin/SASS 和 PTX；实际包含哪些版本由编译选项决定。
+  \item 对。本项首次误答为错，经讨论订正。这里的 JIT 指运行时由 NVIDIA 驱动中的 PTX JIT 编译器生成适合实际 GPU 的机器码；驱动也会缓存结果，因此不是每次启动 kernel 都重新编译。
+\end{enumerate}
+关键区别是编译发生的阶段：离线编译器和驱动中的运行时编译器都可以完成 PTX 到机器码的转换；“由驱动完成”并不排斥“使用编译器”。\footnote{CUDA Programming Guide 1.3.3--1.3.4，PTX、Cubins and Fatbins、JIT：\url{https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/cuda-platform.html}}
+\end{tcolorbox}
 
 \prob[Optional]{8.2}{EXPERIMENT}[cuda/m0\_env/01\_hello.cu]
 两个编译实验，对象是 Module 0 的 \texttt{01\_hello.cu}。
@@ -739,6 +1192,20 @@ make sassonly/m0_env/01_hello
 ./bin/m0_env/01_hello_sassonly
 \end{lstlisting}
 
+\begin{tcolorbox}[title={8.2(a) 实验记录：只含高架构机器码},breakable]
+远程实际编译命令为：
+\begin{lstlisting}
+nvcc -O2 -std=c++17 -I. \
+  -gencode arch=compute_90,code=sm_90 \
+  -o bin/m0_env/01_hello_sassonly m0_env/01_hello.cu
+\end{lstlisting}
+编译成功，Makefile 提示已生成只含 \texttt{sm\_90} 机器码的版本。执行后原始报错为：
+\begin{lstlisting}
+CUDA error cudaErrorNoKernelImageForDevice at m0_env/01_hello.cu:11: no kernel image is available for execution on the device
+\end{lstlisting}
+\textbf{解释：}当前 GPU 为 CC 8.6，而 hello 的设备代码只携带 \texttt{sm\_90} 机器码，没有兼容当前 GPU 的机器码或可供后续编译的 PTX，因此运行失败。NVCC 可以为本机没有安装的目标 GPU 生成代码，编译成功本身不证明能在当前设备上执行。报错位置第 11 行是 \texttt{CUDA\_CHECK\_KERNEL()} 的检查处，并不是设备端 \texttt{printf} 的报错位置。
+\end{tcolorbox}
+
 (b)~生成只含 \texttt{compute\_75} PTX 的版本（CUDA 13 起 \texttt{compute\_70} 已被移除，Makefile 默认取 75）并运行。能正常运行吗？PTX 是在什么时候、由谁编译成这块卡的机器码的？
 
 \begin{lstlisting}
@@ -747,11 +1214,54 @@ make ptxonly/m0_env/01_hello
 ./bin/m0_env/01_hello_ptxonly
 \end{lstlisting}
 
+\begin{tcolorbox}[title={8.2(b) 实验记录：只含低架构 PTX},breakable]
+远程先执行 \texttt{export PATH=/usr/local/cuda/bin:\$PATH}，随后成功编译和运行：
+\begin{lstlisting}
+nvcc -O2 -std=c++17 -I. \
+  -gencode arch=compute_75,code=compute_75 \
+  -o bin/m0_env/01_hello_ptxonly m0_env/01_hello.cu
+./bin/m0_env/01_hello_ptxonly
+\end{lstlisting}
+程序正常打印 32 行，每个 block 的线程编号为 0--7。本次输出按 block 0、2、1、3 分组出现；这只是本次打印顺序，不是 CUDA 对 block 调度或执行顺序的保证。首尾输出为：
+\begin{lstlisting}
+hello from block 0, thread 0
+...
+hello from block 3, thread 7
+\end{lstlisting}
+省略号仅用于此处摘录，终端中实际打印了全部 $4\times8$ 行。
+
+\textbf{解释：}hello 的设备代码以 \texttt{compute\_75} PTX 形式保存在可执行文件中，最终机器码留到运行时由驱动针对实际 GPU 生成。普通 \texttt{compute\_75} PTX 所要求的硬件能力可由 CC 8.6 GPU 满足，且本次驱动能够处理生成的 PTX，因此程序成功运行。若已有适用的 JIT 缓存，驱动也可以复用缓存；仅凭这次输出无法判断是否发生了新的编译，也没有测量 JIT 耗时。
+
+\texttt{compute\_75} 指虚拟架构目标，不会强制新工具链输出旧版 PTX 语言；驱动仍须支持实际生成的 PTX 版本。前置观察中的 \texttt{.target sm\_52} 来自独立的 \texttt{ptx/...} 文本生成命令，不能记到本次 \texttt{ptxonly/...} 可执行文件上。
+\end{tcolorbox}
+
+\begin{tcolorbox}[title={8.2 两次实验对照},breakable]
+\begin{center}\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}lll@{}}
+\toprule
+编译选项中的 code & hello 携带的设备代码 & RTX 3080 Ti 上的结果 \\
+\midrule
+\texttt{sm\_90} & 目标架构机器码 & 无兼容 kernel image，失败 \\
+\texttt{compute\_75} & PTX 中间代码 & 正常打印 32 行 \\
+\bottomrule
+\end{tabular}
+\end{center}
+前者已经固定了目标机器码；后者保留了运行时针对目标 GPU 完成编译的机会。PTX 的前向兼容性同时受目标硬件能力和驱动支持的 PTX 语言版本约束。
+\end{tcolorbox}
+
+\clearpage
 \prob[Optional]{8.3}{CONCEPT}
 请简单说明 Runtime API 与 Driver API 各自的定位。\texttt{cudaMalloc} 属于哪个？
 
+\begin{tcolorbox}[title={8.3 作答（讨论后整理）}]
+Runtime API 基于 Driver API 实现；\texttt{cudaMalloc} 属于 Runtime API，学员对此判断正确。
+
+Runtime API 提供常用操作的较高层封装，简化设备、上下文及 kernel 的使用，适合通常的 CUDA C++ 编程。Driver API 提供更底层、更显式的控制，例如管理上下文、加载代码模块和启动 kernel；应用可以直接使用 Driver API，也可以按其互操作规则与 Runtime API 配合使用。\footnote{CUDA Programming Guide 1.3.2.1，CUDA Runtime API and CUDA Driver API：\url{https://docs.nvidia.com/cuda/cuda-programming-guide/01-introduction/cuda-platform.html\#cuda-runtime-api-and-cuda-driver-api}}
+\end{tcolorbox}
+
 \begin{lookback}
-Module 0 里那个“能跑就行”的 hello，现在被拆开重新看过：源码经 nvcc 分成 host 和 device 两路，device 端产出 PTX 与 SASS，一并打包进 fatbin；运行时 driver 再从中挑选合适的版本，或者对 PTX 做 JIT。
+Module 0 里那个“能跑就行”的 hello，现在被拆开重新看过：源码经 nvcc 分成 host 和 device 两路，device 端按编译选项将 PTX、SASS 或二者打包进 fatbin；运行时 driver 再从中挑选合适的版本，或者对 PTX 做 JIT。
 
 这一模块的实用意义在交付环节。“编译通过”和“能在目标卡上跑起来”是两回事，后者是部署中最常撞上的墙。当你把一个 GPU 程序交付给别人，至少需要说清楚：它支持哪些 compute capability，fatbin 里包含了哪些架构的 SASS，有没有 PTX 兜底，以及首次运行的 JIT 开销落在哪里。写 kernel 与发布软件是两种视角，而这里正是二者的交界。
 \end{lookback}
