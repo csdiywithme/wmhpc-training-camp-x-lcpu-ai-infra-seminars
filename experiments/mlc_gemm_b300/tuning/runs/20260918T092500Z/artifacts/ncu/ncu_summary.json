@@ -1,0 +1,687 @@
+{
+  "status": "failed",
+  "sources": {
+    "cli": "https://docs.nvidia.com/nsight-compute/NsightComputeCli/index.html",
+    "metrics": "https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html",
+    "permissions": "https://developer.nvidia.com/nvidia-development-tools-solutions-err_nvgpuctrperm-permission-issue-performance-counters",
+    "installation": "https://docs.nvidia.com/cuda/archive/13.1.0/cuda-installation-guide-linux/index.html"
+  },
+  "metric_queries": [
+    {
+      "command": [
+        "/usr/local/cuda/bin/ncu",
+        "--query-metrics",
+        "--query-metrics-mode",
+        "base"
+      ],
+      "log": "metrics_base.txt",
+      "timeout_seconds": 45,
+      "returncode": 0,
+      "seconds": 2.340208130999997,
+      "counter_permission_denied": false
+    },
+    {
+      "command": [
+        "/usr/local/cuda/bin/ncu",
+        "--query-metrics",
+        "--query-metrics-mode",
+        "suffix",
+        "--metrics",
+        "dram__bytes,dram__bytes_read,dram__bytes_write,dram__throughput,gpu__time_duration,lts__t_bytes,lts__t_sector_hit_rate,lts__throughput,sm__cycles_active,sm__pipe_tensor_cycles_active,sm__throughput,sm__warps_active"
+      ],
+      "log": "metrics_suffixes.txt",
+      "timeout_seconds": 45,
+      "returncode": 0,
+      "seconds": 1.9856077370000094,
+      "counter_permission_denied": false
+    },
+    {
+      "command": [
+        "/usr/local/cuda/bin/ncu",
+        "--query-metrics",
+        "--query-metrics-collection",
+        "launch"
+      ],
+      "log": "metrics_launch.txt",
+      "timeout_seconds": 45,
+      "returncode": 0,
+      "seconds": 0.37034012099999813,
+      "counter_permission_denied": false
+    }
+  ],
+  "profiles": [
+    {
+      "case": "square128",
+      "variant": "original",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/square128__original.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "square128",
+          "--variant",
+          "original"
+        ],
+        "log": "square128__original.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 13.692820622,
+        "counter_permission_denied": false
+      },
+      "report": "square128__original.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/square128__original.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "square128__original.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.7809078199999817,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    },
+    {
+      "case": "rect144",
+      "variant": "original",
+      "shape": [
+        2048,
+        9216,
+        4096
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/rect144__original.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "rect144",
+          "--variant",
+          "original"
+        ],
+        "log": "rect144__original.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 13.382418128999973,
+        "counter_permission_denied": false
+      },
+      "report": "rect144__original.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/rect144__original.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "rect144__original.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.7718918219999864,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    },
+    {
+      "case": "aligned148",
+      "variant": "original",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/aligned148__original.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "aligned148",
+          "--variant",
+          "original"
+        ],
+        "log": "aligned148__original.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 12.72473353800001,
+        "counter_permission_denied": false
+      },
+      "report": "aligned148__original.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/aligned148__original.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "aligned148__original.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.6716996470000254,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    },
+    {
+      "case": "aligned148",
+      "variant": "wide",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/aligned148__wide.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "aligned148",
+          "--variant",
+          "wide"
+        ],
+        "log": "aligned148__wide.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 14.347532556000033,
+        "counter_permission_denied": false
+      },
+      "report": "aligned148__wide.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/aligned148__wide.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "aligned148__wide.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.7246237489999885,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    },
+    {
+      "case": "tail152",
+      "variant": "original",
+      "shape": [
+        2048,
+        9728,
+        4096
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/tail152__original.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "tail152",
+          "--variant",
+          "original"
+        ],
+        "log": "tail152__original.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 13.68936388100002,
+        "counter_permission_denied": false
+      },
+      "report": "tail152__original.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/tail152__original.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "tail152__original.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.8746645770000328,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    },
+    {
+      "case": "aligned592",
+      "variant": "original",
+      "shape": [
+        8192,
+        9472,
+        8192
+      ],
+      "status": "failed",
+      "kernel_names": [
+        "kernel_kernel"
+      ],
+      "execution": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--target-processes",
+          "all",
+          "--nvtx",
+          "--nvtx-include",
+          "profile_target/",
+          "--launch-count",
+          "1",
+          "--replay-mode",
+          "kernel",
+          "--cache-control",
+          "all",
+          "--clock-control",
+          "none",
+          "--metrics",
+          "gpu__time_duration.sum,sm__throughput.avg.pct_of_peak_sustained_elapsed,sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active,dram__throughput.avg.pct_of_peak_sustained_elapsed,dram__bytes_read.sum,dram__bytes_write.sum,dram__bytes.sum.per_second,lts__t_sector_hit_rate.pct,lts__throughput.avg.pct_of_peak_sustained_elapsed,lts__t_bytes.sum,sm__warps_active.avg.pct_of_peak_sustained_active,launch__waves_per_multiprocessor,launch__grid_size,launch__block_size,launch__registers_per_thread,launch__shared_mem_per_block,launch__occupancy_limit_shared_mem,launch__occupancy_limit_registers",
+          "--force-overwrite",
+          "--export",
+          "/tmp/tuning-results/ncu/aligned592__original.ncu-rep",
+          "--kernel-name-base",
+          "function",
+          "--kernel-name",
+          "regex:^(?:kernel_kernel)$",
+          "/usr/local/bin/python",
+          "-u",
+          "/opt/gemm_tuning/profile_ncu.py",
+          "--kernel-only",
+          "--request",
+          "/tmp/tuning-results/request.json",
+          "--build",
+          "/tmp/tuning-build",
+          "--output",
+          "/tmp/tuning-results/ncu",
+          "--case",
+          "aligned592",
+          "--variant",
+          "original"
+        ],
+        "log": "aligned592__original.profile.log",
+        "timeout_seconds": 90,
+        "returncode": 0,
+        "seconds": 13.235754172000043,
+        "counter_permission_denied": false
+      },
+      "report": "aligned592__original.ncu-rep",
+      "csv_export": {
+        "command": [
+          "/usr/local/cuda/bin/ncu",
+          "--import",
+          "/tmp/tuning-results/ncu/aligned592__original.ncu-rep",
+          "--page",
+          "raw",
+          "--csv",
+          "--print-units",
+          "base"
+        ],
+        "log": "aligned592__original.csv",
+        "timeout_seconds": 45,
+        "returncode": 0,
+        "seconds": 0.7246367060000125,
+        "counter_permission_denied": false
+      },
+      "metrics": [],
+      "profiled_kernel_ids": [],
+      "reason": "CSV export did not contain one kernel with usable hardware metrics"
+    }
+  ],
+  "protocol": {
+    "purpose": "Diagnostic counters; benchmark.py remains the authoritative performance timing",
+    "selection": "square128/rect144/aligned148/tail152 original; best aligned148 candidate; best aligned592",
+    "filter": "One launch inside exact NVTX push/pop range profile_target/",
+    "warmup_calls": 5,
+    "explicit_prelaunch_cache_flush_bytes": 268435456,
+    "replay": "kernel",
+    "cache_control": "all",
+    "clock_control": "none",
+    "warning": "Profiler replay/serialization changes execution; ncu duration is not benchmark latency",
+    "case_timeout_seconds": 90,
+    "total_timeout_seconds": 600
+  },
+  "targets": [
+    {
+      "case": "square128",
+      "variant": "original",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ]
+    },
+    {
+      "case": "rect144",
+      "variant": "original",
+      "shape": [
+        2048,
+        9216,
+        4096
+      ]
+    },
+    {
+      "case": "aligned148",
+      "variant": "original",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ]
+    },
+    {
+      "case": "aligned148",
+      "variant": "wide",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ]
+    },
+    {
+      "case": "tail152",
+      "variant": "original",
+      "shape": [
+        2048,
+        9728,
+        4096
+      ]
+    },
+    {
+      "case": "aligned592",
+      "variant": "original",
+      "shape": [
+        8192,
+        9472,
+        8192
+      ]
+    }
+  ],
+  "skipped": [],
+  "benchmark_results": "/tmp/tuning-results/results.json",
+  "ncu": "/usr/local/cuda/bin/ncu",
+  "executable_candidates": [
+    "/usr/local/cuda/bin/ncu",
+    "/usr/local/cuda-13.1/bin/ncu",
+    "/opt/nvidia/nsight-compute/2025.4.1/ncu",
+    "/opt/nvidia/nsight-compute/2025.4.0/ncu"
+  ],
+  "version": {
+    "command": [
+      "/usr/local/cuda/bin/ncu",
+      "--version"
+    ],
+    "log": "version.txt",
+    "timeout_seconds": 20,
+    "returncode": 0,
+    "seconds": 0.37082764500001986,
+    "counter_permission_denied": false
+  },
+  "metric_selection": {
+    "requested": {
+      "duration": [
+        "gpu__time_duration.sum"
+      ],
+      "sm_utilization": [
+        "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+        "sm__cycles_active.avg.pct_of_peak_sustained_elapsed"
+      ],
+      "tensor_utilization": [
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+        "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+        "sm__pipe_tensor_op_hmma_cycles_active.avg.pct_of_peak_sustained_elapsed"
+      ],
+      "dram": [
+        "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+        "dram__bytes_read.sum",
+        "dram__bytes_write.sum",
+        "dram__bytes.sum.per_second"
+      ],
+      "l2": [
+        "lts__t_sector_hit_rate.pct",
+        "lts__throughput.avg.pct_of_peak_sustained_elapsed",
+        "lts__t_bytes.sum"
+      ],
+      "occupancy": [
+        "sm__warps_active.avg.pct_of_peak_sustained_active"
+      ],
+      "launch": [
+        "launch__waves_per_multiprocessor",
+        "launch__grid_size",
+        "launch__block_size",
+        "launch__registers_per_thread",
+        "launch__shared_mem_per_block",
+        "launch__occupancy_limit_shared_mem",
+        "launch__occupancy_limit_registers"
+      ]
+    },
+    "selected": [
+      "gpu__time_duration.sum",
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed",
+      "sm__cycles_active.avg.pct_of_peak_sustained_elapsed",
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+      "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+      "dram__throughput.avg.pct_of_peak_sustained_elapsed",
+      "dram__bytes_read.sum",
+      "dram__bytes_write.sum",
+      "dram__bytes.sum.per_second",
+      "lts__t_sector_hit_rate.pct",
+      "lts__throughput.avg.pct_of_peak_sustained_elapsed",
+      "lts__t_bytes.sum",
+      "sm__warps_active.avg.pct_of_peak_sustained_active",
+      "launch__waves_per_multiprocessor",
+      "launch__grid_size",
+      "launch__block_size",
+      "launch__registers_per_thread",
+      "launch__shared_mem_per_block",
+      "launch__occupancy_limit_shared_mem",
+      "launch__occupancy_limit_registers"
+    ],
+    "unavailable": [
+      "sm__pipe_tensor_op_hmma_cycles_active.avg.pct_of_peak_sustained_elapsed"
+    ]
+  }
+}

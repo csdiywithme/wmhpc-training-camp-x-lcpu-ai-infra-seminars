@@ -1,0 +1,38 @@
+{
+  "status": "partial",
+  "report_bytes": 7588064,
+  "report_sha256": "379ad1c1179cffa1eb9d1647d8b9dfb5375ba0e3ade322f19bc980efe5bcd6ad",
+  "kernel_count": 1,
+  "metric_columns": 2580,
+  "source_manifest_checked": 7,
+  "validation": {
+    "seed": 2,
+    "passed": true,
+    "checked_elements": 19398656,
+    "atol": 0.01,
+    "rtol": 0.02,
+    "row_chunk": 1024,
+    "mismatch_count": 0,
+    "nonfinite_count": 0,
+    "max_abs_error": 0.25,
+    "rms_error": 0.007104554217938084,
+    "relative_l2_error": 7.849416356419245e-05
+  },
+  "sections": [
+    "Section: GPU Speed Of Light Throughput",
+    "Section: GPU Speed Of Light Roofline Chart (Overview)",
+    "Section: PM Sampling",
+    "Section: Compute Workload Analysis",
+    "Section: Memory Workload Analysis",
+    "Section: Memory Workload Analysis Tables",
+    "Section: Scheduler Statistics",
+    "Section: Warp State Statistics",
+    "Section: Instruction Statistics",
+    "Section: Launch Statistics",
+    "Section: Occupancy",
+    "Section: GPU and Memory Workload Distribution",
+    "Section: Source Counters"
+  ],
+  "integrity": "passed",
+  "hardware_counter_quality": "aggregate hardware counters NaN; do not use for utilization claims"
+}

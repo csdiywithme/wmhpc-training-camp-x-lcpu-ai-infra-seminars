@@ -1,0 +1,126 @@
+{
+  "state": "failed",
+  "started_at": "2026-09-20T11:32:15.194008+00:00",
+  "manifest": {
+    "input/aligned148_k8192__wide.so": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+    "input/aligned148_k8192__wide.cu": "3cd33dd7eb902f63b2ee5e8093790ecb936e1781d30b8699f314c2921f49de96",
+    "input/aligned148_k8192__wide.tirx.py": "74f93965d98f5a189e0ffcc1d98a97101f0d1d7a596a20779ba7ea326269d42d",
+    "input/aligned148_k8192__wide.compile.json": "05499c9efb0fa1d6bb82db82d6530a6e9b1e438843f945ec2679c188e2e91653",
+    "input/kernels_tuned.py": "bb26b68335a4e97702f51e9df05510a8675b917bd41e697f58a2af68f7d08081",
+    "input/base_image.py": "14920305fb9ef3825c5e9effe0cc8e761612921014c781a3561c0ffcc7e3bb91",
+    "modal_runner.py": "c712dae0f779dd2b3d64590763b88c22ad1866a9d8160709134a94a99689178c",
+    "kernels_hoisted.py": "d711c8416450ba786c16875ad3e7ad0f3406fc327ecb6b63ec10091192b5195f",
+    "compile_variants.py": "4c596c367f66160622fd23956404e26c1d5aefa3ad14eb23d8c19f9cc4729497",
+    "benchmark.py": "4850fcad9b940ddad6ed4ea2defa0d7d1d4947eca74ee9bc1c52692a51283364"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/usr/local/bin/python",
+        "-u",
+        "/opt/tmem_hoist/compile_variants.py",
+        "--output",
+        "/results/20260920T113209Z_d3041c92/build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 15.232630095000001,
+      "log": "compile.log"
+    },
+    {
+      "argv": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.22210202599999995,
+      "log": "nvidia_smi.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/bin/python",
+        "-u",
+        "/opt/tmem_hoist/benchmark.py",
+        "--run-dir",
+        "/results/20260920T113209Z_d3041c92"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 41.051447897,
+      "log": "benchmark.log"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--version"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.16733212900000183,
+      "log": "ncu_version.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--section",
+        "SpeedOfLight",
+        "--section",
+        "ComputeWorkloadAnalysis",
+        "--section",
+        "MemoryWorkloadAnalysis",
+        "--section",
+        "MemoryWorkloadAnalysis_Tables",
+        "--section",
+        "SchedulerStats",
+        "--section",
+        "WarpStateStats",
+        "--section",
+        "InstructionStats",
+        "--section",
+        "LaunchStats",
+        "--section",
+        "Occupancy",
+        "--section",
+        "SourceCounters",
+        "--metrics",
+        "sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+        "--target-processes",
+        "all",
+        "--nvtx",
+        "--nvtx-include",
+        "tmem_hoist_candidate/",
+        "--kernel-name-base",
+        "function",
+        "--kernel-name",
+        "regex:^kernel_kernel$",
+        "--launch-count",
+        "1",
+        "--replay-mode",
+        "kernel",
+        "--cache-control",
+        "none",
+        "--clock-control",
+        "none",
+        "--import-source",
+        "yes",
+        "--export",
+        "/results/20260920T113209Z_d3041c92/hoisted_M2048_N9472_K8192.ncu-rep",
+        "/usr/local/bin/python",
+        "-u",
+        "/opt/tmem_hoist/benchmark.py",
+        "--run-dir",
+        "/results/20260920T113209Z_d3041c92",
+        "--profile-variant",
+        "hoisted"
+      ],
+      "returncode": 9,
+      "timed_out": false,
+      "seconds": 15.901578440999998,
+      "log": "profile.log"
+    }
+  ],
+  "finished_at": "2026-09-20T11:34:06.092297+00:00",
+  "gpu_started_at": "2026-09-20T11:33:04.768932+00:00",
+  "error": "RuntimeError('Candidate NCU failed; completed benchmark is retained')",
+  "traceback": "Traceback (most recent call last):\n  File \"/root/modal_runner.py\", line 183, in gpu_run\n    raise RuntimeError('Candidate NCU failed; completed benchmark is retained')\nRuntimeError: Candidate NCU failed; completed benchmark is retained\n"
+}

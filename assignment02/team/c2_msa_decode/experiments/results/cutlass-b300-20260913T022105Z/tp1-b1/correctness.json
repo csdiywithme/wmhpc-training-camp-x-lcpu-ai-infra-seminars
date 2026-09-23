@@ -1,0 +1,12 @@
+{
+  "against_effective_fp8_q": {
+    "finite": true,
+    "max_abs": 0.0011712964686064163,
+    "nrmse": 0.02752955169835652
+  },
+  "against_original_bf16_q": {
+    "finite": true,
+    "max_abs": 0.001242468262790366,
+    "nrmse": 0.02837283272605006
+  }
+}

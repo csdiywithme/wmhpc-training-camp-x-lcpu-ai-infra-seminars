@@ -1,0 +1,39 @@
+{
+  "source": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m1_sm80/01_fragment_map.cu",
+  "sha256": "2b9916fdbff8e3490384af6ebaeba0081a0c05f9355f5eb1aad1d6971339e0f3",
+  "kind": "host-only",
+  "commands": [
+    {
+      "command": [
+        "clang++",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin25.5.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "clang++",
+        "-O2",
+        "-std=c++17",
+        "-x",
+        "c++",
+        "assignment02/experiments/results/m1-fragment-20260915T120040Z/01_fragment_map.cu",
+        "-o",
+        "assignment02/experiments/results/m1-fragment-20260915T120040Z/fragment_map"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/experiments/results/m1-fragment-20260915T120040Z/fragment_map"
+      ],
+      "returncode": 1,
+      "stdout": "B lane=0 i=4: yours (k=8,n=0), truth (k=16,n=0)\nB lane=0 i=5: yours (k=9,n=0), truth (k=17,n=0)\nB lane=0 i=6: yours (k=10,n=0), truth (k=18,n=0)\nB lane=0 i=7: yours (k=11,n=0), truth (k=19,n=0)\nB lane=1 i=4: yours (k=12,n=0), truth (k=20,n=0)\nB lane=1 i=5: yours (k=13,n=0), truth (k=21,n=0)\nB lane=1 i=6: yours (k=14,n=0), truth (k=22,n=0)\nB lane=1 i=7: yours (k=15,n=0), truth (k=23,n=0)\nB lane=2 i=4: yours (k=8,n=0), truth (k=24,n=0)\nB lane=2 i=5: yours (k=9,n=0), truth (k=25,n=0)\nFAIL: 128 mismatches\n",
+      "stderr": ""
+    }
+  ]
+}

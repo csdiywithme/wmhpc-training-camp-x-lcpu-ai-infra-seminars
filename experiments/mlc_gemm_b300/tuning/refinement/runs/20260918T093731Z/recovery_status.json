@@ -1,0 +1,14 @@
+{
+  "execution": "completed (console evidence)",
+  "artifact_return": "Modal AppHeartbeat deadline exceeded; subsequent stopped-function conflict",
+  "function_call_id": "fc-01M2SY1QT58ZMCQV1FY1T69H1N",
+  "read_only_recovery": "FunctionCall.get returned NotFound",
+  "recovered": "complete round means and per-seed validation records from local console",
+  "not_recovered": [
+    "per-invocation event samples",
+    "GPU telemetry",
+    "detailed post-timing errors",
+    "2 new NCU report files"
+  ],
+  "repeated_experiments": false
+}

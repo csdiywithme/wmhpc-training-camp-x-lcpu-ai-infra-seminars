@@ -1,0 +1,155 @@
+[
+  {
+    "label": "partial",
+    "grid": [
+      256,
+      1
+    ],
+    "metadata": {
+      "allowed_dot_input_precisions": [
+        "tf32",
+        "tf32x3",
+        "ieee",
+        "bf16x3",
+        "bf16x6"
+      ],
+      "arch": "sm103",
+      "backend_name": "cuda",
+      "debug": false,
+      "default_dot_input_precision": "tf32",
+      "deprecated_fp8_dot_operand_dtypes": [
+        "fp8e4b15"
+      ],
+      "enable_fp_fusion": true,
+      "enable_reflect_ftz": true,
+      "extern_libs": [
+        [
+          "libdevice",
+          "/usr/local/lib/python3.11/site-packages/triton/backends/nvidia/lib/libdevice.10.bc"
+        ]
+      ],
+      "global_scratch_align": 1,
+      "global_scratch_size": 0,
+      "hash": "2fd78b451057eaecda0aae0140f2e8a77f65e6eea6687d8eb4ad1ff3b352011e",
+      "instrumentation_mode": "",
+      "ir_override": null,
+      "launch_cooperative_grid": false,
+      "launch_pdl": true,
+      "max_num_imprecise_acc_default": 0,
+      "maxnreg": null,
+      "name": "_page_decode_kernel",
+      "num_ctas": 1,
+      "num_stages": 3,
+      "num_warps": 4,
+      "profile_scratch_align": 1,
+      "profile_scratch_size": 0,
+      "ptx_options": null,
+      "ptx_version": null,
+      "sanitize_overflow": true,
+      "shared": 73732,
+      "supported_fp8_dtypes": [
+        "fp8e4b15",
+        "fp8e4nv",
+        "fp8e5"
+      ],
+      "target": "GPUTarget(backend='cuda', arch=103, warp_size=32)",
+      "tensordesc_meta": [],
+      "tmem_size": 0,
+      "triton_version": "3.6.0",
+      "warp_size": 32
+    },
+    "n_regs": 168,
+    "n_spills": 0,
+    "launch_kwargs": {
+      "BLOCK_SIZE_K": 128,
+      "NUM_TOPK_CHUNKS": 16,
+      "USE_FP8": true,
+      "KV_SCALE_MODE": 1,
+      "USE_PDL": true,
+      "num_warps": 4,
+      "num_stages": 3,
+      "launch_pdl": true
+    },
+    "ptx_sha256": "955ff9e18ead29018f5cdbc8f0f4b2f5e7ffe493f786e4a2d8bf8ca9f2eea277",
+    "cubin_sha256": "f7603f1c5a7bbb9d80128987206a7e05cb0fa4c894c74585cba43c407930889e",
+    "ttgir_sha256": "1ac115a394cb3305e644649afe130e444f2c71a4e38ef061885d0b47e9310b96",
+    "sass_returncode": 0,
+    "sass_stderr": ""
+  },
+  {
+    "label": "merge",
+    "grid": [
+      16,
+      16,
+      2
+    ],
+    "metadata": {
+      "allowed_dot_input_precisions": [
+        "tf32",
+        "tf32x3",
+        "ieee",
+        "bf16x3",
+        "bf16x6"
+      ],
+      "arch": "sm103",
+      "backend_name": "cuda",
+      "debug": false,
+      "default_dot_input_precision": "tf32",
+      "deprecated_fp8_dot_operand_dtypes": [
+        "fp8e4b15"
+      ],
+      "enable_fp_fusion": true,
+      "enable_reflect_ftz": true,
+      "extern_libs": [
+        [
+          "libdevice",
+          "/usr/local/lib/python3.11/site-packages/triton/backends/nvidia/lib/libdevice.10.bc"
+        ]
+      ],
+      "global_scratch_align": 1,
+      "global_scratch_size": 0,
+      "hash": "1901553897f9dd976721e8581407d98ce022e3ff4497b8b86dc7ad3961f7bdfb",
+      "instrumentation_mode": "",
+      "ir_override": null,
+      "launch_cooperative_grid": false,
+      "launch_pdl": true,
+      "max_num_imprecise_acc_default": 0,
+      "maxnreg": null,
+      "name": "_merge_feature_tiles",
+      "num_ctas": 1,
+      "num_stages": 3,
+      "num_warps": 1,
+      "profile_scratch_align": 1,
+      "profile_scratch_size": 0,
+      "ptx_options": null,
+      "ptx_version": null,
+      "sanitize_overflow": true,
+      "shared": 128,
+      "supported_fp8_dtypes": [
+        "fp8e4b15",
+        "fp8e4nv",
+        "fp8e5"
+      ],
+      "target": "GPUTarget(backend='cuda', arch=103, warp_size=32)",
+      "tensordesc_meta": [],
+      "tmem_size": 0,
+      "triton_version": "3.6.0",
+      "warp_size": 32
+    },
+    "n_regs": 39,
+    "n_spills": 0,
+    "launch_kwargs": {
+      "D": 128,
+      "S": 16,
+      "TILE_D": 64,
+      "USE_PDL": true,
+      "num_warps": 1,
+      "launch_pdl": true
+    },
+    "ptx_sha256": "80cfd46d252dbbf6de68b9a3ab2d725f7f3434f1a498fa3fd1af1c1323f4c7d6",
+    "cubin_sha256": "30bc532d4efaf8c3846ea13caa9fb5a70606d9c739c7e3d7ffc91c282bcd48fd",
+    "ttgir_sha256": "8433e3cb3565091fb7f0e99c342d2e09b479bd919c70259e9f551c46eefc159a",
+    "sass_returncode": 0,
+    "sass_stderr": ""
+  }
+]

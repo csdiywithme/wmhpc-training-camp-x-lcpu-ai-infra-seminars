@@ -1,0 +1,229 @@
+{
+  "ldsm": {
+    "counts": {
+      "address_arithmetic": 10,
+      "base_address": 2,
+      "load": 2
+    },
+    "instructions": [
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shl.b32 \t%r38, %r1, 5;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r39, %r38, 480;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r40, %r1, 16;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "or.b32 \t%r41, %r39, %r40;"
+      },
+      {
+        "kind": "base_address",
+        "instruction": "mov.b32 \t%r42, _ZZ10mma_kernelILb1EEvPKhS1_PfE2sA;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "add.s32 \t%r20, %r42, %r41;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ldmatrix.sync.aligned.m8n8.x4.shared.b16 {%r16,%r17,%r18,%r19}, [%r20];"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r43, %r38, 224;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shl.b32 \t%r44, %r1, 1;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r45, %r44, 16;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "or.b32 \t%r46, %r43, %r45;"
+      },
+      {
+        "kind": "base_address",
+        "instruction": "mov.b32 \t%r47, _ZZ10mma_kernelILb1EEvPKhS1_PfE3sBn;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "add.s32 \t%r23, %r47, %r46;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ldmatrix.sync.aligned.m8n8.x2.shared.b16 {%r21,%r22}, [%r23];"
+      }
+    ]
+  },
+  "manual": {
+    "counts": {
+      "address_arithmetic": 12,
+      "base_address": 2,
+      "load": 12,
+      "packing": 12
+    },
+    "instructions": [
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shr.u32 \t%r24, %r1, 2;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r25, %r24, 7;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shl.b32 \t%r26, %r1, 2;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r27, %r26, 12;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shl.b32 \t%r28, %r1, 3;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r29, %r28, 224;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "or.b32 \t%r30, %r29, %r27;"
+      },
+      {
+        "kind": "base_address",
+        "instruction": "mov.b32 \t%r31, _ZZ10mma_kernelILb0EEvPKhS1_PfE2sA;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "add.s32 \t%r32, %r31, %r30;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b32 \t%r14, [%r32];"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b32 \t%r15, [%r32+256];"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b32 \t%r16, [%r32+16];"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b32 \t%r17, [%r32+272];"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "shl.b32 \t%r33, %r1, 5;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "and.b32 \t%r34, %r33, 96;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "or.b32 \t%r35, %r34, %r25;"
+      },
+      {
+        "kind": "base_address",
+        "instruction": "mov.b32 \t%r36, _ZZ10mma_kernelILb0EEvPKhS1_PfE3sBk;"
+      },
+      {
+        "kind": "address_arithmetic",
+        "instruction": "add.s32 \t%r37, %r36, %r35;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r38, [%r37];"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%rs3, [%r37+8];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "mul.wide.u16 \t%r39, %rs3, 256;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r40, %r39, %r38;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r41, [%r37+16];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "shl.b32 \t%r42, %r41, 16;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r43, %r42, %r40;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r44, [%r37+24];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "shl.b32 \t%r45, %r44, 24;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r18, %r45, %r43;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r46, [%r37+128];"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%rs4, [%r37+136];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "mul.wide.u16 \t%r47, %rs4, 256;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r48, %r47, %r46;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r49, [%r37+144];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "shl.b32 \t%r50, %r49, 16;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r51, %r50, %r48;"
+      },
+      {
+        "kind": "load",
+        "instruction": "ld.shared.b8 \t%r52, [%r37+152];"
+      },
+      {
+        "kind": "packing",
+        "instruction": "shl.b32 \t%r53, %r52, 24;"
+      },
+      {
+        "kind": "packing",
+        "instruction": "or.b32 \t%r19, %r53, %r51;"
+      }
+    ]
+  }
+}

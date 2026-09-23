@@ -1,0 +1,51 @@
+{
+  "success": true,
+  "records": [
+    {
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "seconds": 0.15073582600000002
+    },
+    {
+      "command": [
+        "nvcc",
+        "--shared",
+        "-Xcompiler",
+        "-fPIC",
+        "-O3",
+        "-std=c++17",
+        "-I/usr/local/cuda/include",
+        "/opt/cublas_tuning/native.cu",
+        "-L/tmp/cublas-pinned-link",
+        "-L/usr/local/cuda/lib64",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "/usr/local/lib/python3.11/site-packages/nvidia/cu13/lib",
+        "-lcublasLt",
+        "-lcublas",
+        "-lcudart",
+        "-o",
+        "/results/20260920T045651Z_c1c73dc0/build/libgemmbench.so"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "seconds": 5.12557071
+    },
+    {
+      "command": [
+        "ldd",
+        "/results/20260920T045651Z_c1c73dc0/build/libgemmbench.so"
+      ],
+      "returncode": 0,
+      "stdout": "\tlinux-vdso.so.1 (0x00002b142f9c0000)\n\tlibcublasLt.so.13 => /usr/local/lib/python3.11/site-packages/nvidia/cu13/lib/libcublasLt.so.13 (0x00002b142fa00000)\n\tlibcublas.so.13 => /usr/local/lib/python3.11/site-packages/nvidia/cu13/lib/libcublas.so.13 (0x00002b1455a00000)\n\tlibcudart.so.13 => /usr/local/lib/python3.11/site-packages/nvidia/cu13/lib/libcudart.so.13 (0x00002b1459000000)\n\tlibstdc++.so.6 => /lib/x86_64-linux-gnu/libstdc++.so.6 (0x00002b14592ae000)\n\tlibgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00002b1455881000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00002b145952c000)\n\t/lib64/ld-linux-x86-64.so.2 (0x0000559d791fb000)\n\tlibrt.so.1 => /lib/x86_64-linux-gnu/librt.so.1 (0x00002b142f9dc000)\n\tlibpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00002b142f9e1000)\n\tlibdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00002b142f9e6000)\n\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00002b14558af000)\n",
+      "seconds": 0.05804804699999977
+    }
+  ],
+  "cublas_library_directory": "/usr/local/lib/python3.11/site-packages/nvidia/cu13/lib",
+  "shared_object_sha256": "340505c33f5d89e5f14c55eb5a680e0212e2c7a19b3a117b5c5fa15cc14fcf17"
+}

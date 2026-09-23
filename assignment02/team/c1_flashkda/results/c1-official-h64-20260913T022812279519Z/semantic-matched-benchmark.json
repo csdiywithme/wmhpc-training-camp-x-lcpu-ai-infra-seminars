@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/bin/python",
+    "/tmp/c1-artifacts/bench_fwd_safe_gate.py",
+    "--mode",
+    "all",
+    "--H",
+    "64",
+    "--warmup",
+    "30",
+    "--iters",
+    "200",
+    "--repeats",
+    "5"
+  ],
+  "returncode": 0,
+  "stdout": "shape=[8192,64,128] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=0.9882 ms, min=0.9837 ms, max=1.1973 ms\n  flash_kda (no state)   : mean=0.9405 ms, min=0.9368 ms, max=1.0106 ms\n  flash_kda (fp32 state) : mean=0.9536 ms, min=0.9500 ms, max=1.0074 ms\n  chunk_kda : mean=1.4672 ms, min=1.4577 ms, max=1.7842 ms\n  chunk_gated_delta_rule : mean=0.8811 ms, min=0.8712 ms, max=1.2987 ms\nvarlen shape=[8192,64,128] seq_lens=[1300, 547, 2048, 963, 271, 3063] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=0.6704 ms, min=0.6671 ms, max=0.7103 ms\n  flash_kda (no state)   : mean=0.6503 ms, min=0.6471 ms, max=0.7157 ms\n  flash_kda (fp32 state) : mean=0.6739 ms, min=0.6701 ms, max=0.7209 ms\n  chunk_kda : mean=1.4839 ms, min=1.4653 ms, max=1.8697 ms\n  chunk_gated_delta_rule : mean=0.9564 ms, min=0.9491 ms, max=1.2342 ms\nvarlen shape=[8192,64,128] seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=0.4826 ms, min=0.4784 ms, max=0.5323 ms\n  flash_kda (no state)   : mean=0.4705 ms, min=0.4658 ms, max=0.5336 ms\n  flash_kda (fp32 state) : mean=0.4951 ms, min=0.4919 ms, max=0.5581 ms\n  chunk_kda : mean=1.3869 ms, min=1.3774 ms, max=1.7511 ms\n  chunk_gated_delta_rule : mean=0.8666 ms, min=0.8568 ms, max=1.2803 ms\n",
+  "stderr": ""
+}

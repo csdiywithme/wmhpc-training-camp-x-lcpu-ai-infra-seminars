@@ -1,0 +1,3 @@
+variant,median_block_mean_us,tflops,ordinary_shared_load_instructions,registers_per_thread,dynamic_shared_bytes_per_cta
+baseline,215.37133317440748,1475.7190533181292,44326.0,161,214016
+hoisted,214.51008019347987,1481.6440309813493,6586.0,161,214016

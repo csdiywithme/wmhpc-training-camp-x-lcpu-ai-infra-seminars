@@ -1,0 +1,19 @@
+{
+  "repeated_page_random_q": {
+    "against_mathematical": {
+      "finite": true,
+      "max_abs": 0.0050012090758241035,
+      "nrmse": 0.02606013696495513
+    },
+    "against_fp8_p_reference": {
+      "finite": true,
+      "max_abs": 0.0006064962343262301,
+      "nrmse": 0.0016812946815553409
+    }
+  },
+  "repeated_page_zero_q": {
+    "finite": true,
+    "max_abs": 0.00043487548828125,
+    "nrmse": 0.0016628471210315512
+  }
+}

@@ -1,0 +1,74 @@
+# C2 next-generation experiment log
+
+## 2026-09-16 — revision 1: full partial, explicit shared-memory feed
+
+Status: source authored; no CUDA compilation or GPU correctness/performance claim
+at authoring time. GPU execution is orchestrated separately by the root task.
+Existing vendored sources, candidate.py, reports, and frozen protocol are intact.
+
+The first complete kernel keeps the upstream split policy and BF16 partial /
+FP32 log2-LSE interface. One CTA processes one query-row/KV-head/split, looking up
+only valid top-k slots through the actual block table. It masks causal future
+tokens before loading K/V (including NaN-poisoned valid addresses), and writes
+zero partial / negative-infinity LSE for empty splits. All-padding final output
+remains ignored by the existing contract. All tensor/scale strides are honored.
+
+Each page performs K Q^T followed by V^T P^T: both are M128 N16 K128 BF16 tcgen05
+operations with FP32 accumulators. Q is retained in shared memory, A is reused
+between K and transposed V after completion, and P is explicitly cast to BF16.
+Scores travel through TMEM -> registers -> shared -> SIMT softmax; output uses
+the same per-page online scaling/log2-LSE recurrence as the original partial.
+The first version intentionally makes these data movements visible. It is not
+expected to have optimal performance and does not equate valid instruction
+shapes with higher throughput. It uses no TMA, cluster, PDL, or native FP8 MMA.
+
+Only the issuer warp advances the UMMA barrier phase. A CTA barrier protects
+every shared-buffer reuse. Allocation is 32 TMEM columns; SM100 and SM103
+architectures are selected explicitly during CPU compilation. Ordinary thread
+loads establish a control to which TMA supply can later be compared. One-page
+CTAs have no next page to prefetch; no cross-page pipeline is claimed.
+
+FP8 E4M3FN KV uses the existing represented-input contract: FP8 -> BF16, multiply
+FP32 scale, round BF16, then BF16 MMA. Scalar and physical-token/head scales with
+arbitrary backing strides are supported. Query and probability remain BF16.
+Native FP8 is a future, separately validated numeric experiment.
+
+## Build and execution interface
+
+CPU build (CUDA 13.1, torch 2.10, ninja, C++17, CUTLASS headers):
+
+```sh
+python nextgen/build.py --arch 103a --cutlass /opt/FlashKDA/cutlass --output /tmp/nextgen-build
+```
+
+Use `--arch 100a` for B200 or `--arch 100a,103a` for both. No GPU query is needed
+to compile. All source hashes, build options, module path, and SASS are saved.
+
+GPU smoke (single/multiple pages, causal DQL, empty splits, FP8 scalar/token):
+
+```sh
+python nextgen/run.py --mode smoke --build-dir /tmp/nextgen-build --output /tmp/nextgen-artifacts/smoke
+python nextgen/run.py --mode verify --build-dir /tmp/nextgen-build --output /tmp/nextgen-artifacts/verify --manifest /path/to/frozen/calibration.json
+python nextgen/run.py --mode bench --build-dir /tmp/nextgen-build --output /tmp/nextgen-artifacts/bench --tps 1,4 --batches 1,16 --seeds 101
+```
+
+Verification requires the existing manifest, defaulting to
+`/opt/c2/validation/frozen_calibration.json`; this runner never recalibrates or
+widens the frozen policy limits. Performance compares the actual unmodified baseline, the existing
+merge-only candidate, and tcgen05+the same merge in randomized interleaved hot
+CUDA Graph measurements. All buffers are preallocated. Both eager and actual
+post-graph outputs are checked against independent FP64 attention outside timing.
+Raw samples and all observed negative results are retained; no result is implied
+before the GPU run. A `--splits` override is exploratory, not a heldout-tuned
+production dispatcher. `--merge original` isolates the new partial with the
+original merge. The default is the existing feature-tiled merge.
+
+Every smoke/benchmark row records the actual tcgen05 backend and KV conversion;
+frozen validation keeps a separate `adapter_calls.jsonl` with the same case/seed/
+variant keys. There is no fallback implementation in this revision. The audit
+records launches, while the untouched validator separately checks completion.
+
+Next decision after first GPU run: repair any semantic/compiler failure first;
+then inspect full-chain latency and resource usage before adding TMA, changing
+the MMA layout, or grouping more pages per CTA. In particular, an isolated MMA
+win is insufficient to select this complete dataflow.

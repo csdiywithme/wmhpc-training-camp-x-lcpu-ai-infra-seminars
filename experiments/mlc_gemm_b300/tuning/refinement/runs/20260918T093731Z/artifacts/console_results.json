@@ -1,0 +1,729 @@
+{
+  "status": "complete_from_console",
+  "request": {
+    "cases": [
+      {
+        "name": "square128",
+        "shape": [
+          4096,
+          4096,
+          4096
+        ],
+        "variants": [
+          "release",
+          "k128"
+        ]
+      },
+      {
+        "name": "aligned148",
+        "shape": [
+          2048,
+          9472,
+          4096
+        ],
+        "variants": [
+          "release",
+          "k128"
+        ]
+      },
+      {
+        "name": "aligned148_k8192",
+        "shape": [
+          2048,
+          9472,
+          8192
+        ],
+        "variants": [
+          "release",
+          "k128"
+        ]
+      },
+      {
+        "name": "aligned592",
+        "shape": [
+          8192,
+          9472,
+          8192
+        ],
+        "variants": [
+          "release",
+          "k128"
+        ]
+      }
+    ],
+    "rounds": 7,
+    "repeat": 150,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "mode": "bench",
+    "sm_count": 148,
+    "arch": "sm_103a",
+    "gpu": "B300",
+    "profile": "simidawhu",
+    "collect_ncu": true,
+    "include_cublas": false,
+    "historical_baseline_run": "../../runs/20260918T092500Z"
+  },
+  "source": {
+    "type": "console",
+    "path": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/experiments/mlc_gemm_b300/tuning/refinement/new_only_console.log",
+    "sha256": "305aa74e01aec0daf0d6e89ec4c4b218bfac0c60a4533317226694b22393e2ca",
+    "missing": [
+      "per_call_samples",
+      "gpu_uuid",
+      "telemetry",
+      "post_timing_error_details",
+      "two_ncu_reports"
+    ],
+    "post_timing_pass_inferred_from_case_complete": true,
+    "reason": "Modal heartbeat/return connection failed after execution. Retained FunctionCall lookup returned NotFound. No experiment was repeated."
+  },
+  "environment": {
+    "gpu": "NVIDIA B300 SXM6 AC",
+    "sm_count": null,
+    "compiled_sm_count": 148,
+    "arch": "sm_103a",
+    "gpu_name_source": "nvidia-smi row in console; UUID and telemetry unavailable"
+  },
+  "protocol": {
+    "source": "sources/benchmark.py and request.json",
+    "rounds": 7,
+    "repeat": 150,
+    "dtype": "FP16 input/output, FP32 accumulation",
+    "include_cublas": false,
+    "raw_samples_available": false
+  },
+  "cases": {
+    "square128": {
+      "status": "complete",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "validation": {
+        "release": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.003582075936719775,
+            "relative_l2_error": 5.595159382210113e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035609486512839794,
+            "relative_l2_error": 5.565269020735286e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035537455696612597,
+            "relative_l2_error": 5.5531872931169346e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ],
+        "k128": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.003582075936719775,
+            "relative_l2_error": 5.595159382210113e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035609486512839794,
+            "relative_l2_error": 5.565269020735286e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035537455696612597,
+            "relative_l2_error": 5.5531872931169346e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ]
+      },
+      "measurements": {
+        "release": {
+          "calibration_ms": 0.09532800316810608,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.09654976179202397,
+            0.09552618876099586,
+            0.09675626878937085,
+            0.09550400172670682,
+            0.09773269499341647,
+            0.09561706845959028,
+            0.09585557520389557
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.09585557520389557,
+          "tflops": 1433.8128291406308,
+          "round_cv_percent": 0.8669274102540189,
+          "min_round_ms": 0.09550400172670682,
+          "max_round_ms": 0.09773269499341647
+        },
+        "k128": {
+          "calibration_ms": 0.11779200285673141,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.1038306122024854,
+            0.1029425051311652,
+            0.10239829177657764,
+            0.10431445211172104,
+            0.10317738508184751,
+            0.10301887889703115,
+            0.10336426506439844
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.10317738508184751,
+          "tflops": 1332.0647093641094,
+          "round_cv_percent": 0.6057980341207738,
+          "min_round_ms": 0.10239829177657764,
+          "max_round_ms": 0.10431445211172104
+        }
+      },
+      "round_order": [
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ]
+      ],
+      "post_timing_validation": {
+        "release": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        },
+        "k128": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        }
+      },
+      "logged_medians_ms": {
+        "release": 0.09585557520389557,
+        "k128": 0.10317738508184751
+      }
+    },
+    "aligned148": {
+      "status": "complete",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ],
+      "validation": {
+        "release": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.003568741027265787,
+            "relative_l2_error": 5.5783129937481135e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035683808382600546,
+            "relative_l2_error": 5.575553223025054e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035558431409299374,
+            "relative_l2_error": 5.5582422646693885e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ],
+        "k128": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.003568741027265787,
+            "relative_l2_error": 5.5783129937481135e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035683808382600546,
+            "relative_l2_error": 5.575553223025054e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0035558431409299374,
+            "relative_l2_error": 5.5582422646693885e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ]
+      },
+      "measurements": {
+        "release": {
+          "calibration_ms": 0.10140799731016159,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.10346922551592191,
+            0.10181183944145838,
+            0.10187498524785042,
+            0.09987541208664576,
+            0.1041559452811877,
+            0.1034030918776989,
+            0.10080639938513437
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.10187498524785042,
+          "tflops": 1559.890188601064,
+          "round_cv_percent": 1.5203825741274308,
+          "min_round_ms": 0.09987541208664576,
+          "max_round_ms": 0.1041559452811877
+        },
+        "k128": {
+          "calibration_ms": 0.14467200636863708,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.10620266512036323,
+            0.1061657585700353,
+            0.10574591865142187,
+            0.10517994532982508,
+            0.10514815866947175,
+            0.10587797189752261,
+            0.10600917185346286
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.10587797189752261,
+          "tflops": 1500.9145632843233,
+          "round_cv_percent": 0.4135153069018117,
+          "min_round_ms": 0.10514815866947175,
+          "max_round_ms": 0.10620266512036323
+        }
+      },
+      "round_order": [
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ]
+      ],
+      "post_timing_validation": {
+        "release": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        },
+        "k128": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        }
+      },
+      "logged_medians_ms": {
+        "release": 0.10187498524785042,
+        "k128": 0.10587797189752261
+      }
+    },
+    "aligned148_k8192": {
+      "status": "complete",
+      "shape": [
+        2048,
+        9472,
+        8192
+      ],
+      "validation": {
+        "release": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007077441085129976,
+            "relative_l2_error": 7.823180931154639e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007084412965923548,
+            "relative_l2_error": 7.828058005543426e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007104554213583469,
+            "relative_l2_error": 7.849416579119861e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ],
+        "k128": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007077441085129976,
+            "relative_l2_error": 7.823180931154639e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007084412965923548,
+            "relative_l2_error": 7.828058005543426e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007104554213583469,
+            "relative_l2_error": 7.849416579119861e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ]
+      },
+      "measurements": {
+        "release": {
+          "calibration_ms": 0.18742400407791138,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.19266666789849599,
+            0.20298282494147618,
+            0.196229547560215,
+            0.20362581213315328,
+            0.19190976073344548,
+            0.19033066769440968,
+            0.20522218585014343
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.196229547560215,
+          "tflops": 1619.6723880559907,
+          "round_cv_percent": 3.1664427426612707,
+          "min_round_ms": 0.19033066769440968,
+          "max_round_ms": 0.20522218585014343
+        },
+        "k128": {
+          "calibration_ms": 0.2632000148296356,
+          "warmup_calls": 500,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.20911466638247173,
+            0.19925653328498205,
+            0.2122984540462494,
+            0.2006257063150406,
+            0.2096669868628184,
+            0.20999872028827668,
+            0.20016554633776346
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.20911466638247173,
+          "tflops": 1519.8722567009806,
+          "round_cv_percent": 2.712403184404524,
+          "min_round_ms": 0.19925653328498205,
+          "max_round_ms": 0.2122984540462494
+        }
+      },
+      "round_order": [
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ]
+      ],
+      "post_timing_validation": {
+        "release": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        },
+        "k128": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        }
+      },
+      "logged_medians_ms": {
+        "release": 0.196229547560215,
+        "k128": 0.20911466638247173
+      }
+    },
+    "aligned592": {
+      "status": "complete",
+      "shape": [
+        8192,
+        9472,
+        8192
+      ],
+      "validation": {
+        "release": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0070854369550943375,
+            "relative_l2_error": 7.829277456039563e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007093536667525768,
+            "relative_l2_error": 7.83747382229194e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007089512422680855,
+            "relative_l2_error": 7.834294228814542e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ],
+        "k128": [
+          {
+            "seed": 0,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.0070854369550943375,
+            "relative_l2_error": 7.829277456039563e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 1,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007093536667525768,
+            "relative_l2_error": 7.83747382229194e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          },
+          {
+            "seed": 2,
+            "passed": true,
+            "max_abs_error": 0.25,
+            "rms_error": 0.007089512422680855,
+            "relative_l2_error": 7.834294228814542e-05,
+            "mismatch_count": 0,
+            "nonfinite_count": 0
+          }
+        ]
+      },
+      "measurements": {
+        "release": {
+          "calibration_ms": 0.7711039781570435,
+          "warmup_calls": 260,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.8538909840583802,
+            0.8746338148911794,
+            0.8267566919326782,
+            0.8682122651735942,
+            0.8548185606797536,
+            0.8516548279921213,
+            0.8896115203698476
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.8548185606797536,
+          "tflops": 1487.2282588307994,
+          "round_cv_percent": 2.3244517809311507,
+          "min_round_ms": 0.8267566919326782,
+          "max_round_ms": 0.8896115203698476
+        },
+        "k128": {
+          "calibration_ms": 0.9881280064582825,
+          "warmup_calls": 203,
+          "calls_per_round": 150,
+          "round_means_ms": [
+            0.8915406926472982,
+            0.8566050136089325,
+            0.8835793058077495,
+            0.8681514648596446,
+            0.8718702948093414,
+            0.8931505044301351,
+            0.8548454407850902
+          ],
+          "source": "logged round means; individual event samples were not recovered",
+          "median_ms": 0.8718702948093414,
+          "tflops": 1458.1415689750127,
+          "round_cv_percent": 1.7928075340189027,
+          "min_round_ms": 0.8548454407850902,
+          "max_round_ms": 0.8931505044301351
+        }
+      },
+      "round_order": [
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "release",
+          "k128"
+        ],
+        [
+          "k128",
+          "release"
+        ]
+      ],
+      "post_timing_validation": {
+        "release": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        },
+        "k128": {
+          "passed": true,
+          "source": "CASE_COMPLETE reached after mandatory checks",
+          "details": "Inferred from frozen sources/benchmark.py control flow; error details unavailable"
+        }
+      },
+      "logged_medians_ms": {
+        "release": 0.8548185606797536,
+        "k128": 0.8718702948093414
+      }
+    }
+  },
+  "ncu_collection_from_console": [
+    "NCU_RESULT aligned148__release complete rows 325",
+    "NCU_RESULT aligned592__release complete rows 325"
+  ]
+}

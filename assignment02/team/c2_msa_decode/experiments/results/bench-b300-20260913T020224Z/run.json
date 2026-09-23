@@ -1,0 +1,66 @@
+{
+  "commands": [
+    {
+      "label": "nvidia-smi-before",
+      "command": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "stdout": "Sun Sep 13 02:02:29 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:94:00.0 Off |                    0 |\n| N/A   36C    P0            183W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": "",
+      "elapsed_seconds": 0.14726574999999986
+    },
+    {
+      "label": "nvcc",
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": "",
+      "elapsed_seconds": 0.022054736999999935
+    },
+    {
+      "label": "pip-freeze",
+      "command": [
+        "python",
+        "-m",
+        "pip",
+        "freeze"
+      ],
+      "returncode": 0,
+      "stdout": "aiohappyeyeballs==2.6.1\naiohttp==3.12.7\naiosignal==1.3.2\nattrs==25.3.0\ncbor2==5.7.0\ncertifi==2025.4.26\ncuda-bindings==13.0.3\ncuda-pathfinder==1.6.0\nfilelock==3.32.3\nfrozenlist==1.6.0\nfsspec==2026.7.0\ngrpclib==0.4.8\nh2==4.2.0\nhpack==4.1.0\nhyperframe==6.1.0\nidna==3.10\nJinja2==3.1.6\nMarkupSafe==3.0.3\nmpmath==1.3.0\nmultidict==6.4.4\nnetworkx==3.6.1\nnumpy==2.2.6\nnvidia-cublas==13.1.0.3\nnvidia-cuda-cupti==13.0.85\nnvidia-cuda-nvrtc==13.0.88\nnvidia-cuda-runtime==13.0.96\nnvidia-cudnn-cu13==9.15.1.9\nnvidia-cufft==12.0.0.61\nnvidia-cufile==1.15.1.6\nnvidia-curand==10.4.0.35\nnvidia-cusolver==12.0.4.66\nnvidia-cusparse==12.6.3.3\nnvidia-cusparselt-cu13==0.8.0\nnvidia-nccl-cu13==2.28.9\nnvidia-nvjitlink==13.0.88\nnvidia-nvshmem-cu13==3.4.5\nnvidia-nvtx==13.0.85\npropcache==0.3.1\nprotobuf==6.31.1\nsympy==1.14.0\ntorch==2.10.0+cu130\ntriton==3.6.0\ntyping_extensions==4.16.0\nyarl==1.20.0\n",
+      "stderr": "",
+      "elapsed_seconds": 0.6589183120000002
+    },
+    {
+      "label": "baseline-matrix",
+      "command": [
+        "python",
+        "-u",
+        "/opt/c2/experiments/baseline_workload.py",
+        "--output",
+        "/tmp/c2-artifacts",
+        "--all",
+        "--pdl"
+      ],
+      "returncode": 0,
+      "stdout": "{\"batch\": 1, \"tp\": 1, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00015065972745141945, \"nrmse\": 0.0029164882923640055}, \"partial_graph\": 3.459000028669834, \"merge_graph\": 1.8710000440478325, \"chain_graph\": 5.446000024676323}\n{\"batch\": 1, \"tp\": 1, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.0001712285781603276, \"nrmse\": 0.0028855803023342444}, \"partial_graph\": 4.991999827325344, \"merge_graph\": 1.8609999679028988, \"chain_graph\": 7.038000039756298}\n{\"batch\": 4, \"tp\": 1, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00017586454126405915, \"nrmse\": 0.0028633912401349946}, \"partial_graph\": 4.769999999552965, \"merge_graph\": 2.5690000038594007, \"chain_graph\": 7.4720000848174095}\n{\"batch\": 4, \"tp\": 1, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00017124305859057137, \"nrmse\": 0.0028423150524771483}, \"partial_graph\": 7.416999898850918, \"merge_graph\": 2.5510000996291637, \"chain_graph\": 11.711000464856625}\n{\"batch\": 8, \"tp\": 1, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 8, \"correctness\": {\"finite\": true, \"max_abs\": 0.0002182572529488072, \"nrmse\": 0.002855403939252125}, \"partial_graph\": 6.955000106245279, \"merge_graph\": 3.7159998901188374, \"chain_graph\": 10.999999940395355}\n{\"batch\": 8, \"tp\": 1, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 8, \"correctness\": {\"finite\": true, \"max_abs\": 0.00019713498559635612, \"nrmse\": 0.0028556414114263716}, \"partial_graph\": 12.059000320732594, \"merge_graph\": 3.727999981492758, \"chain_graph\": 19.641999155282974}\n{\"batch\": 16, \"tp\": 1, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 4, \"correctness\": {\"finite\": true, \"max_abs\": 0.00024328612755962487, \"nrmse\": 0.002864692914341018}, \"partial_graph\": 11.212999932467937, \"merge_graph\": 3.56299988925457, \"chain_graph\": 15.247000381350517}\n{\"batch\": 16, \"tp\": 1, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 4, \"correctness\": {\"finite\": true, \"max_abs\": 0.0002110195152107211, \"nrmse\": 0.0028625589963146144}, \"partial_graph\": 21.421000361442566, \"merge_graph\": 3.5310001112520695, \"chain_graph\": 31.599998474121094}\n{\"batch\": 1, \"tp\": 4, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00018849535498362963, \"nrmse\": 0.0029712023663557323}, \"partial_graph\": 3.396000014618039, \"merge_graph\": 1.753999968059361, \"chain_graph\": 5.229999776929617}\n{\"batch\": 1, \"tp\": 4, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00014223500706983527, \"nrmse\": 0.0029659483796056125}, \"partial_graph\": 4.925000015646219, \"merge_graph\": 1.7750000115484, \"chain_graph\": 6.742000114172697}\n{\"batch\": 4, \"tp\": 4, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00019481290054630673, \"nrmse\": 0.002926897052909605}, \"partial_graph\": 3.5019998904317617, \"merge_graph\": 1.905999961309135, \"chain_graph\": 5.462999921292067}\n{\"batch\": 4, \"tp\": 4, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00014794986333781235, \"nrmse\": 0.0029823714993479186}, \"partial_graph\": 5.330000072717667, \"merge_graph\": 1.8739999504759908, \"chain_graph\": 7.414000108838081}\n{\"batch\": 8, \"tp\": 4, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00018169816847357634, \"nrmse\": 0.0028242251219028646}, \"partial_graph\": 3.693999955430627, \"merge_graph\": 1.9120000069960952, \"chain_graph\": 6.566000171005726}\n{\"batch\": 8, \"tp\": 4, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00018944867437938745, \"nrmse\": 0.0028149966675430583}, \"partial_graph\": 5.6130001321434975, \"merge_graph\": 1.921999966725707, \"chain_graph\": 10.817999951541424}\n{\"batch\": 16, \"tp\": 4, \"dtype\": \"bf16\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00018183438686451142, \"nrmse\": 0.0028787112951303108}, \"partial_graph\": 4.7610001638531685, \"merge_graph\": 2.5510000996291637, \"chain_graph\": 7.511999923735857}\n{\"batch\": 16, \"tp\": 4, \"dtype\": \"fp8\", \"pdl\": true, \"splits\": 16, \"correctness\": {\"finite\": true, \"max_abs\": 0.00019368676276323993, \"nrmse\": 0.002879345245614237}, \"partial_graph\": 7.422999944537878, \"merge_graph\": 2.553999889642, \"chain_graph\": 11.640000157058239}\nC2_BASELINE_DONE\n",
+      "stderr": "",
+      "elapsed_seconds": 56.608906463
+    },
+    {
+      "label": "nvidia-smi-after",
+      "command": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "stdout": "Sun Sep 13 02:03:26 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:94:00.0 Off |                    0 |\n| N/A   37C    P0            238W / 1100W |       4MiB / 275040MiB |      1%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": "",
+      "elapsed_seconds": 0.12562457800000004
+    }
+  ],
+  "gpu_requested": "B300",
+  "base_image": "nvidia/cuda:13.1.0-devel-ubuntu24.04"
+}

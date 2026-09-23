@@ -1,0 +1,71 @@
+[
+  {
+    "command": [
+      "clang++",
+      "-x",
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "assignment02/cuda/m1_sm80/01_fragment_map.cu",
+      "-o",
+      "/private/tmp/a02-review-01_fragment_map"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/private/tmp/a02-review-01_fragment_map"
+    ],
+    "returncode": 0,
+    "stdout": "PASS\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "-x",
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "assignment02/cuda/m2_smem/02_descriptor.cu",
+      "-o",
+      "/private/tmp/a02-review-02_descriptor"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/private/tmp/a02-review-02_descriptor"
+    ],
+    "returncode": 1,
+    "stdout": "场景 1 FAIL:\n    字段 LBO 不一致(yours=0x1)\n场景 2 PASS\n场景 3 PASS\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "clang++",
+      "-x",
+      "c++",
+      "-std=c++17",
+      "-O2",
+      "assignment02/cuda/m2_smem/03_swizzle.cu",
+      "-o",
+      "/private/tmp/a02-review-03_swizzle"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "/private/tmp/a02-review-03_swizzle"
+    ],
+    "returncode": 0,
+    "stdout": "128B PASS\n 64B PASS\n 32B PASS\n",
+    "stderr": ""
+  }
+]

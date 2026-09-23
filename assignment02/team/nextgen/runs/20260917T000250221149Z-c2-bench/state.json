@@ -1,0 +1,12 @@
+{
+  "status": "GPU_FAILED",
+  "updated_at": "2026-09-17T00:15:16.499210+00:00",
+  "reuse_build": {
+    "original_run": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/team/nextgen/runs/20260916T235940609012Z-c2-verify",
+    "bundle_sha256": "899d0910cfdb9cbb77a4bd0524583393f5b36cf813a9d2c176493fa0cf589e04"
+  },
+  "app_id": "ap-Q2U43Vo3Vbql83AvRlu5to",
+  "started_at": "2026-09-17T00:03:17.545505+00:00",
+  "function_call_id": "fc-01M2PASHXMWYRWERYJXPTJ0JD1",
+  "gpu_call_id": "fc-01M2PASHXMWYRWERYJXPTJ0JD1"
+}

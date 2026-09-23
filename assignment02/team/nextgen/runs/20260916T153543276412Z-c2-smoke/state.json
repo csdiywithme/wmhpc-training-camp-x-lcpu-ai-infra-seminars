@@ -1,0 +1,9 @@
+{
+  "status": "STARTUP_FAILED",
+  "app_id": "ap-k5BKalWYw0bsxhDuG1Xg27",
+  "local_exit_code": 1,
+  "function_submitted": false,
+  "gpu_submitted": false,
+  "reason": "Modal rejects image.env after add_local; base image completed; local app initialization stopped before entrypoint.",
+  "updated_at": "2026-09-16T15:41:37.063569+00:00"
+}

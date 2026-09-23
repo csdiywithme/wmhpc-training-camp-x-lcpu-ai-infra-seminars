@@ -1,0 +1,190 @@
+--- 03_pipeline_before.cu
++++ inputs/m4_gemm/03_pipeline.cu
+@@ -65,7 +65,8 @@
+             "mbarrier.try_wait.parity.shared::cta.b64 p, [%1], %2;\n"
+             "selp.b32 %0, 1, 0, p;\n}"
+             : "=r"(done)
+-            : "r"(mbar), "r"(phase));
++            : "r"(mbar), "r"(phase)
++            : "memory");
+ }
+ 
+ // 非阻塞版:成功返回 true。机会式深预取用它。
+@@ -76,7 +77,8 @@
+         "mbarrier.try_wait.parity.shared::cta.b64 p, [%1], %2;\n"
+         "selp.b32 %0, 1, 0, p;\n}"
+         : "=r"(done)
+-        : "r"(mbar), "r"(phase));
++        : "r"(mbar), "r"(phase)
++        : "memory");
+     return done;
+ }
+ 
+@@ -142,7 +144,8 @@
+ 
+     // (2) 预热:先发 min(NSTAGE, iters) 轮 TMA(发第 it 轮 = 对 stage
+     //     it%NSTAGE 做 arrive.expect_tx + 两条 cp.async.bulk.tensor)
+-    int warm_n = min(NSTAGE, K / BK);
++    const int iters = K / BK;
++    const int warm_n = min(NSTAGE, iters);
+     int next_to_issue = warm_n;
+     for (int i = 0; i < warm_n; i ++) {
+         int s = i;
+@@ -194,7 +197,7 @@
+             );
+         }
+     }
+-    for (int it = 0; it < K/BK; it += 1){
++    for (int it = 0; it < iters; it += 1){
+         int s = it % NSTAGE;
+         const uint32_t mbar = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier[s]));
+         const uint32_t mbar_full = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier_full[s]));
+@@ -203,15 +206,11 @@
+         __nv_bfloat16* sA = reinterpret_cast<__nv_bfloat16*>(smem + smem_stage_ofst + sa_ofst);
+         __nv_bfloat16* sB = reinterpret_cast<__nv_bfloat16*>(smem + smem_stage_ofst + sb_ofst);
+ 
+-        if (tid == 0 && it >= warm_n) {
++        // 预取尚未发出当前 tile 时，阻塞等待并保证发出。
++        if (tid == 0 && next_to_issue == it) {
+             const uint32_t bytes = 2 * BK * (BM + BN);
+-            if (next_to_issue == it) {
+-                const int previous_it = it - NSTAGE;
+-                mbar_wait(mbar, (previous_it / NSTAGE) & 1);
+-                next_to_issue ++;
+-            }
+-            // const int previous_it = it - NSTAGE;
+-            // mbar_wait(mbar, (previous_it / NSTAGE) & 1);
++            const int previous_it = it - NSTAGE;
++            mbar_wait(mbar, (previous_it / NSTAGE) & 1);
+             asm volatile(
+                 "{\n"
+                 "  .reg .b64 state;\n"
+@@ -250,6 +249,7 @@
+                 "r"(mbar_full)
+                 : "memory"
+             );
++            ++next_to_issue;
+         }
+ 
+         // 等 A/B 搬运完成，再交给 MMA。
+@@ -279,66 +279,62 @@
+             }
+             asm volatile("tcgen05.commit.cta_group::1.mbarrier::arrive::one.b64 [%0];"
+                     :: "r"(mbar) : "memory");
+-    //         只要还有未发出的 tile：
+-    // 对 next_to_issue 所在 stage，非阻塞检查上一轮的 empty
+-    // 未完成：立刻停止预取
+-    // 已完成：发出该 tile 的 TMA；next_to_issue++，继续检查
+-            if(next_to_issue < k / NK) {
+-                if (mbar_try(mbar, (next_to_issue % NSTAGE) & 1)) {
+-                    // const int previous_it = it - NSTAGE;
+-                    // mbar_wait(mbar, (previous_it / NSTAGE) & 1);
+-                    int pre_s = next_to_issue % NSTAGE;
+-                    const uint32_t pre_mbar = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier[pre_s]));
+-                    const uint32_t pre_mbar_full = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier_full[pre_s]));
+-
+-                    const int psmem_stage_ofst = pre_s * (BM + BN) * BK * 2;
+-                    __nv_bfloat16* psA = reinterpret_cast<__nv_bfloat16*>(smem + psmem_stage_ofst + sa_ofst);
+-                    __nv_bfloat16* psB = reinterpret_cast<__nv_bfloat16*>(smem + psmem_stage_ofst + sb_ofst);                    
+-                    asm volatile(
+-                        "{\n"
+-                        "  .reg .b64 state;\n"
+-                        "  mbarrier.arrive.expect_tx.shared::cta.b64 "
+-                        "state, [%0], %1;\n"
+-                        "}\n"
+-                        :
+-                        : "r"(pre_mbar_full), "r"(bytes)
+-                        : "memory"
+-                    );
+-                    const uint32_t pdstA = static_cast<uint32_t>(__cvta_generic_to_shared(psA));
+-                    const uint32_t pdstB = static_cast<uint32_t>(__cvta_generic_to_shared(psB));
+-                    const int kBase = it * BK;
+-
+-                    asm volatile(
+-                        "cp.async.bulk.tensor.2d.shared::cluster.global"
+-                        ".mbarrier::complete_tx::bytes "
+-                        "[%0], [%1, {%2, %3}], [%4];"
+-                        :
+-                        : "r"(pdstA),
+-                        "l"(&tmapA),
+-                        "r"(kBase),
+-                        "r"(tileM),
+-                        "r"(pre_mbar_full)
+-                        : "memory"
+-                    );
+-                    asm volatile(
+-                        "cp.async.bulk.tensor.2d.shared::cluster.global"
+-                        ".mbarrier::complete_tx::bytes "
+-                        "[%0], [%1, {%2, %3}], [%4];"
+-                        :
+-                        : "r"(pdstB),
+-                        "l"(&tmapB),
+-                        "r"(kBase),
+-                        "r"(tileN),
+-                        "r"(pre_mbar_full)
+-                        : "memory"
+-                    );
+-                }
++            // 空闲就预取下一块；未空闲便留给后续迭代或兜底路径。
++            while (next_to_issue < iters) {
++                const int pre_s = next_to_issue % NSTAGE;
++                const uint32_t pre_mbar = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier[pre_s]));
++                const int previous_it = next_to_issue - NSTAGE;
++                if (!mbar_try(pre_mbar, (previous_it / NSTAGE) & 1))
++                    break;
++                const uint32_t pre_mbar_full = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier_full[pre_s]));
++                const uint32_t bytes = 2 * BK * (BM + BN);
++
++                const int psmem_stage_ofst = pre_s * (BM + BN) * BK * 2;
++                __nv_bfloat16* psA = reinterpret_cast<__nv_bfloat16*>(smem + psmem_stage_ofst + sa_ofst);
++                __nv_bfloat16* psB = reinterpret_cast<__nv_bfloat16*>(smem + psmem_stage_ofst + sb_ofst);
++                asm volatile(
++                    "{\n"
++                    "  .reg .b64 state;\n"
++                    "  mbarrier.arrive.expect_tx.shared::cta.b64 "
++                    "state, [%0], %1;\n"
++                    "}\n"
++                    :
++                    : "r"(pre_mbar_full), "r"(bytes)
++                    : "memory"
++                );
++                const uint32_t pdstA = static_cast<uint32_t>(__cvta_generic_to_shared(psA));
++                const uint32_t pdstB = static_cast<uint32_t>(__cvta_generic_to_shared(psB));
++                const int kBase = next_to_issue * BK;
++
++                asm volatile(
++                    "cp.async.bulk.tensor.2d.shared::cluster.global"
++                    ".mbarrier::complete_tx::bytes "
++                    "[%0], [%1, {%2, %3}], [%4];"
++                    :
++                    : "r"(pdstA),
++                    "l"(&tmapA),
++                    "r"(kBase),
++                    "r"(tileM),
++                    "r"(pre_mbar_full)
++                    : "memory"
++                );
++                asm volatile(
++                    "cp.async.bulk.tensor.2d.shared::cluster.global"
++                    ".mbarrier::complete_tx::bytes "
++                    "[%0], [%1, {%2, %3}], [%4];"
++                    :
++                    : "r"(pdstB),
++                    "l"(&tmapB),
++                    "r"(kBase),
++                    "r"(tileN),
++                    "r"(pre_mbar_full)
++                    : "memory"
++                );
++                ++next_to_issue;
+             }
+         }
+-        // 当前仍逐轮等待 MMA；实现预取时改为复用该 stage 前等待。
+-        // mbar_wait(mbar, (it / NSTAGE) & 1);
+-    }
+-    const int last = K/BK - 1;
++    }
++    const int last = iters - 1;
+     const uint32_t mbar = static_cast<uint32_t>(__cvta_generic_to_shared(&barrier[last % NSTAGE]));
+     mbar_wait(mbar, (last / NSTAGE) & 1);
+     asm volatile("tcgen05.fence::after_thread_sync;" ::: "memory");

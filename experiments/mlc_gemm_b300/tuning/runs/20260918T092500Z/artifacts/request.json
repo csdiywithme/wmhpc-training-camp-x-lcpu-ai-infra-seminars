@@ -1,0 +1,152 @@
+{
+  "cases": [
+    {
+      "name": "square128",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "rect128",
+      "shape": [
+        2048,
+        8192,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "rect144",
+      "shape": [
+        2048,
+        9216,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "aligned148",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "tail152",
+      "shape": [
+        2048,
+        9728,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "aligned296",
+      "shape": [
+        4096,
+        9472,
+        4096
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "aligned148_k8192",
+      "shape": [
+        2048,
+        9472,
+        8192
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "aligned148_k16384",
+      "shape": [
+        2048,
+        9472,
+        16384
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    },
+    {
+      "name": "aligned592",
+      "shape": [
+        8192,
+        9472,
+        8192
+      ],
+      "variants": [
+        "original",
+        "fenced",
+        "wide",
+        "full_late",
+        "full_early"
+      ]
+    }
+  ],
+  "rounds": 5,
+  "repeat": 150,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "mode": "bench",
+  "sm_count": 148,
+  "arch": "sm_103a",
+  "gpu": "B300",
+  "profile": "simidawhu",
+  "collect_ncu": true
+}

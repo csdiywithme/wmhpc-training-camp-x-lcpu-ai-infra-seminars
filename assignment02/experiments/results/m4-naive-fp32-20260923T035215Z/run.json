@@ -1,0 +1,56 @@
+{
+  "commands": [
+    {
+      "command": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "stdout": "Wed Sep 23 03:52:20 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:06:00.0 Off |                    0 |\n| N/A   24C    P0            176W / 1100W |       5MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "timeout",
+        "-k",
+        "2s",
+        "5s",
+        "./naive4096"
+      ],
+      "returncode": 0,
+      "stdout": "[A01 naive FP32] BS=16 M=4096 N=4096 K=4096 PASS(bad=0) reps=2 21.634 ms 6.3529 TFLOPS\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "nvidia-smi",
+        "--query-compute-apps=pid,process_name",
+        "--format=csv"
+      ],
+      "returncode": 0,
+      "stdout": "pid, process_name\n",
+      "stderr": ""
+    }
+  ],
+  "build": {
+    "command": [
+      "nvcc",
+      "-O2",
+      "-std=c++17",
+      "-I",
+      "/opt/m4_naive_fp32/assignment01/cuda",
+      "-gencode",
+      "arch=compute_100f,code=sm_100f",
+      "-o",
+      "/opt/m4_naive_fp32/naive4096",
+      "assignment02/experiments/m4_naive_fp32_4096.cu"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "input_sha256": {
+    "assignment01/cuda/common.h": "324279342fe99ada3b11cdb33c0944c27ad177d2cf34960777e0f574b23aa9b1",
+    "assignment01/cuda/bonus/matmul.cu": "45d670389d63d8b0c8164c31e735ad1ec6e844aeddaa40dc4fce7f453430b901",
+    "assignment02/experiments/m4_naive_fp32_4096.cu": "3fcb9679e95518ca97cffa79d4cbd78a95654ec54a5437001a8060f6a6f06f92"
+  }
+}

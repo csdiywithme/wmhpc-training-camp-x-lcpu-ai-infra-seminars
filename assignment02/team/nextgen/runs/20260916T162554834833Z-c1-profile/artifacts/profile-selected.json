@@ -1,0 +1,52 @@
+{
+  "warning": "Profiler replay durations are not paired benchmark latencies; metrics retain original units",
+  "units": {
+    "gpu__time_duration.sum": "ms",
+    "launch__registers_per_thread": "register/thread",
+    "launch__shared_mem_per_block": "Kbyte/block",
+    "launch__occupancy_limit_shared_mem": "block",
+    "sm__warps_active.avg.pct_of_peak_sustained_active": "%",
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": "%",
+    "derived__memory_l1_wavefronts_shared_excessive": "",
+    "derived__memory_l2_theoretical_sectors_global_excessive": "Mbyte",
+    "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": ""
+  },
+  "kernels": [
+    {
+      "name": "void at::elementwise_kernel<128, 4, void at::gpu_kernel_impl_nocast<at::direct_copy_kernel_cuda(at::",
+      "gpu__time_duration.sum": "0.007584",
+      "launch__registers_per_thread": "20",
+      "launch__shared_mem_per_block": "1.024000",
+      "launch__occupancy_limit_shared_mem": "32.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "55.815964",
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": "11.025255",
+      "derived__memory_l1_wavefronts_shared_excessive": "0",
+      "derived__memory_l2_theoretical_sectors_global_excessive": "0.737280",
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "24576"
+    },
+    {
+      "name": "void _flash_kda_fwd_prepare<cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cute::SM90_TMA_LOAD, c",
+      "gpu__time_duration.sum": "0.272160",
+      "launch__registers_per_thread": "32",
+      "launch__shared_mem_per_block": "22.272000",
+      "launch__occupancy_limit_shared_mem": "9.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "96.520977",
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": "70.462823",
+      "derived__memory_l1_wavefronts_shared_excessive": "0",
+      "derived__memory_l2_theoretical_sectors_global_excessive": "0.000000",
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "393216"
+    },
+    {
+      "name": "void c1_nextgen::kernel<1, 1>(const cutlass::bfloat16_t *, const cutlass::bfloat16_t *, const void *",
+      "gpu__time_duration.sum": "13.645152",
+      "launch__registers_per_thread": "174",
+      "launch__shared_mem_per_block": "164.992000",
+      "launch__occupancy_limit_shared_mem": "1.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "6.249320",
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": "6.580377",
+      "derived__memory_l1_wavefronts_shared_excessive": "176160768",
+      "derived__memory_l2_theoretical_sectors_global_excessive": "132.120576",
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "14008320"
+    }
+  ]
+}

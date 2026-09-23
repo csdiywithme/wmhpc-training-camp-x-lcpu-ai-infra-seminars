@@ -1,0 +1,66 @@
+[
+  {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Thu Sep 17 00:10:30 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:85:00.0 Off |                    0 |\n| N/A   51C    P0            191W / 1100W |     130MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": "",
+    "seconds": 0.11280450899999983
+  },
+  {
+    "command": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+    "stderr": "",
+    "seconds": 0.018392541000000096
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/FlashKDA",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "1ce47ea3bb22c84eb9cc665028399cf35e8ffb0b\n",
+    "stderr": "",
+    "seconds": 0.011809619999999965
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/FlashKDA/cutlass",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "5c149f52a436782210263fb2f19b354443a61c6a\n",
+    "stderr": "",
+    "seconds": 0.009218163999999973
+  },
+  {
+    "command": [
+      "python",
+      "-u",
+      "/opt/c2/nextgen/run.py",
+      "--mode",
+      "bench",
+      "--output",
+      "/tmp/nextgen-artifacts",
+      "--build-dir",
+      "/tmp/nextgen-build",
+      "--repeats",
+      "7"
+    ],
+    "returncode": 0,
+    "stdout": "{\"tp\": 1, \"batch\": 1, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 5.643919590980776, \"merge_only\": 5.028242065060523, \"tcgen05\": 54.89882346122496}, \"speedup_vs_original\": 0.10280583872561634, \"speedup_vs_merge_only\": 0.09159107150287056}\n{\"tp\": 1, \"batch\": 1, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 6.086879249276786, \"merge_only\": 5.535862055318109, \"tcgen05\": 55.43163727069723}, \"speedup_vs_original\": 0.10980875812041883, \"speedup_vs_merge_only\": 0.09986827609446286}\n{\"tp\": 1, \"batch\": 1, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 7.686613635583357, \"merge_only\": 7.1995908563787285, \"tcgen05\": 90.57427536357532}, \"speedup_vs_original\": 0.08486530645405028, \"speedup_vs_merge_only\": 0.07948825234845944}\n{\"tp\": 1, \"batch\": 1, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 7.626130529071974, \"merge_only\": 7.044956735942675, \"tcgen05\": 90.41024290997049}, \"speedup_vs_original\": 0.08435029354656186, \"speedup_vs_merge_only\": 0.07792210826109564}\n{\"tp\": 1, \"batch\": 4, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 8.196272633292459, \"merge_only\": 7.102295756340027, \"tcgen05\": 106.95013132962313}, \"speedup_vs_original\": 0.0766363961539358, \"speedup_vs_merge_only\": 0.06640754590988358}\n{\"tp\": 1, \"batch\": 4, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 8.169295435602015, \"merge_only\": 7.073795253580267, \"tcgen05\": 106.76406730305065}, \"speedup_vs_original\": 0.07651727441605803, \"speedup_vs_merge_only\": 0.06625632979587825}\n{\"tp\": 1, \"batch\": 4, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 10.723000063615686, \"merge_only\": 9.685676764039432, \"tcgen05\": 176.9995549145867}, \"speedup_vs_original\": 0.06058207360346302, \"speedup_vs_merge_only\": 0.054721475252937066}\n{\"tp\": 1, \"batch\": 4, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 10.719593614339828, \"merge_only\": 9.729593992233276, \"tcgen05\": 177.0179122686386}, \"speedup_vs_original\": 0.06055654750956503, \"speedup_vs_merge_only\": 0.054963895277828446}\n{\"tp\": 1, \"batch\": 8, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 11.546721888913048, \"merge_only\": 9.10180558760961, \"tcgen05\": 200.68425602383084}, \"speedup_vs_original\": 0.057536760071213056, \"speedup_vs_merge_only\": 0.045353859679599325}\n{\"tp\": 1, \"batch\": 8, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 11.525944703155094, \"merge_only\": 9.1016110446718, \"tcgen05\": 200.87044768863254}, \"speedup_vs_original\": 0.05737999210825356, \"speedup_vs_merge_only\": 0.0453108515931628}\n{\"tp\": 1, \"batch\": 8, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 16.58150011842901, \"merge_only\": 14.288181608373469, \"tcgen05\": 341.62846478548914}, \"speedup_vs_original\": 0.048536646759925715, \"speedup_vs_merge_only\": 0.04182374445099332}\n{\"tp\": 1, \"batch\": 8, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 16.608318144624885, \"merge_only\": 14.319681308486246, \"tcgen05\": 341.80582653392446}, \"speedup_vs_original\": 0.0485899211053282, \"speedup_vs_merge_only\": 0.04189419897751511}\n{\"tp\": 1, \"batch\": 16, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 15.43645809094111, \"merge_only\": 13.40887447198232, \"tcgen05\": 468.40500831604004}, \"speedup_vs_original\": 0.032955365158106716, \"speedup_vs_merge_only\": 0.028626667593048338}\n{\"tp\": 1, \"batch\": 16, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 15.57216669122378, \"merge_only\": 13.452500104904175, \"tcgen05\": 447.22211360931396}, \"speedup_vs_original\": 0.03481976006407271, \"speedup_vs_merge_only\": 0.030080131763466557}\n{\"tp\": 1, \"batch\": 16, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 25.851786136627197, \"merge_only\": 23.83149947438921, \"tcgen05\": 673.2180459158761}, \"speedup_vs_original\": 0.0384003166484601, \"speedup_vs_merge_only\": 0.03539937709478326}\n{\"tp\": 1, \"batch\": 16, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 25.79764383179801, \"merge_only\": 23.77221414021083, \"tcgen05\": 672.9982239859445}, \"speedup_vs_original\": 0.03833240997131783, \"speedup_vs_merge_only\": 0.0353228482527278}\n{\"tp\": 4, \"batch\": 1, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 5.922448532334689, \"merge_only\": 5.375758841119963, \"tcgen05\": 54.72441377310917}, \"speedup_vs_original\": 0.10822315167942283, \"speedup_vs_merge_only\": 0.09823328329122345}\n{\"tp\": 4, \"batch\": 1, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 5.9585000077883405, \"merge_only\": 5.316533148288727, \"tcgen05\": 54.51620022455851}, \"speedup_vs_original\": 0.10929778640559307, \"speedup_vs_merge_only\": 0.09752207832514581}\n{\"tp\": 4, \"batch\": 1, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 7.490652410880379, \"merge_only\": 6.943891229836837, \"tcgen05\": 89.59247754967731}, \"speedup_vs_original\": 0.08360805076215194, \"speedup_vs_merge_only\": 0.07750529307537658}\n{\"tp\": 4, \"batch\": 1, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 7.491304174713466, \"merge_only\": 6.885478030080381, \"tcgen05\": 89.82169109842052}, \"speedup_vs_original\": 0.08340194983085994, \"speedup_vs_merge_only\": 0.07665718542902673}\n{\"tp\": 4, \"batch\": 4, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 6.180678627320698, \"merge_only\": 5.613589393241065, \"tcgen05\": 55.16244683946882}, \"speedup_vs_original\": 0.11204504117280041, \"speedup_vs_merge_only\": 0.10176469164932932}\n{\"tp\": 4, \"batch\": 4, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 6.1723392988954275, \"merge_only\": 5.636875118528094, \"tcgen05\": 55.218768971306936}, \"speedup_vs_original\": 0.11177973384561925, \"speedup_vs_merge_only\": 0.10208259299400818}\n{\"tp\": 4, \"batch\": 4, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 7.91149992834438, \"merge_only\": 7.359795272350311, \"tcgen05\": 90.60324863954024}, \"speedup_vs_original\": 0.08732026772924913, \"speedup_vs_merge_only\": 0.08123103070653492}\n{\"tp\": 4, \"batch\": 4, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 7.9231666667120795, \"merge_only\": 7.424166514759972, \"tcgen05\": 90.94637916201637}, \"speedup_vs_original\": 0.08711909962459703, \"speedup_vs_merge_only\": 0.08163234845814142}\n{\"tp\": 4, \"batch\": 8, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 6.463426130789298, \"merge_only\": 5.838426174940886, \"tcgen05\": 56.32916644767479}, \"speedup_vs_original\": 0.11474386252090726, \"speedup_vs_merge_only\": 0.10364836803264804}\n{\"tp\": 4, \"batch\": 8, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 6.437611248758104, \"merge_only\": 5.850203611232616, \"tcgen05\": 56.39666539651376}, \"speedup_vs_original\": 0.11414879237090593, \"speedup_vs_merge_only\": 0.10373314752035419}\n{\"tp\": 4, \"batch\": 8, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 8.233309501693363, \"merge_only\": 7.700047322681972, \"tcgen05\": 91.58245154789516}, \"speedup_vs_original\": 0.08990051437296984, \"speedup_vs_merge_only\": 0.08407775935824402}\n{\"tp\": 4, \"batch\": 8, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 8.256475840296064, \"merge_only\": 7.711285636538551, \"tcgen05\": 91.64835725511823}, \"speedup_vs_original\": 0.090088639748477, \"speedup_vs_merge_only\": 0.08413992206180983}\n{\"tp\": 4, \"batch\": 16, \"storage\": \"bf16\", \"seed\": 101, \"median_us\": {\"baseline\": 8.201567964120345, \"merge_only\": 7.052659311077812, \"tcgen05\": 107.00822960246693}, \"speedup_vs_original\": 0.07664427301142145, \"speedup_vs_merge_only\": 0.06590763474247052}\n{\"tp\": 4, \"batch\": 16, \"storage\": \"bf16\", \"seed\": 307, \"median_us\": {\"baseline\": 8.197318423878063, \"merge_only\": 7.087977095083757, \"tcgen05\": 106.80597478693181}, \"speedup_vs_original\": 0.07674962416878799, \"speedup_vs_merge_only\": 0.06636311413498754}\n{\"tp\": 4, \"batch\": 16, \"storage\": \"fp8_scalar\", \"seed\": 101, \"median_us\": {\"baseline\": 10.743999853730202, \"merge_only\": 9.732374921441078, \"tcgen05\": 176.98565125465393}, \"speedup_vs_original\": 0.060705485317966885, \"speedup_vs_merge_only\": 0.05498962685646055}\n{\"tp\": 4, \"batch\": 16, \"storage\": \"fp8_scalar\", \"seed\": 307, \"median_us\": {\"baseline\": 10.729875415563583, \"merge_only\": 9.732156060636044, \"tcgen05\": 177.01469361782074}, \"speedup_vs_original\": 0.06061573305733398, \"speedup_vs_merge_only\": 0.05497936844524341}\n",
+    "stderr": "",
+    "seconds": 127.768526944
+  }
+]

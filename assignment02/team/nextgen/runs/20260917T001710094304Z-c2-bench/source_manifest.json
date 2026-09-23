@@ -1,0 +1,188 @@
+[
+  {
+    "path": "c2/nextgen/DESIGN.md",
+    "sha256": "df49d1132095d972330e70d9444fa213933324c955c9e99bf13fbb4b3a57d9ae",
+    "bytes": 17579,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/DESIGN.md"
+  },
+  {
+    "path": "c2/nextgen/EXTRA_HELDOUT.json",
+    "sha256": "fbca09466feb3881bb80a586d9b5e7df3b8ae62616108a13dad2a56623868f9e",
+    "bytes": 1478,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/EXTRA_HELDOUT.json"
+  },
+  {
+    "path": "c2/nextgen/__init__.py",
+    "sha256": "90a582c07cd2323c93b07a5525d3f2ae27d6c40c5755f84d677381086e5b566d",
+    "bytes": 80,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/__init__.py"
+  },
+  {
+    "path": "c2/nextgen/adapter.py",
+    "sha256": "a7f3c54dac6c9d20e92f91dc8a09360e73ae029590ff7cf063ad2806a6a0d3af",
+    "bytes": 3973,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/adapter.py"
+  },
+  {
+    "path": "c2/nextgen/binding.cpp",
+    "sha256": "000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a",
+    "bytes": 686,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/binding.cpp"
+  },
+  {
+    "path": "c2/nextgen/build.py",
+    "sha256": "3362edc2dbaa6753d5fc3a505bfaeae220360b6c0990e852bfb644527be6c4ae",
+    "bytes": 5489,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/build.py"
+  },
+  {
+    "path": "c2/nextgen/extra_heldout.py",
+    "sha256": "357c178b0b92972f68b0e05f605b599021dd77a574d0b6e2935ba4bbc56aac1b",
+    "bytes": 5113,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/extra_heldout.py"
+  },
+  {
+    "path": "c2/nextgen/partial.cu",
+    "sha256": "7ef5fa8d9d2c8d1c56ef25c696df3bc0b874cb2a15cf4582117ad11e839115d2",
+    "bytes": 17676,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/partial.cu"
+  },
+  {
+    "path": "c2/nextgen/run.py",
+    "sha256": "94a790a2c8700e6615f7e4b6758e724b9aa8e9224f114f37ea2c142f8e60d71a",
+    "bytes": 16024,
+    "original": "assignment02/team/nextgen/runs/20260917T001436789207Z-c2-verify/sources/c2/nextgen/run.py"
+  },
+  {
+    "path": "c2/harness/README.md",
+    "sha256": "fd1b4eef3039859736f5e3af5dca3af44ae45b19187133024240a9c515f86c84",
+    "bytes": 762,
+    "original": "assignment02/team/c2_msa_decode/harness/README.md"
+  },
+  {
+    "path": "c2/harness/ref_sdpa.py",
+    "sha256": "994b40386c24d135640bef0ac7b66dfd42a019cbc8f38e97633895638a06cc7c",
+    "bytes": 1511,
+    "original": "assignment02/team/c2_msa_decode/harness/ref_sdpa.py"
+  },
+  {
+    "path": "c2/harness/run.py",
+    "sha256": "e97fdd42865774a07272063c4c29ef2581349acb377a7550a2187ab829a97c30",
+    "bytes": 2247,
+    "original": "assignment02/team/c2_msa_decode/harness/run.py"
+  },
+  {
+    "path": "c2/harness/synth.py",
+    "sha256": "758d33e549b618dfaba70a39cc196eb954fb7e193d6265f2a09b1fc46e84616c",
+    "bytes": 2836,
+    "original": "assignment02/team/c2_msa_decode/harness/synth.py"
+  },
+  {
+    "path": "c2/harness/vllm_shim.py",
+    "sha256": "0fb05c7277719085736b58b869e179382b4fa2949371890b23575a0eb1862d93",
+    "bytes": 1272,
+    "original": "assignment02/team/c2_msa_decode/harness/vllm_shim.py"
+  },
+  {
+    "path": "c2/validation/ACCEPTANCE.md",
+    "sha256": "67d9c0fc6ee5966ee3e3f02b8c6230b82ac309942b2b5c5b40dd185dcb49de6d",
+    "bytes": 9080,
+    "original": "assignment02/team/c2_msa_decode/validation/ACCEPTANCE.md"
+  },
+  {
+    "path": "c2/validation/INTERNAL_REVIEW.md",
+    "sha256": "4f4b997becd1a7cda3697d74520dc807d597d15246c3cf34c0fd43ef56001174",
+    "bytes": 4107,
+    "original": "assignment02/team/c2_msa_decode/validation/INTERNAL_REVIEW.md"
+  },
+  {
+    "path": "c2/validation/__init__.py",
+    "sha256": "5bdc183caed19f1c5c4b9c82746061a52963510d9a1140a2f5b6d9936bc696fc",
+    "bytes": 68,
+    "original": "assignment02/team/c2_msa_decode/validation/__init__.py"
+  },
+  {
+    "path": "c2/validation/run_validation.py",
+    "sha256": "07b02875792ac2ab09b509b59e08f6c6138cbd332431b69fbaf8d91a4e4fa55c",
+    "bytes": 10915,
+    "original": "assignment02/team/c2_msa_decode/validation/run_validation.py"
+  },
+  {
+    "path": "c2/validation/suite.py",
+    "sha256": "4af76a08658150a7c887093e6e156d3501257b22c8fc6523de34f6437b252faf",
+    "bytes": 19698,
+    "original": "assignment02/team/c2_msa_decode/validation/suite.py"
+  },
+  {
+    "path": "c2/candidate.py",
+    "sha256": "3e4a2ff87b352c7398ce814cf7ea81cf4e4c1fea33fbb5fe6bec8ee115644773",
+    "bytes": 26689,
+    "original": "assignment02/team/c2_msa_decode/candidate.py"
+  },
+  {
+    "path": "c2/vllm_msa_ref/sparse_attn.py",
+    "sha256": "5db5d5e692044e54bb57418cbb7dcf5c9cc94f789eaccf128eec6fa8df86d967",
+    "bytes": 25980,
+    "original": "assignment02/team/c2_msa_decode/vllm_msa_ref/sparse_attn.py"
+  },
+  {
+    "path": "c2/experiments/baseline_workload.py",
+    "sha256": "b0d40d99642a0cd45b7e1da13f7311d64b44160c61919fd1876a15a5af1f6ff5",
+    "bytes": 11234,
+    "original": "assignment02/team/c2_msa_decode/experiments/baseline_workload.py"
+  },
+  {
+    "path": "c2/experiments/candidate_workload.py",
+    "sha256": "526d8c2f98c0c6fc591dc025caa64d1afde3a93f1d4f10b4aea7a86e8e4b4726",
+    "bytes": 12168,
+    "original": "assignment02/team/c2_msa_decode/experiments/candidate_workload.py"
+  },
+  {
+    "path": "c2/validation/frozen_calibration.json",
+    "sha256": "54783fcd83407338c75d163c99621a33ec71e8b25f75b93ca2f35808c0b7397f",
+    "bytes": 159323,
+    "original": "assignment02/team/c2_msa_decode/results/candidate-calibrate-20260913T020759Z/calibration.json"
+  },
+  {
+    "path": "protocol/README.md",
+    "sha256": "6ad226fe1b002ac61879a8afea8de8d32b52ee84dc7bbd5fff3ccf212d0f2f13",
+    "bytes": 4531,
+    "original": "assignment02/team/nextgen/README.md"
+  },
+  {
+    "path": "protocol/JOURNAL.md",
+    "sha256": "d30840e7851219b9e4ae916e7ec18022e5898efcc445b72ec50185dd347e256f",
+    "bytes": 15287,
+    "original": "assignment02/team/nextgen/JOURNAL.md"
+  },
+  {
+    "path": "protocol/HYPOTHESES.md",
+    "sha256": "f5a597e4b4a069bcd57f961c6b5fb80598b487c33124eb35f3f760f351cce68b",
+    "bytes": 3933,
+    "original": "assignment02/team/nextgen/HYPOTHESES.md"
+  },
+  {
+    "path": "protocol/ACCEPTANCE.md",
+    "sha256": "7dea219b9b0936eea494b2231938a02e369a3d38e874af6808b92245ae61ec0d",
+    "bytes": 19773,
+    "original": "assignment02/team/nextgen/ACCEPTANCE.md"
+  },
+  {
+    "path": "protocol/base_image.py",
+    "sha256": "5eea56c1279f4e385cf1523e7e31c8069001341fffb1a9af512a656cf4a894e7",
+    "bytes": 1555,
+    "original": "assignment02/team/nextgen/base_image.py"
+  },
+  {
+    "path": "protocol/modal_runner.py",
+    "sha256": "32e837f1d5159defbad4978beb55211f65a6e0cf85c12d66c9a733cf38c26ea5",
+    "bytes": 11154,
+    "original": "assignment02/team/nextgen/modal_runner.py"
+  },
+  {
+    "path": "protocol/prepare_run.py",
+    "sha256": "6ee651caee922df17e4c2cd6b70e1f4572a9e8d469bda649a086bee894b4e360",
+    "bytes": 6665,
+    "original": "assignment02/team/nextgen/prepare_run.py"
+  }
+]

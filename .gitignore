@@ -43,8 +43,18 @@ assignment*/cuda/bin/
 *.fatbin
 *.sass
 
+# Local experiment build artifacts (keep source snapshots and profiling results)
+*.so
+compile-cache/
+build.tar.gz
+reused_build.tar.gz
+assignment02/experiments/results/m1-fragment-*/fragment_map
+assignment02/experiments/results/m1-fragment-*/coordinate_diagnostic
+
 # Misc
 .DS_Store
+*.code-workspace
+/tmp/
 
 # User personal files
 cof.md

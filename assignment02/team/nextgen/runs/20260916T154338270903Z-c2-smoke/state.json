@@ -1,0 +1,10 @@
+{
+  "status": "CANCELLED_STARTUP_FAILURE",
+  "updated_at": "2026-09-16T15:46:53.617104+00:00",
+  "started_at": "2026-09-16T15:44:25.992973+00:00",
+  "function_call_id": "fc-01M2NE820REY4E30WBTCCTFE3B",
+  "build_call_id": "fc-01M2NE820REY4E30WBTCCTFE3B",
+  "app_id": "ap-P7kHHu4b8IRHcluvjbvh3I",
+  "gpu_submitted": false,
+  "reason": "CPU worker could not deserialize modal_runner helper references; app explicitly stopped."
+}

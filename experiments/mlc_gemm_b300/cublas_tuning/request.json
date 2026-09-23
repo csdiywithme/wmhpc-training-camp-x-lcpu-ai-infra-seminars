@@ -1,0 +1,24 @@
+{
+  "scope": ["T1", "T2", "T3"],
+  "workspace_bytes": 67108864,
+  "requested_algorithms": 32,
+  "tune_rounds": 3,
+  "tune_repeat": 10,
+  "tune_warmup": 10,
+  "rounds": 5,
+  "repeat": 150,
+  "seeds": [0, 1, 2],
+  "atol": 0.01,
+  "rtol": 0.02,
+  "dense_peak_tflops": 2250,
+  "expected_cublas_package": "13.1.0.3",
+  "cases": [
+    {"name": "square4096", "shape": [4096, 4096, 4096], "tasks": ["T1"], "cache": "flush256m", "methods": ["lt_tuned"]},
+    {"name": "aligned148", "shape": [2048, 9472, 4096], "tasks": ["T1", "T2"], "cache": "flush256m", "methods": ["lt_tuned", "gemmex_autotune"]},
+    {"name": "tail152", "shape": [2048, 9728, 4096], "tasks": ["T1", "T2"], "cache": "flush256m", "methods": ["lt_tuned", "gemmex_autotune"]},
+    {"name": "aligned148_k8192", "shape": [2048, 9472, 8192], "tasks": ["T1"], "cache": "flush256m", "methods": ["lt_tuned"]},
+    {"name": "square8192", "shape": [8192, 8192, 8192], "tasks": ["T3"], "cache": "steady", "methods": ["lt_tuned", "torch_default"]},
+    {"name": "square12288", "shape": [12288, 12288, 12288], "tasks": ["T3"], "cache": "steady", "methods": ["lt_tuned", "torch_default"]},
+    {"name": "square16384", "shape": [16384, 16384, 16384], "tasks": ["T3"], "cache": "steady", "methods": ["lt_tuned", "torch_default"]}
+  ]
+}

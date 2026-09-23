@@ -1,0 +1,89 @@
+{
+  "gpu": "NVIDIA B300 SXM6 AC",
+  "capability": [
+    10,
+    3
+  ],
+  "torch": "2.10.0+cu130",
+  "triton": "3.6.0",
+  "cuda": "13.0",
+  "arguments": {
+    "mode": "smoke",
+    "output": "/tmp/nextgen-artifacts",
+    "build_dir": "/tmp/nextgen-build",
+    "manifest": "/opt/c2/validation/frozen_calibration.json",
+    "extra_heldout": false,
+    "tier": "full",
+    "tps": [
+      1,
+      4
+    ],
+    "batches": [
+      1,
+      4,
+      8,
+      16
+    ],
+    "storages": [
+      "bf16",
+      "fp8_scalar"
+    ],
+    "seeds": [
+      101,
+      307
+    ],
+    "splits": null,
+    "merge": "feature",
+    "calls": 64,
+    "repeats": 21,
+    "sample_ms": 10.0,
+    "max_replays": 64,
+    "profile_target": "tcgen05",
+    "profile_replays": 1
+  },
+  "sources": {
+    "binding.cpp": "000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a",
+    "partial.cu": "5461b58f04247bfb0dc97da3d7465994a5963af8bd8347451132f6f8d385fb91",
+    "extra_heldout.py": "357c178b0b92972f68b0e05f605b599021dd77a574d0b6e2935ba4bbc56aac1b",
+    "__init__.py": "90a582c07cd2323c93b07a5525d3f2ae27d6c40c5755f84d677381086e5b566d",
+    "adapter.py": "4a76fdd9d8d2e992c6fdec437618637c86955d4e56b31c7ba040f16e868e3207",
+    "build.py": "c038415f79983fcc75fda86d5913104b333c07b0cfe112deeda38a2d505c970d",
+    "run.py": "94a790a2c8700e6615f7e4b6758e724b9aa8e9224f114f37ea2c142f8e60d71a"
+  },
+  "scope": "Single GPU, PDL off, complete partial+merge; BF16 MMA/P and FP32 accumulators; hot fixed-address Graph; no model/service E2E",
+  "build": {
+    "source_hashes": {
+      "binding.cpp": "000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a",
+      "partial.cu": "5461b58f04247bfb0dc97da3d7465994a5963af8bd8347451132f6f8d385fb91"
+    },
+    "architectures": [
+      "103a"
+    ],
+    "cuda_flags": [
+      "-O3",
+      "-std=c++17",
+      "-lineinfo",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--ptxas-options=-v",
+      "-gencode=arch=compute_103a,code=sm_103a",
+      "-DC2_DATAFLOW_VARIANT=3",
+      "-DNDEBUG"
+    ],
+    "variant": "coalesced_release",
+    "variant_id": 3,
+    "ndebug": true,
+    "tmem_elements_per_lane": 1,
+    "tmem_primitive_audit": null,
+    "torch": "2.10.0+cu130",
+    "cuda": "13.0",
+    "cutlass": "/opt/FlashKDA/cutlass",
+    "scope": "CPU compile only",
+    "inverse_layout_coordinate_mismatches": 0,
+    "status": "COMPILED",
+    "module": "/tmp/nextgen-build/c2_nextgen_ext.so",
+    "sass_returncode": 0,
+    "sass_has_tcgen05": true,
+    "seconds": 55.035096782000004
+  }
+}

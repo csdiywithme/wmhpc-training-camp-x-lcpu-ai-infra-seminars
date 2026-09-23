@@ -1,0 +1,7 @@
+{
+  "method": "modal volume get",
+  "volume": "mlc-b300-best-shape-steady",
+  "path": "/20260920T051425Z_b59f6578/artifacts/",
+  "gpu_rerun": false,
+  "status_source": "gpu_return.json"
+}

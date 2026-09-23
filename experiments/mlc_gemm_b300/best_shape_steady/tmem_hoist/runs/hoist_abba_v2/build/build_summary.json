@@ -1,0 +1,154 @@
+{
+  "success": true,
+  "gpu_ready": true,
+  "started_at": "2026-09-20T11:32:16.596707+00:00",
+  "shape": [
+    2048,
+    9472,
+    8192
+  ],
+  "grid_ctas": 148,
+  "cluster_ctas": 2,
+  "threads_per_cta": 384,
+  "dynamic_shared_memory_bytes": 214016,
+  "variants": {
+    "baseline": {
+      "nvcc_command": [
+        "nvcc",
+        "--cubin",
+        "-O3",
+        "-arch=sm_103a",
+        "--std=c++17",
+        "--expt-relaxed-constexpr",
+        "--expt-extended-lambda",
+        "--use_fast_math",
+        "--ptxas-options=-v,--register-usage-level=10",
+        "/results/20260920T113209Z_d3041c92/build/baseline.cu",
+        "-o",
+        "/results/20260920T113209Z_d3041c92/build/baseline.cubin"
+      ],
+      "resource_usage": {
+        "registers": 161,
+        "stack_bytes": 0,
+        "spill_store_bytes": 0,
+        "spill_load_bytes": 0
+      },
+      "sass_analysis": {
+        "identified": true,
+        "mma_count": 8,
+        "k_steps_per_loop_iteration": 2,
+        "dynamic_mmas_per_output_tile_per_consumer": 512,
+        "loop_start": "0x16c0",
+        "loop_end": "0x1d20",
+        "shared_loads_in_mma_loop": [
+          {
+            "pc": "0x1720",
+            "instruction": "LDS R5, [R146]"
+          },
+          {
+            "pc": "0x1af0",
+            "instruction": "LDS R21, [R146]"
+          }
+        ],
+        "shared_load_count_in_mma_loop": 2,
+        "loop_instruction_count": 103
+      },
+      "sha256": {
+        ".cu": "3cd33dd7eb902f63b2ee5e8093790ecb936e1781d30b8699f314c2921f49de96",
+        ".cubin": "73aea27741c2ebfd85daaee27c7d55dbe3321679ab66c31ab2533ffb672a41a9",
+        ".so": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+        ".sass": "11e53f9179cb48173a9f532a9fa877ee623a8001fded470772f2e3959c6c499f"
+      }
+    },
+    "hoisted": {
+      "nvcc_command": [
+        "nvcc",
+        "--cubin",
+        "-O3",
+        "-arch=sm_103a",
+        "--std=c++17",
+        "--expt-relaxed-constexpr",
+        "--expt-extended-lambda",
+        "--use_fast_math",
+        "--ptxas-options=-v,--register-usage-level=10",
+        "/results/20260920T113209Z_d3041c92/build/hoisted.cu",
+        "-o",
+        "/results/20260920T113209Z_d3041c92/build/hoisted.cubin"
+      ],
+      "resource_usage": {
+        "registers": 161,
+        "stack_bytes": 0,
+        "spill_store_bytes": 0,
+        "spill_load_bytes": 0
+      },
+      "sass_analysis": {
+        "identified": true,
+        "mma_count": 16,
+        "k_steps_per_loop_iteration": 4,
+        "dynamic_mmas_per_output_tile_per_consumer": 512,
+        "loop_start": "0x16c0",
+        "loop_end": "0x2380",
+        "shared_loads_in_mma_loop": [],
+        "shared_load_count_in_mma_loop": 0,
+        "loop_instruction_count": 205
+      },
+      "sha256": {
+        ".cu": "35f7e59cd49b9f12923fca06a95cd46aa96a26e77cfec580bf6101a9b9c4ec7a",
+        ".cubin": "ff17bd3ff0b212cbead722ac434ef4b583d3e76640edee1c8b1e2afebf8d63cf",
+        ".so": "383dbef104958984ff298fd030f47672e3e8fe1ad53f56a8bb7f5e8f067a3723",
+        ".sass": "7711a877a2ec68a68d3346acb9b65a3553b33fa4c9d28ebbf484e377b86d3f22"
+      }
+    }
+  },
+  "note": "No GPU is used by this process; GPU correctness remains untested.",
+  "tvm_version": "0.26.0",
+  "factory_sha256": "d711c8416450ba786c16875ad3e7ad0f3406fc327ecb6b63ec10091192b5195f",
+  "input_sha256": {
+    "base_image.py": "14920305fb9ef3825c5e9effe0cc8e761612921014c781a3561c0ffcc7e3bb91",
+    "aligned148_k8192__wide.tirx.py": "74f93965d98f5a189e0ffcc1d98a97101f0d1d7a596a20779ba7ea326269d42d",
+    "aligned148_k8192__wide.so": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+    "aligned148_k8192__wide.cu": "3cd33dd7eb902f63b2ee5e8093790ecb936e1781d30b8699f314c2921f49de96",
+    "kernels_tuned.py": "bb26b68335a4e97702f51e9df05510a8675b917bd41e697f58a2af68f7d08081",
+    "aligned148_k8192__wide.compile.json": "05499c9efb0fa1d6bb82db82d6530a6e9b1e438843f945ec2679c188e2e91653"
+  },
+  "tir_invariants": {
+    "T.cta_id([148])": true,
+    "T.cta_id_in_cluster([2, 1])": true,
+    "T.warpgroup_id([3])": true,
+    "T.warp_id_in_wg([4])": true,
+    "T.lane_id([32])": true,
+    "T.int64(214016)": true,
+    "(3, 2, 128, 64)": true,
+    "(3, 128, 64)": true,
+    "(2, 128, 128)": true,
+    "T.Buffer((2048, 8192)": true,
+    "T.Buffer((9472, 8192)": true,
+    "T.Buffer((2048, 9472)": true
+  },
+  "baseline_tir_invariants": {
+    "T.cta_id([148])": true,
+    "T.cta_id_in_cluster([2, 1])": true,
+    "T.warpgroup_id([3])": true,
+    "T.warp_id_in_wg([4])": true,
+    "T.lane_id([32])": true,
+    "T.int64(214016)": true,
+    "(3, 2, 128, 64)": true,
+    "(3, 128, 64)": true,
+    "(2, 128, 128)": true,
+    "T.Buffer((2048, 8192)": true,
+    "T.Buffer((9472, 8192)": true,
+    "T.Buffer((2048, 9472)": true
+  },
+  "gate": {
+    "launch_and_shared_memory_unchanged": true,
+    "scalar_declared_before_persistent_loop": true,
+    "all_generated_mma_calls_use_scalar_base": true,
+    "same_four_generated_mma_calls": true,
+    "baseline_mma_loop_has_two_lds": true,
+    "candidate_mma_loop_has_zero_lds": true,
+    "same_512_dynamic_mmas_per_tile_consumer": true,
+    "candidate_has_no_spills": true
+  },
+  "gate_failures": [],
+  "seconds": 14.793835373999999
+}

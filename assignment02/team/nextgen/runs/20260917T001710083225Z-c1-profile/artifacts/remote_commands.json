@@ -1,0 +1,93 @@
+[
+  {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Thu Sep 17 00:18:50 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:E6:00.0 Off |                    0 |\n| N/A   25C    P0            176W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": "",
+    "seconds": 0.23964890500000013
+  },
+  {
+    "command": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+    "stderr": "",
+    "seconds": 0.03389508599999935
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/FlashKDA",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "1ce47ea3bb22c84eb9cc665028399cf35e8ffb0b\n",
+    "stderr": "",
+    "seconds": 0.04422557999999999
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/FlashKDA/cutlass",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "5c149f52a436782210263fb2f19b354443a61c6a\n",
+    "stderr": "",
+    "seconds": 0.022406858000000085
+  },
+  {
+    "command": [
+      "ncu",
+      "--clock-control",
+      "none",
+      "--target-processes",
+      "all",
+      "--nvtx",
+      "--nvtx-include",
+      "c1_nextgen_profile_tcgen05/",
+      "--set",
+      "detailed",
+      "--export",
+      "/tmp/nextgen-artifacts/profile",
+      "python",
+      "-u",
+      "/opt/nextgen/c1/run.py",
+      "--mode",
+      "profile",
+      "--output",
+      "/tmp/nextgen-artifacts",
+      "--build-dir",
+      "/tmp/nextgen-build",
+      "--profile-heads",
+      "96",
+      "--profile-length",
+      "8192"
+    ],
+    "returncode": 0,
+    "stdout": "==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.\n==PROF== Connected to process 43 (/usr/local/bin/python3)\n==PROF== Profiling \"elementwise_kernel\" - 0: 0%....50%....100% - 22 passes\n==PROF== Profiling \"_flash_kda_fwd_prepare\" - 1: 0%....50%....100% - 22 passes\n==PROF== Profiling \"kernel\" - 2: 0%....50%....100% - 22 passes\nRESULT_JSON=/tmp/nextgen-artifacts/profile-direct-wide-rowmajor.json\n==PROF== Disconnected from process 43\n==PROF== Report: /tmp/nextgen-artifacts/profile.ncu-rep\n",
+    "stderr": "",
+    "seconds": 39.427059482
+  },
+  {
+    "command": [
+      "ncu",
+      "--import",
+      "/tmp/nextgen-artifacts/profile.ncu-rep",
+      "--page",
+      "raw",
+      "--csv"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "seconds": 0.9886764040000031
+  }
+]

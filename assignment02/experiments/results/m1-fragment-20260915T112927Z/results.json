@@ -1,0 +1,60 @@
+{
+  "source": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m1_sm80/01_fragment_map.cu",
+  "sha256": "aa1f8cef4b6eabd24e0e34630b5dba8433ca3af2e05c7ff44d120c42cf47d1af",
+  "kind": "host-only",
+  "commands": [
+    {
+      "command": [
+        "clang++",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin25.5.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "clang++",
+        "-O2",
+        "-std=c++17",
+        "-x",
+        "c++",
+        "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m1_sm80/01_fragment_map.cu",
+        "-o",
+        "assignment02/experiments/results/m1-fragment-20260915T112927Z/fragment_map"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/experiments/results/m1-fragment-20260915T112927Z/fragment_map"
+      ],
+      "returncode": 1,
+      "stdout": "A lane=0 i=4: yours (r=0,c=0), truth (r=8,c=0)\nA lane=0 i=5: yours (r=0,c=1), truth (r=8,c=1)\nA lane=0 i=6: yours (r=0,c=2), truth (r=8,c=2)\nA lane=0 i=7: yours (r=0,c=3), truth (r=8,c=3)\nA lane=0 i=8: yours (r=8,c=0), truth (r=0,c=16)\nFAIL: 576 mismatches\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "clang++",
+        "-O2",
+        "-std=c++17",
+        "assignment02/experiments/results/m1-fragment-20260915T112927Z/coordinate_diagnostic.cpp",
+        "-o",
+        "assignment02/experiments/results/m1-fragment-20260915T112927Z/coordinate_diagnostic"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/experiments/results/m1-fragment-20260915T112927Z/coordinate_diagnostic"
+      ],
+      "returncode": 0,
+      "stdout": "coordinate mismatches: A.row=256/512 A.col=256/512 B.row=192/256 B.col=0/256\n",
+      "stderr": ""
+    }
+  ]
+}

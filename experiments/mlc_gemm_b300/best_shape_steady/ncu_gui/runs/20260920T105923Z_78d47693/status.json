@@ -1,0 +1,169 @@
+{
+  "state": "failed",
+  "started_at": "2026-09-20T10:59:27.776717+00:00",
+  "shape": [
+    2048,
+    9472,
+    8192
+  ],
+  "variant": "wide",
+  "source_benchmark_run": "20260920T051356Z",
+  "source_manifest": {
+    "input/aligned148_k8192__wide.so": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+    "input/aligned148_k8192__wide.cu": "3cd33dd7eb902f63b2ee5e8093790ecb936e1781d30b8699f314c2921f49de96",
+    "input/aligned148_k8192__wide.tirx.py": "74f93965d98f5a189e0ffcc1d98a97101f0d1d7a596a20779ba7ea326269d42d",
+    "input/aligned148_k8192__wide.compile.json": "05499c9efb0fa1d6bb82db82d6530a6e9b1e438843f945ec2679c188e2e91653",
+    "input/kernels_tuned.py": "bb26b68335a4e97702f51e9df05510a8675b917bd41e697f58a2af68f7d08081",
+    "profile_target.py": "915875b4f4774eedd7be6a679ece7bb38c25662d1a4f59374043c40e7c2197fc",
+    "modal_profile.py": "4cebeae8cef88d50c31162fdaf1275958dd9020e927adc3ec702f505b1fc32e1"
+  },
+  "collection": "sections",
+  "commands": [
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--version"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.17039453899999968,
+      "log": "ncu_version.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--list-sets"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.9792417180000004,
+      "log": "ncu_sets.txt"
+    },
+    {
+      "argv": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.2759937029999997,
+      "log": "nvidia_smi.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--section",
+        "SpeedOfLight",
+        "--section",
+        "SpeedOfLight_RooflineChart",
+        "--section",
+        "ComputeWorkloadAnalysis",
+        "--section",
+        "MemoryWorkloadAnalysis",
+        "--section",
+        "MemoryWorkloadAnalysis_Chart",
+        "--section",
+        "MemoryWorkloadAnalysis_Tables",
+        "--section",
+        "SchedulerStats",
+        "--section",
+        "WarpStateStats",
+        "--section",
+        "InstructionStats",
+        "--section",
+        "LaunchStats",
+        "--section",
+        "Occupancy",
+        "--section",
+        "WorkloadDistribution",
+        "--section",
+        "SourceCounters",
+        "--metrics",
+        "sm__cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_active",
+        "--target-processes",
+        "all",
+        "--nvtx",
+        "--nvtx-include",
+        "wide_2048x9472x8192/",
+        "--kernel-name-base",
+        "function",
+        "--kernel-name",
+        "regex:^kernel_kernel$",
+        "--launch-count",
+        "1",
+        "--replay-mode",
+        "kernel",
+        "--cache-control",
+        "none",
+        "--clock-control",
+        "none",
+        "--import-source",
+        "yes",
+        "--export",
+        "/results/20260920T105923Z_78d47693/wide_M2048_N9472_K8192_sections.ncu-rep",
+        "/usr/local/bin/python",
+        "-u",
+        "/results/20260920T105923Z_78d47693/profile_target.py",
+        "--library",
+        "/results/20260920T105923Z_78d47693/input/aligned148_k8192__wide.so",
+        "--output",
+        "/results/20260920T105923Z_78d47693"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 34.660866534,
+      "log": "profile.log"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--import",
+        "/results/20260920T105923Z_78d47693/wide_M2048_N9472_K8192_sections.ncu-rep",
+        "--page",
+        "details"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.5300478190000035,
+      "log": "details.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--import",
+        "/results/20260920T105923Z_78d47693/wide_M2048_N9472_K8192_sections.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--print-units",
+        "base"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.5189613169999987,
+      "log": "metrics.csv"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--import",
+        "/results/20260920T105923Z_78d47693/wide_M2048_N9472_K8192_sections.ncu-rep",
+        "--page",
+        "session"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.5203080710000023,
+      "log": "session.txt"
+    }
+  ],
+  "counter_validation": {
+    "gpu__time_duration.sum": true,
+    "sm__cycles_elapsed.avg": true,
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": true,
+    "dram__throughput.avg.pct_of_peak_sustained_elapsed": false,
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed": true
+  },
+  "finished_at": "2026-09-20T11:00:08.618125+00:00",
+  "error": "RuntimeError('Required hardware counters are unavailable/NaN; report is partial')",
+  "traceback": "Traceback (most recent call last):\n  File \"/root/modal_profile.py\", line 188, in capture\n    raise RuntimeError(\"Required hardware counters are unavailable/NaN; report is partial\")\nRuntimeError: Required hardware counters are unavailable/NaN; report is partial\n"
+}

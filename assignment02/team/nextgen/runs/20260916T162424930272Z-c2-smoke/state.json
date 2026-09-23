@@ -1,0 +1,5 @@
+{
+  "status": "APP_CREATE_RATE_LIMIT_FAILED",
+  "error": "RESOURCE_EXHAUSTED App create rate limit exceeded before local entrypoint; no function call submitted",
+  "updated_at": "2026-09-16T16:25:54.786385+00:00"
+}

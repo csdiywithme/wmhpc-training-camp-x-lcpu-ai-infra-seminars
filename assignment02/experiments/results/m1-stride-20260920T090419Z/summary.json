@@ -1,0 +1,34 @@
+[
+  {
+    "stride": 32,
+    "wavefronts": 16384,
+    "conflicts": 8192,
+    "actual_warp_ldsm": 2048,
+    "wavefronts_per_ldsm": 8.0,
+    "conflicts_per_ldsm": 4.0
+  },
+  {
+    "stride": 64,
+    "wavefronts": 32768,
+    "conflicts": 24576,
+    "actual_warp_ldsm": 2048,
+    "wavefronts_per_ldsm": 16.0,
+    "conflicts_per_ldsm": 12.0
+  },
+  {
+    "stride": 128,
+    "wavefronts": 65536,
+    "conflicts": 57344,
+    "actual_warp_ldsm": 2048,
+    "wavefronts_per_ldsm": 32.0,
+    "conflicts_per_ldsm": 28.0
+  },
+  {
+    "stride": 144,
+    "wavefronts": 8192,
+    "conflicts": 0,
+    "actual_warp_ldsm": 2048,
+    "wavefronts_per_ldsm": 4.0,
+    "conflicts_per_ldsm": 0.0
+  }
+]

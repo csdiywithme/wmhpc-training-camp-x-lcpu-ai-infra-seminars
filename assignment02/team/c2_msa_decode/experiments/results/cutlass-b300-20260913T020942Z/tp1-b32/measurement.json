@@ -1,0 +1,248 @@
+{
+  "batch": 32,
+  "tp": 1,
+  "dtype": "fp8",
+  "pdl_triton": true,
+  "query_scales": {
+    "q": 0.25,
+    "k": 0.25,
+    "v": 0.5
+  },
+  "correctness": {
+    "against_effective_fp8_q": {
+      "finite": true,
+      "max_abs": 0.0016327023981194608,
+      "nrmse": 0.026555121100606635
+    },
+    "against_original_bf16_q": {
+      "finite": true,
+      "max_abs": 0.0016635934949321626,
+      "nrmse": 0.027369766744808614
+    }
+  },
+  "baseline_correctness": {
+    "finite": true,
+    "max_abs": 0.0002431437718243487,
+    "nrmse": 0.002884690179113787
+  },
+  "effective_baseline_correctness": {
+    "finite": true,
+    "max_abs": 0.00024746174278120897,
+    "nrmse": 0.002887983765245092
+  },
+  "cold_plan_seconds": 0.06138621200000216,
+  "first_attention_seconds": 133.94595503200003,
+  "attention_graph": {
+    "mean_us": 19.5125558724006,
+    "median_us": 19.502000883221626,
+    "p05_us": 19.459599629044533,
+    "p95_us": 19.60200034081936,
+    "min_us": 19.449999555945396,
+    "max_us": 19.638000056147575,
+    "samples_us": [
+      19.638000056147575,
+      19.548000767827034,
+      19.516000524163246,
+      19.49699968099594,
+      19.473999738693237,
+      19.502000883221626,
+      19.449999555945396,
+      19.486000761389732,
+      19.502000883221626
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "metadata_graph": {
+    "mean_us": 1.4804444249926343,
+    "median_us": 1.4680000022053719,
+    "p05_us": 1.4534000074490905,
+    "p95_us": 1.5375999733805656,
+    "min_us": 1.4530000044032931,
+    "max_us": 1.5559999737888575,
+    "samples_us": [
+      1.5559999737888575,
+      1.509999972768128,
+      1.4830000000074506,
+      1.475999946705997,
+      1.4540000120177865,
+      1.462999964132905,
+      1.4609999489039183,
+      1.4530000044032931,
+      1.4680000022053719
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "q_quantize_graph": {
+    "mean_us": 8.105333377089766,
+    "median_us": 8.116000331938267,
+    "p05_us": 8.05479995906353,
+    "p95_us": 8.149999938905239,
+    "min_us": 8.047999814152718,
+    "max_us": 8.154000155627728,
+    "samples_us": [
+      8.143999613821507,
+      8.125999942421913,
+      8.128000423312187,
+      8.154000155627728,
+      8.069000206887722,
+      8.116000331938267,
+      8.065000176429749,
+      8.047999814152718,
+      8.097999729216099
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "full_graph": {
+    "mean_us": 31.125666780604256,
+    "median_us": 31.082000583410263,
+    "p05_us": 30.99140003323555,
+    "p95_us": 31.295599788427353,
+    "min_us": 30.96500039100647,
+    "max_us": 31.32599964737892,
+    "samples_us": [
+      31.32599964737892,
+      31.25,
+      31.17400035262108,
+      31.230000779032707,
+      30.96500039100647,
+      31.082000583410263,
+      31.03099949657917,
+      31.03099949657917,
+      31.04200027883053
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "triton_original_q_graph": {
+    "mean_us": 43.638666884766685,
+    "median_us": 43.588001281023026,
+    "p05_us": 43.5589998960495,
+    "p95_us": 43.85799914598465,
+    "min_us": 43.55499893426895,
+    "max_us": 43.977998197078705,
+    "samples_us": [
+      43.67800056934357,
+      43.60499978065491,
+      43.581001460552216,
+      43.57299953699112,
+      43.588001281023026,
+      43.55499893426895,
+      43.977998197078705,
+      43.56500133872032,
+      43.62500086426735
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "triton_effective_q_graph": {
+    "mean_us": 43.54522211684121,
+    "median_us": 43.55600103735924,
+    "p05_us": 43.45000013709068,
+    "p95_us": 43.62400025129318,
+    "min_us": 43.418001383543015,
+    "max_us": 43.63600164651871,
+    "samples_us": [
+      43.63600164651871,
+      43.55600103735924,
+      43.605998158454895,
+      43.52999851107597,
+      43.418001383543015,
+      43.497998267412186,
+      43.51000115275383,
+      43.59599947929382,
+      43.556999415159225
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "plan_scalars": {
+    "kv_tile_begin_indices": null,
+    "kv_tile_end_indices": null,
+    "kv_split_indices": null,
+    "num_kv_splits": 1,
+    "workspace_o": null,
+    "workspace_lse": null,
+    "max_qo_len": 16,
+    "predicted_speedup": 0.8049414753913879,
+    "num_kv_splits_per_row": null,
+    "max_k_tiles": -1,
+    "pack_factor": 16,
+    "orig_num_qo_heads": 64,
+    "qo_len_uniform": true,
+    "MM-SA-Nv": false
+  },
+  "plan_tensors": {
+    "packed_work_range": {
+      "shape": [
+        148
+      ],
+      "dtype": "torch.int64",
+      "bytes": 1184
+    },
+    "packed_work_info": {
+      "shape": [
+        262144
+      ],
+      "dtype": "torch.int64",
+      "bytes": 2097152
+    },
+    "qo_segment_offsets": {
+      "shape": [
+        33
+      ],
+      "dtype": "torch.int32",
+      "bytes": 132
+    },
+    "kv_segment_offsets": {
+      "shape": [
+        33
+      ],
+      "dtype": "torch.int32",
+      "bytes": 132
+    },
+    "kv_page_indptr": {
+      "shape": [
+        33
+      ],
+      "dtype": "torch.int32",
+      "bytes": 132
+    },
+    "qo_segment_lens": {
+      "shape": [
+        32
+      ],
+      "dtype": "torch.int32",
+      "bytes": 128
+    },
+    "kv_segment_lens": {
+      "shape": [
+        32
+      ],
+      "dtype": "torch.int32",
+      "bytes": 128
+    },
+    "qo_offset": {
+      "shape": [
+        32
+      ],
+      "dtype": "torch.int32",
+      "bytes": 128
+    },
+    "cute_workspace_buffer": {
+      "shape": [
+        33554432
+      ],
+      "dtype": "torch.uint8",
+      "bytes": 33554432
+    }
+  }
+}

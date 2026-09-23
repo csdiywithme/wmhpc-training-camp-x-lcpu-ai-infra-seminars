@@ -1,0 +1,10 @@
+{
+  "command": [
+    "cuobjdump",
+    "--dump-sass",
+    "/tmp/nextgen-build/c2_nextgen_ext.so"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "seconds": 0.5685070410000037
+}

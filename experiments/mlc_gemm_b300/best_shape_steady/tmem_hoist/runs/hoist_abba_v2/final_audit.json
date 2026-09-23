@@ -1,0 +1,33 @@
+{
+  "state": "passed",
+  "checks": {
+    "benchmark_completed": true,
+    "original_failed_profile_preserved": true,
+    "retry_completed": true,
+    "retry_did_not_repeat_benchmark": true,
+    "retry_all_commands_succeeded": true,
+    "profile_target_completed_and_validated": true,
+    "profiled_binary_matches_benchmark": true,
+    "baseline_binary_matches_benchmark": true,
+    "retry_report_sha_matches": true,
+    "shared_load_prediction_matches": true,
+    "frozen_source_manifest_matches": true
+  },
+  "sha256": {
+    "benchmark/results.json": "d8e4cf5a628fc3d2278de8f9686aba9a07227976ff15b1339e70216a2fb766ea",
+    "build/build_summary.json": "9fade161e2d84848a321b436a031a3aeb554b011371c92740ee0ac2b60da6284",
+    "status.json": "c5a65ad39210f76c91f0292a9eeb044f32c5e081e29bb9340c3ffc2d4e1e3c10",
+    "independent_benchmark_audit.json": "e0188077ded42b10b9ff71a9b0cfcb986f771e0f5e4c3aacf5f4649748d4d30f",
+    "ncu_comparison.json": "b7b5d4da20aa9fba8ac95a3490b6fef731dd5957199b60acee793216fa8720f6",
+    "profile_retry_hardware/status.json": "cfdede7a732c78aad3e0df4e74f81a6400ca6928c30fe4e3632cf7e7270421ef",
+    "profile_retry_hardware/profile_candidate/profile_target.json": "c683f017df1bf34c7f4c4f283a0946946517d17084fbafbfddf85dd3f8bc153c",
+    "profile_retry_hardware/candidate_hardware.ncu-rep": "ccf7312a8b6a64ab5cb0887e4239dfe8df9a763a1990419841dec55f9d2cab83"
+  },
+  "decision": "Keep baseline wide. No reliable speedup demonstrated; reduction in ordinary shared-load instructions confirmed.",
+  "benchmark_phase": "complete",
+  "first_full_ncu_phase": "failed_unvalidated_do_not_use",
+  "reduced_ncu_phase": "complete_validated",
+  "new_gpu_benchmark_runs": 1,
+  "new_candidate_ncu_attempts": 2,
+  "initialization_failure_not_a_capture": 1
+}

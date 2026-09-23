@@ -1,0 +1,20 @@
+{
+  "void tile_kernel<1>(const __nv_bfloat16 *, const __nv_bfloat16 *, float *)": {
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": "778",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared.sum": "384",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utccp.sum": "0",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_a.sum": "256",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_b_scope_1cta.sum": "128",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_b_scope_2cta.sum": "0",
+    "sm__sass_data_bytes_mem_shared_op_st.sum": "49162"
+  },
+  "void tile_kernel<2>(const __nv_bfloat16 *, const __nv_bfloat16 *, float *)": {
+    "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": "652",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared.sum": "320",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utccp.sum": "0",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_a.sum": "256",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_b_scope_1cta.sum": "0",
+    "l1tex__data_pipe_tc_wavefronts_mem_shared_op_utcmma_matrix_b_scope_2cta.sum": "64",
+    "sm__sass_data_bytes_mem_shared_op_st.sum": "40970"
+  }
+}

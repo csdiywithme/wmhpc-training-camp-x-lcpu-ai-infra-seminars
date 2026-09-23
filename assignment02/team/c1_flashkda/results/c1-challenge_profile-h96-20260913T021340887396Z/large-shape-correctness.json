@@ -1,0 +1,80 @@
+[
+  {
+    "heads": 96,
+    "lengths": [
+      8192
+    ],
+    "output": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    },
+    "state": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    }
+  },
+  {
+    "heads": 96,
+    "lengths": [
+      1300,
+      547,
+      2048,
+      963,
+      271,
+      3063
+    ],
+    "output": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    },
+    "state": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    }
+  },
+  {
+    "heads": 96,
+    "lengths": [
+      1024,
+      1024,
+      1024,
+      1024,
+      1024,
+      1024,
+      1024,
+      1024
+    ],
+    "output": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    },
+    "state": {
+      "finite": true,
+      "exact": true,
+      "max_abs": 0.0,
+      "mean_abs": 0.0,
+      "rmse": 0.0,
+      "rmse_ratio": 0.0
+    }
+  }
+]

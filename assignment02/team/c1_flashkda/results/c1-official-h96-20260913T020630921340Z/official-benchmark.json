@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/usr/local/bin/python",
+    "/opt/FlashKDA/benchmarks/bench_fwd.py",
+    "--mode",
+    "all",
+    "--H",
+    "96",
+    "--warmup",
+    "30",
+    "--iters",
+    "200",
+    "--repeats",
+    "5"
+  ],
+  "returncode": 0,
+  "stdout": "shape=[8192,96,128] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=1.0785 ms, min=1.0740 ms, max=1.2191 ms\n  flash_kda (no state)   : mean=1.0303 ms, min=1.0259 ms, max=1.0798 ms\n  flash_kda (fp32 state) : mean=1.0440 ms, min=1.0392 ms, max=1.0954 ms\n  chunk_kda : mean=2.3699 ms, min=2.3574 ms, max=3.2885 ms\n  chunk_gated_delta_rule : mean=1.2901 ms, min=1.2831 ms, max=1.6799 ms\nvarlen shape=[8192,96,128] seq_lens=[1300, 547, 2048, 963, 271, 3063] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=0.8888 ms, min=0.8366 ms, max=1.1112 ms\n  flash_kda (no state)   : mean=0.8581 ms, min=0.8182 ms, max=1.1270 ms\n  flash_kda (fp32 state) : mean=0.8982 ms, min=0.8541 ms, max=1.1909 ms\n  chunk_kda : mean=2.3809 ms, min=2.3623 ms, max=3.3088 ms\n  chunk_gated_delta_rule : mean=1.3346 ms, min=1.3270 ms, max=1.8113 ms\nvarlen shape=[8192,96,128] seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] warmup=30 iters=200 repeats=5\n  flash_kda (bf16 state) : mean=0.7109 ms, min=0.7065 ms, max=0.9550 ms\n  flash_kda (no state)   : mean=0.6952 ms, min=0.6891 ms, max=0.9373 ms\n  flash_kda (fp32 state) : mean=0.7280 ms, min=0.7238 ms, max=0.9765 ms\n  chunk_kda : mean=2.3374 ms, min=2.3241 ms, max=3.3037 ms\n  chunk_gated_delta_rule : mean=1.2841 ms, min=1.2748 ms, max=1.7403 ms\n",
+  "stderr": ""
+}

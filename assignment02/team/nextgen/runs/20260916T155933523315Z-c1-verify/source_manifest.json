@@ -1,0 +1,80 @@
+[
+  {
+    "path": "c1/DESIGN.md",
+    "sha256": "6702c5e7e9f494d01cb57622bff0824854ae9e6b642be24d0c540444de5f22e2",
+    "bytes": 11358,
+    "original": "assignment02/team/c1_flashkda/nextgen/DESIGN.md"
+  },
+  {
+    "path": "c1/build.py",
+    "sha256": "90be93bea6e7039efcbb5e4c75b5c588ec23bcfdccd86cddfbe770a02ce5152a",
+    "bytes": 5837,
+    "original": "assignment02/team/c1_flashkda/nextgen/build.py"
+  },
+  {
+    "path": "c1/k2_tcgen05.cuh",
+    "sha256": "542719ee5e7e6e0efcdeed3b158dab1423c06cf1f75fd7256ecba2499a78b062",
+    "bytes": 9635,
+    "original": "assignment02/team/c1_flashkda/nextgen/k2_tcgen05.cuh"
+  },
+  {
+    "path": "c1/run.py",
+    "sha256": "dcc8fe0cb047afefcd7dfb022a9f19d1242d30ec9fe62a63572fbd58afd7ff4a",
+    "bytes": 28271,
+    "original": "assignment02/team/c1_flashkda/nextgen/run.py"
+  },
+  {
+    "path": "c1_reference/run_experiments.py",
+    "sha256": "894ac25bf14f5bd78ff0b7acec493d514f3ad55a883c624783ff684a3c51b2d1",
+    "bytes": 14054,
+    "original": "assignment02/team/c1_flashkda/run_experiments.py"
+  },
+  {
+    "path": "c1_reference/fla_kda_ref/naive.py",
+    "sha256": "60a32285d4b67068ff633b48bbe8ab31028066d24f00d27e12199a88fc73f016",
+    "bytes": 6339,
+    "original": "assignment02/team/c1_flashkda/fla_kda_ref/naive.py"
+  },
+  {
+    "path": "protocol/README.md",
+    "sha256": "67fdbcc99c30a31cde1fcfc7906b9f599a8368607e1b087ed0e808d72df43056",
+    "bytes": 4308,
+    "original": "assignment02/team/nextgen/README.md"
+  },
+  {
+    "path": "protocol/JOURNAL.md",
+    "sha256": "cb22eb07bd13b640905de843c92d23305f3566df288081bbd54003d7de84ed87",
+    "bytes": 8871,
+    "original": "assignment02/team/nextgen/JOURNAL.md"
+  },
+  {
+    "path": "protocol/HYPOTHESES.md",
+    "sha256": "f5a597e4b4a069bcd57f961c6b5fb80598b487c33124eb35f3f760f351cce68b",
+    "bytes": 3933,
+    "original": "assignment02/team/nextgen/HYPOTHESES.md"
+  },
+  {
+    "path": "protocol/ACCEPTANCE.md",
+    "sha256": "7dea219b9b0936eea494b2231938a02e369a3d38e874af6808b92245ae61ec0d",
+    "bytes": 19773,
+    "original": "assignment02/team/nextgen/ACCEPTANCE.md"
+  },
+  {
+    "path": "protocol/base_image.py",
+    "sha256": "5eea56c1279f4e385cf1523e7e31c8069001341fffb1a9af512a656cf4a894e7",
+    "bytes": 1555,
+    "original": "assignment02/team/nextgen/base_image.py"
+  },
+  {
+    "path": "protocol/modal_runner.py",
+    "sha256": "930dbf9562ebdeef40dc6fed9e280d6e50249614e05ad9c06bf314760293c68f",
+    "bytes": 10954,
+    "original": "assignment02/team/nextgen/modal_runner.py"
+  },
+  {
+    "path": "protocol/prepare_run.py",
+    "sha256": "72c20eee35c2c7cce24f50e55ee279207067f7b7d26ce48c11d44b0d7c390b95",
+    "bytes": 6306,
+    "original": "assignment02/team/nextgen/prepare_run.py"
+  }
+]

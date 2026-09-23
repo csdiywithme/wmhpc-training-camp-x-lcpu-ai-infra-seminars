@@ -1,0 +1,67 @@
+{
+  "commands": [
+    {
+      "command": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "stdout": "Tue Sep 15 13:04:42 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:A3:00.0 Off |                    0 |\n| N/A   44C    P0            188W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/m1/cuda/bin/m1_sm80/02_bug_fragment"
+      ],
+      "returncode": 0,
+      "stdout": "PASS\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/m1/cuda/bin/m1_sm80/02_bug_fragment_diagnostic"
+      ],
+      "returncode": 0,
+      "stdout": "GOT row 0: -1 -5 -16 15 -3 0 10 -1\nREF row 0: -1 -5 -16 15 -3 0 10 -1\nGOT row 1: 0 -6 9 3 -3 12 -15 0\nREF row 1: 0 -6 9 3 -3 12 -15 0\nGOT row 2: 1 11 7 -18 6 -12 5 1\nREF row 2: 1 11 7 -18 6 -12 5 1\nGOT row 3: 11 1 5 -12 6 -18 7 11\nREF row 3: 11 1 5 -12 6 -18 7 11\nGOT row 4: -6 0 -15 12 -3 3 9 -6\nREF row 4: -6 0 -15 12 -3 3 9 -6\nGOT row 5: -5 -1 10 0 -3 15 -16 -5\nREF row 5: -5 -1 10 0 -3 15 -16 -5\nGOT row 6: 5 -11 8 6 -3 9 -14 5\nREF row 6: 5 -11 8 6 -3 9 -14 5\nGOT row 7: 6 6 6 -15 6 -15 6 6\nREF row 7: 6 6 6 -15 6 -15 6 6\nGOT row 8: -11 5 -14 9 -3 6 8 -11\nREF row 8: -11 5 -14 9 -3 6 8 -11\nGOT row 9: -1 -5 -16 15 -3 0 10 -1\nREF row 9: -1 -5 -16 15 -3 0 10 -1\nGOT row 10: 0 -6 9 3 -3 12 -15 0\nREF row 10: 0 -6 9 3 -3 12 -15 0\nGOT row 11: 1 11 7 -18 6 -12 5 1\nREF row 11: 1 11 7 -18 6 -12 5 1\nGOT row 12: 11 1 5 -12 6 -18 7 11\nREF row 12: 11 1 5 -12 6 -18 7 11\nGOT row 13: -6 0 -15 12 -3 3 9 -6\nREF row 13: -6 0 -15 12 -3 3 9 -6\nGOT row 14: -5 -1 10 0 -3 15 -16 -5\nREF row 14: -5 -1 10 0 -3 15 -16 -5\nGOT row 15: 5 -11 8 6 -3 9 -14 5\nREF row 15: 5 -11 8 6 -3 9 -14 5\nPASS\n",
+      "stderr": ""
+    }
+  ],
+  "build": [
+    {
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "make",
+        "-B",
+        "ARCH=100f",
+        "bin/m1_sm80/02_bug_fragment"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc -O2 -std=c++17 -I. --expt-relaxed-constexpr -gencode arch=compute_100f,code=sm_100f -o bin/m1_sm80/02_bug_fragment m1_sm80/02_bug_fragment.cu\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "make",
+        "-B",
+        "ARCH=100f",
+        "bin/m1_sm80/02_bug_fragment_diagnostic"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc -O2 -std=c++17 -I. --expt-relaxed-constexpr -gencode arch=compute_100f,code=sm_100f -o bin/m1_sm80/02_bug_fragment_diagnostic m1_sm80/02_bug_fragment_diagnostic.cu\n",
+      "stderr": ""
+    }
+  ],
+  "input_sha256": {
+    "common.h": "80017b942556fdea270cb4b3790d0f22c05043a675c471ed1a17ef82e9c86619",
+    "Makefile": "8fdb776dc7a235fec41a4db457b0b1efe15b4defed92f0cb57db207a09b7342c",
+    "m1_sm80/02_bug_fragment.cu": "3f6ab5df0e18414497d1e69648d31880f37235ef58fbd0b376277543e89fc78c"
+  },
+  "diagnostic_source": "// \u95ee\u9898 1.2:\u4fee bug\u3002\u8fd9\u4e2a\u7a0b\u5e8f\u53d1\u4e00\u6761 m16n8k16 fp16 \u7684 mma,\u5224\u6d4b\u4f1a FAIL\u3002\n//\n// \u63d0\u4ea4\u65f6\u56de\u7b54\u4e24\u95ee(\u5148\u8dd1,\u540e\u6539):\n// (a) \u63cf\u8ff0\u9519\u8bef\u75c7\u72b6:D \u7684\u54ea\u4e9b\u4f4d\u7f6e\u9519,\u9519\u6210\u4e86\u4ec0\u4e48\u6837(\u548c\u5bf9\u7684\u90e8\u5206\u662f\u4ec0\u4e48\n//     \u5173\u7cfb)\u3002\n// (b) \u9519\u7684\u662f\u54ea\u4e2a fragment \u7684\u54ea\u90e8\u5206\u6620\u5c04?\u4e3a\u4ec0\u4e48\u6070\u597d\u4ea7\u751f (a) \u7684\u75c7\u72b6?\n//\n// \u8fd0\u884c:make run/m1_sm80/02_bug_fragment\n#include <cuda_fp16.h>\n#include \"../common.h\"\n\n__global__ void mma_buggy(const __half* A, const __half* B, float* D) {\n    int lane = threadIdx.x;\n    int group = lane >> 2;\n    int tig = lane & 3;\n\n    // A fragment:8 \u4e2a fp16 \u9010\u4e2a\u88c5\u8f7d\u3002\n    __half a0 = A[group * 16 + tig * 2];\n    __half a1 = A[group * 16 + tig * 2 + 1];\n    __half a2 = A[(group + 8) * 16 + tig * 2];\n    __half a3 = A[(group + 8) * 16 + tig * 2 + 1];\n    __half a4 = A[group * 16 + tig * 2 + 8];\n    __half a5 = A[group * 16 + tig * 2 + 9];\n    __half a6 = A[(group + 8) * 16 + tig * 2 + 8];\n    __half a7 = A[(group + 8) * 16 + tig * 2 + 9];\n    unsigned ra[4];\n    reinterpret_cast<__half2*>(ra)[0] = __halves2half2(a0, a1);\n    reinterpret_cast<__half2*>(ra)[1] = __halves2half2(a2, a3);\n    reinterpret_cast<__half2*>(ra)[2] = __halves2half2(a4, a5);\n    reinterpret_cast<__half2*>(ra)[3] = __halves2half2(a6, a7);\n\n    __half b0 = B[(tig * 2) * 8 + group];\n    __half b1 = B[(tig * 2 + 1) * 8 + group];\n    __half b2 = B[(tig * 2 + 8) * 8 + group];\n    __half b3 = B[(tig * 2 + 9) * 8 + group];\n    unsigned rb[2];\n    reinterpret_cast<__half2*>(rb)[0] = __halves2half2(b0, b1);\n    reinterpret_cast<__half2*>(rb)[1] = __halves2half2(b2, b3);\n\n    float c[4] = {0.f, 0.f, 0.f, 0.f}, d[4];\n    asm volatile(\n        \"mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32 \"\n        \"{%0,%1,%2,%3}, {%4,%5,%6,%7}, {%8,%9}, {%10,%11,%12,%13};\\n\"\n        : \"=f\"(d[0]), \"=f\"(d[1]), \"=f\"(d[2]), \"=f\"(d[3])\n        : \"r\"(ra[0]), \"r\"(ra[1]), \"r\"(ra[2]), \"r\"(ra[3]), \"r\"(rb[0]),\n          \"r\"(rb[1]), \"f\"(c[0]), \"f\"(c[1]), \"f\"(c[2]), \"f\"(c[3]));\n\n    D[group * 8 + tig * 2] = d[0];\n    D[group * 8 + tig * 2 + 1] = d[1];\n    D[(group + 8) * 8 + tig * 2] = d[2];\n    D[(group + 8) * 8 + tig * 2 + 1] = d[3];\n}\n\nint main() {\n    __half hA[16 * 16], hB[16 * 8];\n    float ref[16 * 8] = {};\n    // A \u7684\u4e0a\u4e0b\u534a\u7279\u610f\u4e0d\u540c,\u522b\u6539\u8fd9\u4efd\u6570\u636e\u3002\n    for (int r = 0; r < 16; r++)\n        for (int k = 0; k < 16; k++)\n            hA[r * 16 + k] = __float2half((float)((r * 7 + k * 3) % 9 - 4));\n    for (int k = 0; k < 16; k++)\n        for (int n = 0; n < 8; n++)\n            hB[k * 8 + n] = __float2half((float)((k + n * 5) % 7 - 3));\n    for (int r = 0; r < 16; r++)\n        for (int n = 0; n < 8; n++)\n            for (int k = 0; k < 16; k++)\n                ref[r * 8 + n] += __half2float(hA[r * 16 + k]) *\n                                  __half2float(hB[k * 8 + n]);\n\n    __half *dA, *dB;\n    float* dD;\n    CUDA_CHECK(cudaMalloc(&dA, sizeof(hA)));\n    CUDA_CHECK(cudaMalloc(&dB, sizeof(hB)));\n    CUDA_CHECK(cudaMalloc(&dD, 16 * 8 * 4));\n    CUDA_CHECK(cudaMemcpy(dA, hA, sizeof(hA), cudaMemcpyHostToDevice));\n    CUDA_CHECK(cudaMemcpy(dB, hB, sizeof(hB), cudaMemcpyHostToDevice));\n    mma_buggy<<<1, 32>>>(dA, dB, dD);\n    CUDA_CHECK_KERNEL();\n    float got[16 * 8];\n    CUDA_CHECK(cudaMemcpy(got, dD, sizeof(got), cudaMemcpyDeviceToHost));\n\n    for (int r = 0; r < 16; ++r) {\n        printf(\"GOT row %d:\", r);\n        for (int n = 0; n < 8; ++n) printf(\" %.0f\", got[r * 8 + n]);\n        printf(\"\\nREF row %d:\", r);\n        for (int n = 0; n < 8; ++n) printf(\" %.0f\", ref[r * 8 + n]);\n        printf(\"\\n\");\n    }\n    long bad = 0;\n    for (int r = 0; r < 16; r++)\n        for (int n = 0; n < 8; n++)\n            if (got[r * 8 + n] != ref[r * 8 + n]) {\n                if (bad < 4)\n                    printf(\"MISMATCH D[%d][%d]: got %.0f, want %.0f\\n\", r, n,\n                           got[r * 8 + n], ref[r * 8 + n]);\n                bad++;\n            }\n    if (bad)\n        printf(\"FAIL: %ld / 128 mismatches\\n\", bad);\n    else\n        printf(\"PASS\\n\");\n    return bad != 0;\n}\n"
+}

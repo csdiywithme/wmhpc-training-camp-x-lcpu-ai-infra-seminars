@@ -1,0 +1,325 @@
+{
+  "source_sha256": "3ac7d132a228d0259a746ecef42ec1e28f87d13876fa4964b0d0f4fae22d018d",
+  "rows": [
+    {
+      "M": 128,
+      "N": 16,
+      "K": 128,
+      "blocks": 1,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 9.8413124,
+          "64": 21.3160162
+        },
+        "incremental_ns": 182.13815555555558
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 25.0012796,
+          "64": 40.6424964
+        },
+        "incremental_ns": 248.27328253968253
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 128,
+      "blocks": 12,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 9.9175522,
+          "64": 21.3980314
+        },
+        "incremental_ns": 182.22982857142858
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 24.3462722,
+          "64": 39.8070084
+        },
+        "incremental_ns": 245.4085111111111
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 128,
+      "blocks": 96,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 10.0431996,
+          "64": 21.536496
+        },
+        "incremental_ns": 182.43327619047622
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 24.8805756,
+          "64": 40.3576004
+        },
+        "incremental_ns": 245.66706031746037
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 128,
+      "blocks": 148,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 10.3126562,
+          "64": 21.8159196
+        },
+        "incremental_ns": 182.59148253968257
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 25.2908474,
+          "64": 40.846943
+        },
+        "incremental_ns": 246.9221523809524
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 16,
+      "blocks": 1,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.410352,
+          "64": 5.8784802
+        },
+        "incremental_ns": 23.30362222222223
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 5.64,
+          "64": 11.5840154
+        },
+        "incremental_ns": 94.3494507936508
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 16,
+      "blocks": 12,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.409984,
+          "64": 5.910896
+        },
+        "incremental_ns": 23.82400000000001
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 5.6385119999999995,
+          "64": 11.5828002
+        },
+        "incremental_ns": 94.35378095238096
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 16,
+      "blocks": 96,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.512688,
+          "64": 5.9675839999999996
+        },
+        "incremental_ns": 23.0935873015873
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 5.737456,
+          "64": 11.683472
+        },
+        "incremental_ns": 94.38120634920635
+      }
+    },
+    {
+      "M": 128,
+      "N": 16,
+      "K": 16,
+      "blocks": 148,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.610016,
+          "64": 6.050528
+        },
+        "incremental_ns": 22.86526984126984
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 5.74664,
+          "64": 11.7673758
+        },
+        "incremental_ns": 95.56723492063492
+      }
+    },
+    {
+      "M": 128,
+      "N": 128,
+      "K": 16,
+      "blocks": 1,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 8.4105282,
+          "64": 20.596287
+        },
+        "incremental_ns": 193.42474285714286
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 13.2128158,
+          "64": 20.6874878
+        },
+        "incremental_ns": 118.6455873015873
+      }
+    },
+    {
+      "M": 128,
+      "N": 128,
+      "K": 16,
+      "blocks": 12,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 8.482752,
+          "64": 20.6889278
+        },
+        "incremental_ns": 193.7488222222222
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 13.1863042,
+          "64": 20.6910394
+        },
+        "incremental_ns": 119.12278095238096
+      }
+    },
+    {
+      "M": 128,
+      "N": 128,
+      "K": 16,
+      "blocks": 96,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 8.612224,
+          "64": 20.801775799999998
+        },
+        "incremental_ns": 193.4849492063492
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 13.62448,
+          "64": 21.1013602
+        },
+        "incremental_ns": 118.68063809523808
+      }
+    },
+    {
+      "M": 128,
+      "N": 128,
+      "K": 16,
+      "blocks": 148,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 8.7106878,
+          "64": 20.909344400000002
+        },
+        "incremental_ns": 193.62946984126987
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 14.039760000000001,
+          "64": 21.5878246
+        },
+        "incremental_ns": 119.81054920634921
+      }
+    },
+    {
+      "M": 64,
+      "N": 16,
+      "K": 16,
+      "blocks": 1,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 2.8740799999999997,
+          "64": 3.505408
+        },
+        "incremental_ns": 10.02107936507937
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.0017119999999995,
+          "64": 10.041712
+        },
+        "incremental_ns": 95.87301587301589
+      }
+    },
+    {
+      "M": 64,
+      "N": 16,
+      "K": 16,
+      "blocks": 12,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 2.874432,
+          "64": 3.498512
+        },
+        "incremental_ns": 9.906031746031742
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.000912,
+          "64": 10.040832
+        },
+        "incremental_ns": 95.87174603174603
+      }
+    },
+    {
+      "M": 64,
+      "N": 16,
+      "K": 16,
+      "blocks": 96,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 2.9776,
+          "64": 3.693552
+        },
+        "incremental_ns": 11.364317460317462
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.103712,
+          "64": 10.1461924
+        },
+        "incremental_ns": 95.9123873015873
+      }
+    },
+    {
+      "M": 64,
+      "N": 16,
+      "K": 16,
+      "blocks": 148,
+      "sm80": {
+        "kernel_us_by_inner_loops": {
+          "1": 2.9780640000000003,
+          "64": 3.69336
+        },
+        "incremental_ns": 11.353904761904762
+      },
+      "tcgen05": {
+        "kernel_us_by_inner_loops": {
+          "1": 4.106,
+          "64": 10.1460318
+        },
+        "incremental_ns": 95.87352063492064
+      }
+    }
+  ]
+}

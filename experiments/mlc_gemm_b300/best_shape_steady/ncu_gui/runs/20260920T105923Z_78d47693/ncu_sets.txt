@@ -1,0 +1,20 @@
+---------- --------------------------------------------------------------------------- ------- -----------------
+Identifier Sections                                                                    Enabled Estimated Metrics
+---------- --------------------------------------------------------------------------- ------- -----------------
+basic      LaunchStats, Occupancy, SpeedOfLight, WorkloadDistribution                  yes     213              
+detailed   ComputeWorkloadAnalysis, LaunchStats, MemoryWorkloadAnalysis, MemoryWorkloa no      996              
+           dAnalysis_Chart, Occupancy, SourceCounters, SpeedOfLight, SpeedOfLight_Roof                          
+           lineChart, Tile, WorkloadDistribution                                                                
+full       ComputeWorkloadAnalysis, InstructionStats, LaunchStats, MemoryWorkloadAnaly no      8051             
+           sis, MemoryWorkloadAnalysis_Chart, MemoryWorkloadAnalysis_Tables, NumaAffin                          
+           ity, Nvlink_Tables, Nvlink_Topology, Occupancy, PmSampling, SchedulerStats,                          
+            SourceCounters, SpeedOfLight, SpeedOfLight_HierarchicalDoubleRooflineChart                          
+           , SpeedOfLight_HierarchicalHalfRooflineChart, SpeedOfLight_HierarchicalSing                          
+           leRooflineChart, SpeedOfLight_HierarchicalTensorRooflineChart, SpeedOfLight                          
+           _RooflineChart, Tile, WarpStateStats, WorkloadDistribution                                           
+nvlink     Nvlink, Nvlink_Tables, Nvlink_Topology                                      no      122              
+pmsampling PmSampling, PmSampling_WarpStates                                           no      550              
+roofline   SpeedOfLight, SpeedOfLight_HierarchicalDoubleRooflineChart, SpeedOfLight_Hi no      6679             
+           erarchicalHalfRooflineChart, SpeedOfLight_HierarchicalSingleRooflineChart,                           
+           SpeedOfLight_HierarchicalTensorRooflineChart, SpeedOfLight_RooflineChart, W                          
+           orkloadDistribution                                                                                  

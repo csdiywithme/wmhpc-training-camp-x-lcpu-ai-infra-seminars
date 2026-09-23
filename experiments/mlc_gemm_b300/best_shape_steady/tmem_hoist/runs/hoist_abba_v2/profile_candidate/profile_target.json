@@ -1,0 +1,70 @@
+{
+  "status": "starting",
+  "started_at": "2026-09-20T11:33:51.017953+00:00",
+  "shape": [
+    2048,
+    9472,
+    8192
+  ],
+  "variant": "hoisted",
+  "arch": "sm_103a",
+  "protocol": {
+    "seed": 2,
+    "warmup_calls": 50,
+    "nvtx_range": "tmem_hoist_candidate",
+    "profiled_application_invocations": 1,
+    "cache_control": "no explicit flush",
+    "stream": "torch default stream with tvm_ffi.use_torch_stream",
+    "clock_policy": "unchanged",
+    "timer": null,
+    "reference": "FP32 torch.mm with TF32 disabled, rounded to FP16",
+    "ncu_replay": "NCU may replay this single selected invocation for counters"
+  },
+  "packages": {
+    "torch": "2.10.0+cu130",
+    "apache-tvm": "0.26.0",
+    "apache-tvm-ffi": "0.1.14.post0",
+    "nvidia-cublas": "13.1.0.3",
+    "nvidia-cuda-runtime": "13.0.96"
+  },
+  "python": "3.11.5 (main, Aug 26 2023, 07:22:50) [Clang 16.0.3 ]",
+  "torch_cuda": "13.0",
+  "gpu": {
+    "name": "NVIDIA B300 SXM6 AC",
+    "uuid": "84685ad4-9592-56d9-1151-3458135ec60d",
+    "sm_count": 148,
+    "compute_capability": [
+      10,
+      3
+    ],
+    "total_memory_bytes": 287428771840,
+    "properties": "_CudaDeviceProperties(name='NVIDIA B300 SXM6 AC', major=10, minor=3, total_memory=274113MB, multi_processor_count=148, uuid=84685ad4-9592-56d9-1151-3458135ec60d, pci_bus_id=56, pci_device_id=0, pci_domain_id=0, L2_cache_size=126MB)"
+  },
+  "initial_telemetry": {
+    "time_utc": "2026-09-20T11:33:58.047822+00:00",
+    "returncode": 0,
+    "stdout": "0, GPU-84685ad4-9592-56d9-1151-3458135ec60d, NVIDIA B300 SXM6 AC, 580.95.05, P0, 37, 230.61, 1100.00, 2032, 3996, 0, 776\n",
+    "stderr": "",
+    "gpus": [
+      {
+        "index": "0",
+        "uuid": "GPU-84685ad4-9592-56d9-1151-3458135ec60d",
+        "name": "NVIDIA B300 SXM6 AC",
+        "driver_version": "580.95.05",
+        "pstate": "P0",
+        "temperature.gpu": "37",
+        "power.draw": "230.61",
+        "power.limit": "1100.00",
+        "clocks.sm": "2032",
+        "clocks.mem": "3996",
+        "utilization.gpu": "0",
+        "memory.used": "776"
+      }
+    ]
+  },
+  "library": {
+    "path": "/__modal/volumes/vo-8Iz8Ve2cQ4rsz7q19pyk2C/20260920T113209Z_d3041c92/build/hoisted.so",
+    "sha256": "383dbef104958984ff298fd030f47672e3e8fe1ad53f56a8bb7f5e8f067a3723",
+    "size_bytes": 64400
+  }
+}

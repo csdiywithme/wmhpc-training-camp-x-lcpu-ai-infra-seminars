@@ -1,0 +1,90 @@
+{
+  "purpose": "Unmodified starter diagnostics; expected failures are not completed solutions. Host only; no GPU execution or performance evidence.",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "time_utc": "2026-09-11T06:56:43.415857+00:00",
+  "git_head": "0c5c6bea018e97713487cf849ab979ea3b038d5b",
+  "compiler": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin25.5.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "checks": [
+    {
+      "source": "assignment02/cuda/m1_sm80/01_fragment_map.cu",
+      "sha256": "dbe263c625a207ffe9c3d9d517581c4132dbb3eecc10ffce208c450cd8b79783",
+      "compile": {
+        "command": [
+          "clang++",
+          "-x",
+          "c++",
+          "-std=c++17",
+          "-O2",
+          "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m1_sm80/01_fragment_map.cu",
+          "-o",
+          "/private/tmp/host-scaffold-20260911T065641Z/01_fragment_map"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/private/tmp/host-scaffold-20260911T065641Z/01_fragment_map"
+        ],
+        "returncode": 1,
+        "stdout": "A lane=0 i=1: yours (r=0,c=0), truth (r=0,c=1)\nA lane=0 i=2: yours (r=0,c=0), truth (r=0,c=2)\nA lane=0 i=3: yours (r=0,c=0), truth (r=0,c=3)\nA lane=0 i=4: yours (r=0,c=0), truth (r=8,c=0)\nA lane=0 i=5: yours (r=0,c=0), truth (r=8,c=1)\nFAIL: 766 mismatches\n",
+        "stderr": ""
+      }
+    },
+    {
+      "source": "assignment02/cuda/m2_smem/02_descriptor.cu",
+      "sha256": "6932541811de592cdd3624f2c3a9abaeb19b22b8c82fd140acd7ed737bdc89b4",
+      "compile": {
+        "command": [
+          "clang++",
+          "-x",
+          "c++",
+          "-std=c++17",
+          "-O2",
+          "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m2_smem/02_descriptor.cu",
+          "-o",
+          "/private/tmp/host-scaffold-20260911T065641Z/02_descriptor"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/private/tmp/host-scaffold-20260911T065641Z/02_descriptor"
+        ],
+        "returncode": 1,
+        "stdout": "场景 1 FAIL:\n    字段 start_address 不一致(yours=0x0)\n    字段 LBO 不一致(yours=0x0)\n    字段 SBO 不一致(yours=0x0)\n    字段 version 不一致(yours=0x0)\n场景 2 FAIL:\n    字段 start_address 不一致(yours=0x0)\n    字段 SBO 不一致(yours=0x0)\n    字段 version 不一致(yours=0x0)\n    字段 layout_type 不一致(yours=0x0)\n场景 3 FAIL:\n    字段 start_address 不一致(yours=0x0)\n    字段 SBO 不一致(yours=0x0)\n    字段 version 不一致(yours=0x0)\n    字段 layout_type 不一致(yours=0x0)\n",
+        "stderr": ""
+      }
+    },
+    {
+      "source": "assignment02/cuda/m2_smem/03_swizzle.cu",
+      "sha256": "53f1f0c411ac2d522b901973a5eeffe27b54d6a771dce793282d72ad4f8072b8",
+      "compile": {
+        "command": [
+          "clang++",
+          "-x",
+          "c++",
+          "-std=c++17",
+          "-O2",
+          "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m2_smem/03_swizzle.cu",
+          "-o",
+          "/private/tmp/host-scaffold-20260911T065641Z/03_swizzle"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "run": {
+        "command": [
+          "/private/tmp/host-scaffold-20260911T065641Z/03_swizzle"
+        ],
+        "returncode": 1,
+        "stdout": "128B FAIL:双射检查,896 处越界或碰撞\n 64B FAIL:双射检查,448 处越界或碰撞\n 32B FAIL:双射检查,224 处越界或碰撞\n",
+        "stderr": ""
+      }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "path": "c1/DESIGN.md",
+    "sha256": "127aee1447f57009df4705be1b00b7537dfd99758b2e1028082f2011003f5dd3",
+    "bytes": 15537,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/DESIGN.md"
+  },
+  {
+    "path": "c1/PROFILE_ANALYSIS.md",
+    "sha256": "ed5100682364ce7abebb36f010f38fec553d9498f0ada340c9e263a6a540d812",
+    "bytes": 7246,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/PROFILE_ANALYSIS.md"
+  },
+  {
+    "path": "c1/build.py",
+    "sha256": "d43f6658514a3da22a36d1563110de8da5981f3c72995793b4e7cb189603be24",
+    "bytes": 7889,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/build.py"
+  },
+  {
+    "path": "c1/k2_tcgen05.cuh",
+    "sha256": "542719ee5e7e6e0efcdeed3b158dab1423c06cf1f75fd7256ecba2499a78b062",
+    "bytes": 9635,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/k2_tcgen05.cuh"
+  },
+  {
+    "path": "c1/k2_tcgen05_direct.cuh",
+    "sha256": "43b774ffd93357d85224ec1be8cef689d4fb393fb714522795cb567f7ad0a5e8",
+    "bytes": 10267,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/k2_tcgen05_direct.cuh"
+  },
+  {
+    "path": "c1/k2_tcgen05_direct_wide.cuh",
+    "sha256": "296a256a2be1b115b92a817f6dd112f84ea9c532bd84e87d1d9e922f8a34e39c",
+    "bytes": 10503,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/k2_tcgen05_direct_wide.cuh"
+  },
+  {
+    "path": "c1/run.py",
+    "sha256": "0ef70781a668bbac23cea15f1c50a35d99fc43c772ea95c8ad93832f2980f626",
+    "bytes": 29888,
+    "original": "assignment02/team/nextgen/runs/20260917T000402989288Z-c1-smoke/sources/c1/run.py"
+  },
+  {
+    "path": "c1_reference/run_experiments.py",
+    "sha256": "894ac25bf14f5bd78ff0b7acec493d514f3ad55a883c624783ff684a3c51b2d1",
+    "bytes": 14054,
+    "original": "assignment02/team/c1_flashkda/run_experiments.py"
+  },
+  {
+    "path": "c1_reference/fla_kda_ref/naive.py",
+    "sha256": "60a32285d4b67068ff633b48bbe8ab31028066d24f00d27e12199a88fc73f016",
+    "bytes": 6339,
+    "original": "assignment02/team/c1_flashkda/fla_kda_ref/naive.py"
+  },
+  {
+    "path": "protocol/README.md",
+    "sha256": "6ad226fe1b002ac61879a8afea8de8d32b52ee84dc7bbd5fff3ccf212d0f2f13",
+    "bytes": 4531,
+    "original": "assignment02/team/nextgen/README.md"
+  },
+  {
+    "path": "protocol/JOURNAL.md",
+    "sha256": "30da7aa9cb980028d35c396a551661d9d25e685bfc7280b579f537487c0e234e",
+    "bytes": 13190,
+    "original": "assignment02/team/nextgen/JOURNAL.md"
+  },
+  {
+    "path": "protocol/HYPOTHESES.md",
+    "sha256": "f5a597e4b4a069bcd57f961c6b5fb80598b487c33124eb35f3f760f351cce68b",
+    "bytes": 3933,
+    "original": "assignment02/team/nextgen/HYPOTHESES.md"
+  },
+  {
+    "path": "protocol/ACCEPTANCE.md",
+    "sha256": "7dea219b9b0936eea494b2231938a02e369a3d38e874af6808b92245ae61ec0d",
+    "bytes": 19773,
+    "original": "assignment02/team/nextgen/ACCEPTANCE.md"
+  },
+  {
+    "path": "protocol/base_image.py",
+    "sha256": "5eea56c1279f4e385cf1523e7e31c8069001341fffb1a9af512a656cf4a894e7",
+    "bytes": 1555,
+    "original": "assignment02/team/nextgen/base_image.py"
+  },
+  {
+    "path": "protocol/modal_runner.py",
+    "sha256": "32e837f1d5159defbad4978beb55211f65a6e0cf85c12d66c9a733cf38c26ea5",
+    "bytes": 11154,
+    "original": "assignment02/team/nextgen/modal_runner.py"
+  },
+  {
+    "path": "protocol/prepare_run.py",
+    "sha256": "6ee651caee922df17e4c2cd6b70e1f4572a9e8d469bda649a086bee894b4e360",
+    "bytes": 6665,
+    "original": "assignment02/team/nextgen/prepare_run.py"
+  }
+]

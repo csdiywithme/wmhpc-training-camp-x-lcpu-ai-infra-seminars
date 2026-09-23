@@ -5,6 +5,8 @@ subtitle: Weiming HPC Training Camp $\times$ LCPU AI Infra Seminars · Session 3
 
 # Preface {-}
 
+[个人回答与实验记录（截至 2026-09-22）](#personal-records)：已做部分统一收录于文末，原题保留。
+
 这次作业主要是 Session 3 的配套练习，内容围绕 Tensor Core 展开，其中 Module 4 还会用到 Session 4 介绍的 tiling、TMA 和 pipeline。完成作业时主要参考课程课件和 PTX ISA 文档。
 
 题型沿用系列惯例，并新增 DERIVE：先手工推导，再写程序验证推导。共七种：
@@ -874,3 +876,250 @@ README 中固定的版本重新核实。 -->
 - **代码**：提交所有动手题的实现与判测输出；FROM-SCRATCH 题同时保留判测脚本的 PASS 记录。
 - **报告**：包含纸面题解答、实验表格与性能归因，以及 DEBUG 题的现象记录和修改说明。所有实验数据注明使用的 GPU。
 - **团队题**：提交代码、报告并完成答辩，具体要求见 `team/README.md`。
+
+# 个人回答与实验记录（截至 2026-09-22） {#personal-records}
+
+本节整理已经讨论、实现或运行的非团队部分，保留上文原题。回答由学习讨论整理；代码中有按本人请求由助教补全或修正的部分，具体注明。未完成项不计为完成。GPU 证据均来自 Modal B300；尚无 RTX 5090 实测。历史记录验证的是各目录保存的源码快照，不自动证明之后的编辑正确。
+
+## 0.1 环境、架构与 PTX
+
+B300 上，`ARCH=100f` 编译及运行成功，四个输出均为 2；`ARCH=120a` 编译成功，但运行报 `cudaErrorNoKernelImageForDevice`。编译器可以在没有目标 GPU 的机器上生成 cubin，是否能执行由目标架构兼容性决定。B300 的 compute capability 为 10.3，不能运行面向 12.0 架构专属特性的 120a cubin。
+
+这次两个二进制的 `cuobjdump --list-ptx` 均没有列出嵌入 PTX；不能假定 driver 会自动找到另外导出的 `.ptx` 文件并回退。Driver JIT 需要程序提供可兼容的 PTX。单独导出的 PTX 为 `.version 9.1`、`.target sm_100f`，含 `mma.sync.aligned.m16n8k16.row.col.f32.f16.f16.f32`。
+
+证据：[0.1 编译、运行与 PTX 记录](../../experiments/results/m0-20260913T065647046705Z/OBSERVATIONS.md)。
+
+## 0.2 峰值推导
+
+统一口径：单 GPU、dense、FMA=2 FLOP；BF16 输入与 FP32 累加。频率用于标称模型，不把运行时动态时钟或指令依赖延迟当成固定吞吐。TFLOPS、GB/s 均使用十进制单位。2026-09-22 按本人请求由助教查阅官方资料补表。
+
+| 量 | RTX 5090 | B300 SXM |
+|---|---|---|
+| bf16 FLOP/cycle/SM | 512（依据白皮书峰值、170 SM、2407MHz反算） | 8192（Blackwell tcgen05 满速 BF16 吞吐模型） |
+| bf16 峰值(TFLOPS) | 209.5 | 2250 |
+| fp8 峰值(TFLOPS) | 位宽估计419；白皮书FP32累加419，FP16累加838；新kind路径需另分口径，见下文 | 位宽估计4500；官方dense4500 |
+| fp4 峰值(TFLOPS) | 简单位宽估计838；官方FP32累加dense1676 | 简单位宽估计9000；官方dense13500 |
+| datasheet 对照值与口径差异 | BF16 209.5/419、FP8 FP32累加419/838、FP4 1676/3352分别为dense/sparse；不可把3352 AI TOPS当BF16峰值 | HGX为8卡总量：BF16 36PF sparse、FP8 72PF sparse，单卡dense各除以16；FP4明确列144PF sparse/108PF dense，单卡dense除以8 |
+| HBM/GDDR 带宽(GB/s) | 1792，GDDR7 | 8000，HBM3e，规格上限 |
+| 机器平衡点(FLOP/byte，bf16) | 209.5×1000/1792 ≈ 116.91 | 2250×1000/8000 = 281.25 |
+
+推导采用 `P = SM数 × 每SM每周期FLOP × 频率`。5090 白皮书列170 SM、每SM四个Tensor Core和2407MHz；以512 FLOP/cycle/SM计算为 `170×512×2.407/1000=209.50528 TFLOPS`。这里512来自规格反算，不冒充独立MMA吞吐或延迟微基准；官网2.41GHz是显示精度较粗的值。[RTX Blackwell白皮书，Table 3及脚注](https://images.nvidia.com/aem-dam/Solutions/geforce/blackwell/nvidia-rtx-blackwell-gpu-architecture.pdf)
+
+B300 使用8192 FLOP/cycle/SM的BF16模型；项目已留存的B300设备探测为148 SM。若以官方2250TFLOPS标称值校准，等效频率为 `2250×1000/(148×8192)≈1.85580 GHz`。这是**从官方峰值反推的模型频率，不是读取到的boost规格，也不是独立验证**。取1.86GHz时得到2255.09TFLOPS，与官方舍入值接近。实际实验需另记录动态时钟。CUTLASS说明Blackwell `tcgen05.kind::f16` 相对Hopper吞吐加倍；本表使用相应8192模型，不从一条MMA有多少在飞或延迟多少周期直接推出它。[CUTLASS架构说明](https://docs.nvidia.com/cutlass/latest/media/docs/cpp/blackwell_functionality.html)
+
+官方B300数值按HGX B300 SXM口径取值：FP4的dense不是sparse的一半，该表已分别列出108PF/144PF（八卡）。Ultra的dense NVFP4增强使其不同于简单的位宽减半估计。不要把最高配置Blackwell Ultra/GB300宣传中的15PF直接混入本表的B300 SXM 13.5PF。[HGX规格和脚注](https://www.nvidia.com/en-us/data-center/hgx/)、[Blackwell Ultra架构说明](https://developer.nvidia.com/blog/inside-nvidia-blackwell-ultra-the-chip-powering-the-ai-factory-era/)
+
+5090 的 FP8 还必须区分指令路径：白皮书的FP32累加行列419TFLOPS；CUTLASS又明确说明SM120新增 `mma.sync.aligned.kind::f8f6f4` / block-scale路径对FP32 accumulator具有相对Ada FP8的2倍吞吐。不能把419作为所有SM120 FP8指令的统一上限；若后续使用新kind路径，应单独使用其吞吐口径并实测。FP4的官方1676也说明只从BF16按位宽推成四倍会低估新低精度路径。[CUTLASS SM120说明](https://docs.nvidia.com/cutlass/latest/media/docs/cpp/blackwell_functionality.html#blackwell-sm120-gemms)
+
+带宽独立核对：[5090官方发布规格](https://www.nvidia.com/en-gb/geforce/news/rtx-50-series-graphics-cards-gpu-laptop-announcements/)、[HGX每GPU带宽表](https://docs.nvidia.com/enterprise-reference-architectures/hgx-ai-factory/latest/components.html)。
+
+与单条MMA的3.2 FLOP/byte相比，BF16机器平衡点分别约为其36.5倍和87.9倍。这说明若每次MMA都从显存重新取全部输入，供数无法匹配算力；GEMM需要跨输出复用输入，并通过tiling、shared、寄存器/TMEM与流水提高有效利用率。但3.2是指令操作数口径，不等于整个kernel的实际HBM算术强度，不能直接代入kernel roofline。
+
+
+## 0.3 概念判断
+
+依题目顺序为：**对、对、错、错**。
+
+- 一次矩阵乘的运算量按 FMA=2 FLOPs 计为 `2MNK`；题设只计 A、B 的读取及 D 的写回时，字节数为各矩阵元素数乘对应元素字节数。
+- `mma.sync` 要求 warp 中参与线程一致执行相同指令。进入 MMA 前已经重新汇合的分支，与让部分 lane 跳过 MMA 不同。
+- 增大 MMA 形状并不保证提高实际利用率，还会增加准备操作数、寄存器等资源压力。
+- 复用能减少重复搬运、提高算术强度；pipeline 可以重叠供数和计算、隐藏等待，但仅仅重叠并不改变运算量与数据量之比。
+
+讨论原记录：[0.3](../../experiments/m0_concepts.md)。
+
+## 1.1 FP8 fragment 映射
+
+这里对应 `mma.m16n8k32` 的 FP8 布局，不能套用元素数相同但布局不同的另一幅图。令 lane 为 0–31，A 的 i 为 0–15，B 的 i 为 0–7，已实现的映射为：
+
+```cpp
+A_row = (lane >> 2) | ((i & 4) << 1);
+A_col = ((lane & 3) << 2) | (i & 3) | ((i & 8) << 1);
+B_row = (i & 3) | ((lane & 3) << 2) | ((i & 4) << 2);
+B_col = lane >> 2;
+```
+
+每个 b32 寄存器装四个 FP8 元素。A 中这四个元素沿 K（列）连续，B 中沿 K（行）连续。因此 `lane=0,i=4` 对应 A(8,0)，不是 A(0,4)。`ldmatrix.b16` 可以把两个 FP8 字节当成一个 16-bit 单元搬运，不做浮点格式转换；目的寄存器仍为 b32。
+
+本人实现的 A 512 项、B 256 项 host 真值检查通过：[原始记录](../../experiments/results/m1-fragment-20260915T120220Z/results.json)。2026-09-22 对当前源码再次检查仍 PASS：[本次 host 复核](../../experiments/results/host-review-20260922T033125Z/results.json)。
+
+## 1.2 错误 fragment
+
+现象是 D 的 M 方向重复。追溯到 A 的下半部分行数据错误地重复使用了上半部分：需要来自下方 8 行的 `a2/a3/a6/a7` 没有正确取行。本人定位并修正后，固定输入由 **FAIL 59/128 → PASS 128/128**。不匹配数不是整齐的 64，是因为部分数值碰巧相等。
+
+证据：[修改和 B300 对拍](../../experiments/results/m1-bug-20260915T130436Z/OBSERVATIONS.md)。
+
+## 1.3 手工装载 FP8 MMA
+
+本人编写 kernel 主体，助教按请求补 main 并协助修正 D 映射、字节打包和公共头文件复用。FP8 类型来自 `cuda_fp8.h`；小整数测试输入能精确表示，测试选用的小范围不是 FP8 的完整动态范围。
+
+D 的每线程四个元素映射为 `row=(lane>>2)+(i>=2?8:0)`、`col=2*(lane&3)+(i&1)`。在 B300 上使用课程五个 seed（1、7、42、1234、99999），每次 128 个结果严格对拍全部通过。
+
+证据：[1.3 记录](../../experiments/results/m1-fp8-20260916T010107Z/OBSERVATIONS.md)。
+
+## 1.4 ldmatrix
+
+按本人请求由助教完成教学实现。对照 MMA 所需的寄存器布局和 ldmatrix 的搬运布局，构造 shared 地址；不能仅由 MMA 的 `.row.col` 推出 B 必须使用 `.trans`。
+
+已验证版本中 A 使用 `.m8n8.x4.b16`，四块按左上、左下、右上、右下排列。每个 lane 提供的字节地址为 `A+(lane&15)*32+(lane>>4)*16`。B 先暂存成 `B[n][k]`，让 K 连续，再使用不带 `.trans` 的 `.x2`；提供地址的前 16 个 lane 使用 `B+(lane&7)*32+((lane>>3)&1)*16`。提供行地址的 lane 与最终获得片段的 lane 是两种角色。
+
+`.trans.b16` 转置的是 16-bit 单元，不能当作逐个 FP8 字节的转置。B 的手工路径和 ldmatrix 路径最终都必须得到每个寄存器内沿 K 连续的四个 FP8。
+
+B300 三个 seed（1、7、42），两条路径均 128/128 PASS。对保存的 PTX，仅统计 smem→fragment 这一段：
+
+| 类别 | 手工路径 | ldmatrix 路径 |
+|---|---:|---:|
+| 装载 | 12 | 2 |
+| 地址算术 | 12 | 10 |
+| 基址搬运 | 2 | 2 |
+| 打包 | 12 | 0 |
+| 合计 | 38 | 14 |
+
+不包含 global→shared、B 暂存布局准备等；这是 PTX 静态统计，不是 SASS 数或速度提升。后来编辑过的当前源码不能仅凭该历史结果视为重测通过。
+
+证据：[已验证源码和统计口径](../../experiments/results/m1-ldmatrix-20260920T075433Z/OBSERVATIONS.md)。
+
+## 1.5 stride 与 bank conflict
+
+使用 `bank=(byte_address/4)%32` 推导。对一个 8×8 b16 子矩阵，stride 32/64/128/144 B 分别需要 2/4/8/1 个 wavefront；`.x4` 对应 8/16/32/4。本人先预测，再运行 B300 NCU 验证：
+
+| stride（B） | kernel wavefront | kernel conflict | 每条实际 warp LDSM wavefront | 每条实际 warp LDSM conflict | 程序打印 cycle |
+|---|---:|---:|---:|---:|---:|
+| 32 | 16384 | 8192 | 8 | 4 | 9.72 |
+| 64 | 32768 | 24576 | 16 | 12 | 10.75 |
+| 128 | 65536 | 57344 | 32 | 28 | 16.06 |
+| 144 | 8192 | 0 | 4 | 0 | 9.23 |
+
+归一化必须看实际 SASS：PTX 中展开的重复装载被合并，机器码每个循环体只剩 2 条 LDSM，循环 128 次、8 个 warp，共 2048 条 warp LDSM。不能按源码 `8*4096` 除计数器。
+
+wavefront 比为 2:4:8:1，但原程序 128B/32B 耗时比约 1.65。循环还有 LOP3、循环控制、依赖及多个 warp 交错执行；wavefront 工作量不等于整个循环周期。打印 cycle 是 `(t1-t0)/4096`，不是单条实际 LDSM 延迟，不能据此量化延迟隐藏。普通计时与 NCU replay 计时分开。
+
+证据：[原始 NCU、SASS 与归因限制](../../experiments/results/m1-stride-20260920T090419Z/OBSERVATIONS.md)。
+
+## 2.1 proxy、fence 与完成等待
+
+本题排序为：
+
+```text
+st.shared → fence.proxy.async → wgmma.fence
+          → wgmma.mma_async → wgmma.commit_group → wgmma.wait_group
+```
+
+`fence.proxy.async` 建立 generic proxy 写 shared 与 async proxy 读取之间的顺序；`wgmma.fence` 处理此前寄存器访问与随后 WGMMA 寄存器访问的排序，不能替代前者。`commit_group` 将此前未提交的操作归组，不代表执行完成；读取结果前需要相应的完成等待，`wait_group 0` 等待全部已提交组。跨线程生产和消费还要满足对应的线程同步，不能将这一简化顺序当成完整的多线程协议。
+
+三个判断为：**错、错、对**。proxy fence 并非 WGMMA 专属；关键是是否跨 proxy、是否需要建立可见性，不是所有 shared 读取都无条件加同一种 fence。
+
+## 2.2 descriptor：已有推导与未通过项
+
+已讨论的 `(LBO字节数,SBO字节数,layout)` 为：无 swizzle 的 K-major `(128,1024,0)`；128B swizzle 的 K-major 和本题 MN-major 均为 `(0,1024,2)`。这里的 0 是本题特定布局的结果，不应推广成所有 swizzle 布局都忽略 LBO。地址及 stride 按描述符要求的 16B 单位编码，不能直接把字节数写入位域。
+
+K-major/MN-major 的选择在 MMA instruction descriptor 的相关 major 位中；对于本题 `.kind::f16`，A、B 对应 bit 15、16。两种 major 可以具有相同的 smem 布局字段；不同起始地址仍会造成整个 64-bit descriptor 不同。
+
+**当前源码未全部通过。** 2026-09-22 host 复核：场景 1 FAIL，LBO 编码得到 `0x1`；场景 2、3 PASS。上述是已经讨论的推导，不是声称当前实现已修复。本次整理没有改动该源码。
+
+证据：[当前 host 输出](../../experiments/results/host-review-20260922T033125Z/results.json)。
+
+## 2.3 swizzle：区分课程检查与硬件映射
+
+令 `g=colByte>>4`、`b=colByte&15`，当前代码实现：
+
+```text
+128B: row*128 + ((row    ^g)*16) + b
+ 64B: row*64  + (((row&3)^g)*16) + b
+ 32B: row*32  + (((row&1)^g)*16) + b
+```
+
+本次 host 三种模式全部 PASS，证明满足当前题目检查器的双射和访问条件。但 64/32B 的课程行坐标映射与按连续字节地址解释的 PTX 硬件 swizzle 不能直接等同。
+
+对按 `x=row*W+colByte` 连续排列、相应对齐基址下的 atom，PTX 字节地址异或关系可写为 `x ^ (((x>>7)&(W/16-1))<<4)`。因此 W=64/32 时参与异或的是 `row>>1`/`row>>2` 的低位，不是直接取 row 的低位。例如 64B 模式 `(row=1,colByte=0)`，当前课程函数返回 80，而上述硬件字节映射返回 64。
+
+128B 模式两者一致，已在 3.2 的硬件 GEMM 中使用并通过；64/32B 目前只有课程 host 检查，没有硬件消费验证。**不把三项 host PASS 写成三种 PTX 硬件布局均已验证。**
+
+证据：[当前 host 输出](../../experiments/results/host-review-20260922T033125Z/results.json)。
+
+## 3.1 TMEM 概念判断
+
+依次为：**对、对、错、对、错**。
+
+- (a) 在本题 warpgroup 的读取布局中，各 warp 对应自己的 32 条 TMEM lane；不能据此说整个 CTA 中永远只有一个 warp 能访问某一段。
+- (b) MMA 由一个线程发射并异步执行；alloc/ld 等指令各有自己的协作范围，不能照搬单线程发射规则。
+- (c) 结果通过 `tcgen05.ld` 到寄存器，再写回 global，不能直接用 TMA 从 TMEM 写回。
+- (d) 按题面容量：`128*512*4=256 KiB`，`128*256*4=128 KiB`，占一半。申请按列计，一列包含 128 个 32-bit lane 元素，不是一列总共仅 4 B。
+- (e) commit 发出完成通知请求，不阻塞到 MMA 完成；需要 mbarrier 等待及相应排序后再读取。
+
+## 3.2 单 tile tcgen05
+
+按本人明确请求由助教补全教学实现，然后逐段学习。计算 BF16 `128×64×64`，FP32 累加。A/B 以 K-major、128B swizzle 暂存，占 16/8 KiB；申请 64 列 TMEM，即 32 KiB。
+
+执行流程：初始化 shared 中的 mbarrier 和 TMEM 地址槽；由一个完整 warp 分配 TMEM；协作 staging，并建立 proxy 可见性和线程同步；一个线程发射四次 K=16 的 MMA（覆盖 K=0…63），第一次不累加旧 TMEM、后续累加；commit 到 mbarrier；等待 phase 0 完成并执行相应 fence；各 warp 通过 `tcgen05.ld` 读回，等待 load 完成再使用寄存器；所有消费者结束后释放 TMEM。
+
+`alloc` 的 `[dst]` 是用于接收 TMEM 地址的 **shared memory 地址**；写回的值才是 TMEM 地址。inline asm 的 `"r"`/`"l"` 描述 32/64-bit 寄存器操作数，`"=r"` 是输出约束。末尾 `"memory"` 是告知编译器内存可能被读写的 clobber，限制编译器重排；它本身不发出 GPU fence，不能代替线程同步或异步完成等待。
+
+官方五 seed 均通过，8192 个输出逐项匹配；Compute Sanitizer memcheck、synccheck 均为 0 errors。证据：[3.2 保存结果](../../experiments/results/m3-tile-20260921T143738Z)。**题目要求的删除 proxy fence 观察实验还没有做，本题不能标为全部完成。**
+
+## 3.3 mbarrier parity 调试
+
+原版用固定 `mbar_wait(mbar_u32,0)`：两个 seed（42、7）均 rounds=1 PASS，rounds=2/4 在 5 秒后超时，退出码 124。本人改为 `mbar_wait(mbar_u32,round&1)` 后，六个用例全部 PASS。每次 correctness 使用 `timeout -k 2s 5s`，无自动重试。
+
+mbarrier 初始化 expected arrival=1。MMA 完成通知使 pending 从 1 降到 0，完成当前 phase，然后重新装载计数并翻转 parity。四个 warp 等待是消费者等待，不是四次 arrival。
+
+```text
+初始：phase 0，pending 1
+  round 0 MMA完成通知 → phase 0完成 → phase 1，pending 1
+  wait(parity=0)返回 → 安全读本轮TMEM
+  round 1 MMA完成通知 → phase 1完成 → phase 0，pending 1
+  wait(parity=1)返回 → 安全读本轮TMEM
+  round 2 MMA完成通知 → phase 0完成 → phase 1，pending 1
+  wait(parity=0)返回 → ……
+```
+
+| round | 等待的 parity | 本轮完成后的 parity |
+|---|---:|---:|
+| 0 | 0 | 1 |
+| 1 | 1 | 0 |
+| 2 | 0 | 1 |
+| 3 | 1 | 0 |
+
+固定传 0 的第二轮有两类时序风险：若在第二轮 MMA 完成前检查，当前 parity 为 1，可能把上一轮完成当成本轮完成，提前读在飞 MMA 的 TMEM；若第二轮已经完成，当前 parity 回到 0，则会等待下一个尚未完成的 phase，而线程卡在等待中不能发出后续工作。
+
+```text
+round 1 已完成 → 当前phase 0 / pending 1
+              → 错误 wait(0) 等phase 0完成
+              → 下一次通知尚未提交，线程不能前进
+              → 等待循环不退出（即使外层 rounds=2）
+```
+
+外层循环只决定成功结束本轮后是否继续；它不会自动终止内层的 barrier 等待。实测超时并未采集 GPU PC，不能断言每次都停在同一条指令。`tcgen05.wait::ld` 等待 load 完成，也不能替代此前 MMA 的完成等待。
+
+与 3.2 的区别：3.2 在 TMEM 累加四个 K 子块后读一次；本题每轮产生部分结果并读到寄存器，最终在寄存器累加。因此每轮读都必须对应本轮 MMA 的完成。
+
+证据：[修复前](../../experiments/results/m3-mbarrier-20260922T021741Z)、[修复后](../../experiments/results/m3-mbarrier-20260922T030525Z)。
+
+## 3.4 CTA pair：预测与本次实验
+
+本题使用给定完整程序，比较同一个 BF16 `M=256,N=64,K=64` 任务。本人最初回答 B 为 1/2、总 shared 为 2/3、TMEM 不变；讨论后总 shared 比例修正为 **5/6**。不能假定 M=N，也不能把 B 减半当成 A+B 减半。
+
+(a) 每 CTA 的 A 为 `128*64*2=16 KiB`，保持不变；B 从 `64*64*2=8 KiB` 减为 4 KiB。所以操作数 shared 为 24→20 KiB，比例 5/6。TMEM 每 CTA 都为 `128*64*4=32 KiB`，两个 CTA 合计 64 KiB，不变。
+
+2026-09-22 B300 实测两种实现均 **PASS，bad=0**。程序打印每 block shared 为 **24588→20492 B**，比纯 A/B 多 12B 管理空间，绝对值减少 4096 B；含管理空间的比值不严格等于 5/6。
+
+(b) NCU 每种实现采集一个 kernel，各有两个 block：
+
+| shared 相关指标 | cta_group::1 | cta_group::2 |
+|---|---:|---:|
+| SASS shared store bytes | 49162 | 40970 |
+| Tensor Core shared wavefront 总量 | 384 | 320 |
+| A operand wavefront | 256 | 256 |
+| B operand wavefront（对应 1CTA/2CTA scope） | 128 | 64 |
+| LSU shared store wavefront | 778 | 652 |
+
+全 grid 的 A/B staging 为 48→40 KiB；store bytes 比纯操作数各多 10B，包含管理写入，不能当成纯 A/B 字节数。两版实测差恰为 8192B。Tensor Core shared 读取的 A 不变、B 减半，总 wavefront 恰好降到 5/6，与预测一致。LSU store wavefront 包含额外写入影响，不强行要求完全按同一比例变化；也不混加不同层级的计数器。
+
+普通运行打印 13.22/14.32 us，仅作原始记录。本题明确要求不以该单 tile 耗时比较优劣；NCU replay 时间更不能作为基准。运行 correctness 超时 5 秒，NCU 超时 35 秒，均额外给 2 秒退出宽限，无自动重试。本次正常完成。
+
+证据：[3.4 实验记录](../../experiments/results/m3-pair-20260922T033128Z/OBSERVATIONS.md)、[原始 NCU](../../experiments/results/m3-pair-20260922T033128Z/ncu-output.txt)、[运行器](../../experiments/modal_m3_pair.py)。
+
+(c)、(d) 尚未继续讨论，保留待本人回答，不在此补成已完成答案。
+
+## 后续未完成范围
+
+0.2 已补官方口径与计算表（吞吐模型及反推频率的限制见本题）；2.2 场景 1 尚未修正通过；2.3 的 64/32B 硬件语义与课程检查口径仍需区分；3.2 去掉 proxy fence 的观察实验未做；3.4(c/d) 待回答。M4–M6 尚未作为本次学习进度完成，团队题不在本次整理范围。

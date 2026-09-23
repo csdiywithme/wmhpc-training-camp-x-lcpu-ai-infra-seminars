@@ -1,0 +1,75 @@
+{
+  "scope": "CPU theoretical checks; not GPU measurements",
+  "chunk_identity": {
+    "inverse_residual_max": 8.326672684688674e-17,
+    "output_max_abs": 2.220446049250313e-16,
+    "state_max_abs": 2.7755575615628914e-16
+  },
+  "accounting": [
+    {
+      "chunk": 16,
+      "exp_min": 1.8048513878454153e-35,
+      "exp_inverse_max": 5.54062238439351e+34,
+      "neumann_gemms": 6,
+      "neumann_max_power_entry": 3432,
+      "neumann_partial_p8_corner_abs": 1716,
+      "inverse_flops": 49152,
+      "k1_flops": 180224,
+      "k2_flops": 1703936,
+      "total_flops": 1884160,
+      "flops_per_token": 117760.0,
+      "workspace_bytes_per_chunk": 13824,
+      "logical_bytes_per_token": 3012.0,
+      "logical_arithmetic_intensity": 39.09694555112882,
+      "state_smem_read_write_bytes_per_token": 6144.0,
+      "hypothetical_shared_capacity_bytes_before_barriers": 98304
+    },
+    {
+      "chunk": 32,
+      "exp_min": 3.257488532207521e-70,
+      "exp_inverse_max": 3.0698496406442424e+69,
+      "neumann_gemms": 8,
+      "neumann_max_power_entry": 155117520,
+      "neumann_partial_p8_corner_abs": 475020,
+      "inverse_flops": 524288,
+      "k1_flops": 1048576,
+      "k2_flops": 3670016,
+      "total_flops": 4718592,
+      "flops_per_token": 147456.0,
+      "workspace_bytes_per_chunk": 29184,
+      "logical_bytes_per_token": 3108.0,
+      "logical_arithmetic_intensity": 47.44401544401544,
+      "state_smem_read_write_bytes_per_token": 3072.0,
+      "hypothetical_shared_capacity_bytes_before_barriers": 161664
+    },
+    {
+      "chunk": 64,
+      "exp_min": 1.0611231537463512e-139,
+      "exp_inverse_max": 9.423976816163585e+138,
+      "neumann_gemms": 10,
+      "neumann_max_power_entry": 465428353255261088,
+      "neumann_partial_p8_corner_abs": 55525372,
+      "inverse_flops": 5242880,
+      "k1_flops": 7340032,
+      "k2_flops": 8388608,
+      "total_flops": 15728640,
+      "flops_per_token": 245760.0,
+      "workspace_bytes_per_chunk": 66048,
+      "logical_bytes_per_token": 3348.0,
+      "logical_arithmetic_intensity": 73.40501792114695,
+      "state_smem_read_write_bytes_per_token": 1536.0,
+      "hypothetical_shared_capacity_bytes_before_barriers": 313216
+    }
+  ],
+  "bf16_state_counterexample": {
+    "chunk": 16,
+    "tokens": 65536,
+    "log_gate_per_token": -0.0001,
+    "exact_chunk_decay": 0.9984012793176064,
+    "rounded_chunk_decay": 1.0,
+    "exact_final_state": 0.0014249764381924648,
+    "bf16_stored_final_state": 1.0,
+    "absolute_error": 0.9985750235618075,
+    "scope": "isolated mathematical state-storage recurrence; no CUDA kernel run"
+  }
+}

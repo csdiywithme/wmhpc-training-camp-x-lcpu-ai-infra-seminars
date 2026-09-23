@@ -1,0 +1,24 @@
+{
+  "command": [
+    "ncu",
+    "--clock-control",
+    "none",
+    "--cache-control",
+    "all",
+    "--set",
+    "detailed",
+    "--kernel-name-base",
+    "function",
+    "--kernel-name",
+    "regex:.*_flash_kda_fwd_.*",
+    "--launch-count",
+    "2",
+    "--export",
+    "/tmp/c1-artifacts/baseline",
+    "/usr/local/bin/python",
+    "/tmp/c1-artifacts/profile-one.py"
+  ],
+  "returncode": 0,
+  "stdout": "==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.\n==PROF== Connected to process 52 (/usr/local/bin/python3)\n==PROF== Profiling \"_flash_kda_fwd_prepare\": 0%....50%....100% - 22 passes\n==PROF== Profiling \"_flash_kda_fwd_recurrence\": 0%....50%....100% - 22 passes\n==PROF== Disconnected from process 52\n==PROF== Report: /tmp/c1-artifacts/baseline.ncu-rep\n",
+  "stderr": ""
+}

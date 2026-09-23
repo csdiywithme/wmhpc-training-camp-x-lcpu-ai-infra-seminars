@@ -1,0 +1,188 @@
+{
+  "audit_type": "independent_read_only_benchmark_recalculation",
+  "status": "passed_with_material_order_effect",
+  "written_at_utc": "2026-09-20T11:40:43.954102+00:00",
+  "scope": "Documents completed independent arithmetic checks only; no new CPU or GPU experiment and no changes to raw benchmark or runner status.",
+  "source": {
+    "path": "benchmark/results.json",
+    "sha256": "d8e4cf5a628fc3d2278de8f9686aba9a07227976ff15b1339e70216a2fb766ea",
+    "benchmark_status": "complete",
+    "started_at": "2026-09-20T11:33:06.202887+00:00",
+    "finished_at": "2026-09-20T11:33:46.041603+00:00"
+  },
+  "gpu": {
+    "name": "NVIDIA B300 SXM6 AC",
+    "uuid": "84685ad4-9592-56d9-1151-3458135ec60d",
+    "sm_count": 148,
+    "compute_capability": [
+      10,
+      3
+    ],
+    "total_memory_bytes": 287428771840,
+    "properties": "_CudaDeviceProperties(name='NVIDIA B300 SXM6 AC', major=10, minor=3, total_memory=274113MB, multi_processor_count=148, uuid=84685ad4-9592-56d9-1151-3458135ec60d, pci_bus_id=56, pci_device_id=0, pci_domain_id=0, L2_cache_size=126MB)"
+  },
+  "shape_m_n_k": [
+    2048,
+    9472,
+    8192
+  ],
+  "libraries": {
+    "baseline": {
+      "path": "/opt/tmem_hoist/input/aligned148_k8192__wide.so",
+      "sha256": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+      "size_bytes": 64400
+    },
+    "hoisted": {
+      "path": "/__modal/volumes/vo-8Iz8Ve2cQ4rsz7q19pyk2C/20260920T113209Z_d3041c92/build/hoisted.so",
+      "sha256": "383dbef104958984ff298fd030f47672e3e8fe1ad53f56a8bb7f5e8f067a3723",
+      "size_bytes": 64400
+    }
+  },
+  "recalculation_method": "Read all raw CUDA-event samples and recompute arithmetic directly with Python standard-library operations, without importing benchmark.summarize.",
+  "sample_integrity": {
+    "total_samples": 14400,
+    "samples_per_variant": {
+      "baseline": 7200,
+      "hoisted": 7200
+    },
+    "balanced_blocks": 12,
+    "slots": 48,
+    "samples_per_slot": 300,
+    "all_samples_finite_and_positive": true,
+    "max_abs_difference_recomputed_vs_saved_slot_or_block_mean_ms": 2.7755575615628914e-17,
+    "min_sample_us": 178.27199399471283,
+    "max_sample_us": 246.94399535655975,
+    "no_samples_dropped": true,
+    "pattern_counts": {
+      "ABBA": 6,
+      "BAAB": 6
+    },
+    "each_variant_slots_at_each_position": 6
+  },
+  "performance": {
+    "latency_statistic": "Median of 12 balanced-block mean latencies, each variant has two slots of 300 calls per block.",
+    "baseline": {
+      "median_block_mean_us": 215.37133317440748,
+      "tflops": 1475.7190533181292,
+      "block_cv_pct": 3.8954053883477107
+    },
+    "hoisted": {
+      "median_block_mean_us": 214.51008019347984,
+      "tflops": 1481.6440309813495,
+      "block_cv_pct": 3.0100724978325157
+    },
+    "speedup_ratio_definition": "baseline_latency / hoisted_latency; greater than one favors hoisted",
+    "paired_geometric_mean_speedup_pct": 0.37459426700603426,
+    "paired_median_speedup_pct": 0.5864172437813675,
+    "candidate_faster_blocks": 6,
+    "paired_bootstrap_95pct_speedup_interval_pct": [
+      -3.138885701051086,
+      3.905224713044775
+    ],
+    "bootstrap": {
+      "method": "Resample complete balanced blocks with replacement; recompute geometric mean ratio; percentile interval with linear interpolation",
+      "resamples": 10000,
+      "seed": 20260921,
+      "limitation": "Descriptive interval from one GPU allocation and one session, with material measurement-order effects."
+    }
+  },
+  "order_effect": {
+    "first_measured_variant_faster_blocks": 12,
+    "patterns": {
+      "ABBA": {
+        "blocks": 6,
+        "candidate_faster_blocks": 0,
+        "paired_geometric_mean_speedup_pct": -5.401257666214432
+      },
+      "BAAB": {
+        "blocks": 6,
+        "candidate_faster_blocks": 6,
+        "paired_geometric_mean_speedup_pct": 6.503098516012873
+      }
+    },
+    "positions": [
+      {
+        "position": 1,
+        "slot_count_per_variant": 6,
+        "baseline_mean_us": 196.68005296753512,
+        "hoisted_mean_us": 199.37135969599086,
+        "ratio_of_means_speedup_pct": -1.3498963605201642
+      },
+      {
+        "position": 2,
+        "slot_count_per_variant": 6,
+        "baseline_mean_us": 226.69096916913986,
+        "hoisted_mean_us": 221.28522699905767,
+        "ratio_of_means_speedup_pct": 2.4428843458697003
+      },
+      {
+        "position": 3,
+        "slot_count_per_variant": 6,
+        "baseline_mean_us": 219.86512002017764,
+        "hoisted_mean_us": 220.07173284888268,
+        "ratio_of_means_speedup_pct": -0.09388431037025136
+      },
+      {
+        "position": 4,
+        "slot_count_per_variant": 6,
+        "baseline_mean_us": 220.81521772676044,
+        "hoisted_mean_us": 219.85831129054228,
+        "ratio_of_means_speedup_pct": 0.43523778136984603
+      }
+    ],
+    "within_slot_100_call_chunk_means_us_pooled_across_both_variants": {
+      "position_1": [
+        182.80311940858763,
+        196.7782662436366,
+        214.49573334306479
+      ],
+      "position_2": [
+        226.5623202174902,
+        222.8663738320271,
+        222.535600202779
+      ],
+      "position_3": [
+        223.91834642738104,
+        217.41839973876873,
+        218.56853313744068
+      ],
+      "position_4": [
+        225.31370664636293,
+        218.92450685302418,
+        216.77208002656698
+      ]
+    },
+    "interpretation": "Both order patterns favor whichever variant occupies the first slot. The first slot also slows substantially within its 300 calls. Order balance reduces confounding but does not establish a stable small optimization benefit.",
+    "causal_limit": "Existing coarse telemetry does not identify whether clock dynamics, power, temperature, host submission, or another mechanism causes the observed short-timescale drift."
+  },
+  "correctness": {
+    "pre_timing_full_output_checks": 6,
+    "post_timing_full_output_checks": 2,
+    "elements_per_check": 19398656,
+    "pre_timing_elements_checked": 116391936,
+    "post_timing_elements_checked": 38797312,
+    "all_tolerance_checks_passed": true,
+    "mismatches": 0,
+    "nonfinite_outputs": 0,
+    "reference": "FP32 torch.mm with TF32 disabled, rounded to FP16",
+    "atol": 0.01,
+    "rtol": 0.02,
+    "bitwise_comparison_seeds": [
+      0,
+      1,
+      2
+    ],
+    "bitwise_elements_compared": 58195968,
+    "bitwise_mismatch_count": 0,
+    "max_abs_baseline_candidate_difference": 0.0,
+    "max_abs_error_vs_reference": 0.25,
+    "error_note": "The 0.25 maximum reference error passes the saved mixed absolute/relative tolerance; baseline and candidate have identical outputs for the three tested seeds."
+  },
+  "conclusion": {
+    "stable_speedup_supported": false,
+    "recommended_default": "unchanged original wide",
+    "statement_zh": "本次未观察到可确认的稳定提速。候选保持数值一致，但约0.37%的配对差异落在测量漂移与不确定区间内。",
+    "historical_comparison_limit": "Do not compare this session's absolute throughput directly with the historical 1658 TFLOPS as a controlled regression: the original baseline itself measured about 1476 TFLOPS in this session.",
+    "ncu_scope": "Profiling is outside this audit. The formal benchmark and its post-validation completed before the subsequent candidate NCU failure; no inference here relies on the failed profile."
+  }
+}

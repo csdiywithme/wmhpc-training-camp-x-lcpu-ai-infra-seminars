@@ -1,0 +1,21 @@
+[42] python3@127.0.0.1
+  kernel_kernel (148, 1, 1)x(384, 1, 1), Context 1, Stream 7, Device 0, CC 10.3
+
+    NVTX Push/Pop Stack for Thread 42:
+      <default domain>
+        <0,tmem_hoist_candidate>
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: Command line profiler metrics
+    --------------------------------------------------------------- --------------- ------------
+    Metric Name                                                         Metric Unit Metric Value
+    --------------------------------------------------------------- --------------- ------------
+    gpu__time_duration.sum                                                       us       173.44
+    launch__block_size                                                                       384
+    launch__grid_size                                                                        148
+    launch__registers_per_thread                                    register/thread          161
+    launch__shared_mem_per_block_dynamic                                Kbyte/block       214.02
+    sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed               %        88.95
+    smsp__sass_inst_executed_op_shared_ld.sum                                  inst         6586
+    smsp__sass_inst_executed_op_shared_st.sum                                  inst        76368
+    --------------------------------------------------------------- --------------- ------------
+

@@ -1,0 +1,8 @@
+{
+  "base_image.py": "02c749ea9bdf12b3d9557cee991e4b407b2c631bae64af3b99ff27a38e7f44cb",
+  "modal_runner.py": "d6d12a8e8b7d372d73687dad81e098458865db08aad543d1abf8556004e5b2ff",
+  "compile_one.py": "378fb51e4014114ed49efda10974d71e98ee76730cfa974c470c54a18f59e338",
+  "benchmark.py": "9a50f3b773a7657a7d7dafa44fde6c95a338a33bacfac30a8b6807fcacc37a59",
+  "kernels_basics.py": "7f87c74318f591b3edee411da320a5e045f490e7f1edf8796da71c5d72667660",
+  "kernels_advanced.py": "26879b87a20ab409fb19348cccc39e3187abfd904955d05d67a5ae84ac13e89d"
+}

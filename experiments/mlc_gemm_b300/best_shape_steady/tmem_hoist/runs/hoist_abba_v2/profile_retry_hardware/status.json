@@ -1,0 +1,95 @@
+{
+  "state": "complete",
+  "started_at": "2026-09-20T11:39:32.424514+00:00",
+  "metrics": [
+    "gpu__time_duration.sum",
+    "smsp__sass_inst_executed_op_shared_ld.sum",
+    "smsp__sass_inst_executed_op_shared_st.sum",
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed",
+    "launch__registers_per_thread",
+    "launch__shared_mem_per_block_dynamic",
+    "launch__grid_size",
+    "launch__block_size"
+  ],
+  "candidate_sha256": "383dbef104958984ff298fd030f47672e3e8fe1ad53f56a8bb7f5e8f067a3723",
+  "commands": [
+    {
+      "argv": [
+        "nvidia-smi"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.3750956379999999,
+      "log": "nvidia_smi.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--metrics",
+        "gpu__time_duration.sum,smsp__sass_inst_executed_op_shared_ld.sum,smsp__sass_inst_executed_op_shared_st.sum,sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed,launch__registers_per_thread,launch__shared_mem_per_block_dynamic,launch__grid_size,launch__block_size",
+        "--target-processes",
+        "all",
+        "--nvtx",
+        "--nvtx-include",
+        "tmem_hoist_candidate/",
+        "--kernel-name-base",
+        "function",
+        "--kernel-name",
+        "regex:^kernel_kernel$",
+        "--launch-count",
+        "1",
+        "--replay-mode",
+        "kernel",
+        "--cache-control",
+        "none",
+        "--clock-control",
+        "none",
+        "--export",
+        "/results/20260920T113209Z_d3041c92/profile_retry_hardware/candidate_hardware.ncu-rep",
+        "/usr/local/bin/python",
+        "-u",
+        "/opt/tmem_hoist/benchmark.py",
+        "--run-dir",
+        "/results/20260920T113209Z_d3041c92/profile_retry_hardware",
+        "--profile-variant",
+        "hoisted"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 33.380696207,
+      "log": "profile.log"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--import",
+        "/results/20260920T113209Z_d3041c92/profile_retry_hardware/candidate_hardware.ncu-rep",
+        "--page",
+        "details"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.6221755529999982,
+      "log": "details.txt"
+    },
+    {
+      "argv": [
+        "/usr/local/cuda/bin/ncu",
+        "--import",
+        "/results/20260920T113209Z_d3041c92/profile_retry_hardware/candidate_hardware.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--print-units",
+        "base"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 0.6232138539999994,
+      "log": "metrics.csv"
+    }
+  ],
+  "benchmark_repeated": false,
+  "report_sha256": "ccf7312a8b6a64ab5cb0887e4239dfe8df9a763a1990419841dec55f9d2cab83",
+  "finished_at": "2026-09-20T11:40:08.584477+00:00"
+}

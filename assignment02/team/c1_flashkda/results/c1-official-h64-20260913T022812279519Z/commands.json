@@ -1,0 +1,47 @@
+[
+  {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Sun Sep 13 02:23:55 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:B9:00.0 Off |                    0 |\n| N/A   34C    P0            177W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/fla",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "a3edffc39eb5a3d45e9deab5ff9ec4f14f88474d\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "pip",
+      "freeze"
+    ],
+    "returncode": 0,
+    "stdout": "aiohappyeyeballs==2.6.1\naiohttp==3.12.7\naiosignal==1.3.2\nannotated-doc==0.0.5\nanyio==4.15.1\nattrs==25.3.0\ncbor2==5.7.0\ncertifi==2026.7.22\nclick==8.5.0\ncuda-bindings==13.0.3\ncuda-pathfinder==1.6.0\neinops==0.8.2\nfilelock==3.32.3\nflash-linear-attention @ file:///opt/fla\nflash_kda @ file:///opt/FlashKDA\nfrozenlist==1.6.0\nfsspec==2026.7.0\ngrpclib==0.4.8\nh11==0.16.0\nh2==4.2.0\nhf-xet==1.6.0\nhpack==4.1.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==1.31.0\nhyperframe==6.1.0\nidna==3.19\niniconfig==2.3.0\nJinja2==3.1.6\nmarkdown-it-py==4.2.0\nMarkupSafe==3.0.3\nmdurl==0.1.2\nmpmath==1.3.0\nmultidict==6.4.4\nnetworkx==3.6.1\nninja==1.11.1.4\nnumpy==2.4.6\nnvidia-cublas==13.1.0.3\nnvidia-cuda-cupti==13.0.85\nnvidia-cuda-nvrtc==13.0.88\nnvidia-cuda-runtime==13.0.96\nnvidia-cudnn-cu13==9.15.1.9\nnvidia-cufft==12.0.0.61\nnvidia-cufile==1.15.1.6\nnvidia-curand==10.4.0.35\nnvidia-cusolver==12.0.4.66\nnvidia-cusparse==12.6.3.3\nnvidia-cusparselt-cu13==0.8.0\nnvidia-nccl-cu13==2.28.9\nnvidia-nvjitlink==13.0.88\nnvidia-nvshmem-cu13==3.4.5\nnvidia-nvtx==13.0.85\npackaging==26.3\npluggy==1.6.0\npropcache==0.3.1\nprotobuf==6.31.1\nPygments==2.21.0\npytest==9.1.1\nPyYAML==6.0.3\nregex==2026.9.10\nrich==15.0.0\nsafetensors==0.8.0\nshellingham==1.5.4\nsympy==1.14.0\ntokenizers==0.23.2\ntorch==2.10.0+cu130\ntqdm==4.70.1\ntransformers==5.17.0\ntriton==3.6.0\ntyper==0.27.2\ntyping_extensions==4.16.0\nyarl==1.20.0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-u",
+      "/opt/run_experiments.py",
+      "--mode",
+      "official",
+      "--heads",
+      "64"
+    ],
+    "returncode": 0,
+    "stdout": "{\"command\": [\"/usr/local/bin/python\", \"/opt/FlashKDA/benchmarks/bench_fwd.py\", \"--mode\", \"all\", \"--H\", \"64\", \"--warmup\", \"30\", \"--iters\", \"200\", \"--repeats\", \"5\"], \"returncode\": 0, \"stdout\": \"shape=[8192,64,128] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.9882 ms, min=0.9842 ms, max=1.0564 ms\\n  flash_kda (no state)   : mean=0.9409 ms, min=0.9372 ms, max=1.0153 ms\\n  flash_kda (fp32 state) : mean=0.9541 ms, min=0.9506 ms, max=1.0270 ms\\n  chunk_kda : mean=1.6459 ms, min=1.6375 ms, max=2.0530 ms\\n  chunk_gated_delta_rule : mean=0.8812 ms, min=0.8710 ms, max=1.2186 ms\\nvarlen shape=[8192,64,128] seq_lens=[1300, 547, 2048, 963, 271, 3063] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.6711 ms, min=0.6675 ms, max=0.7560 ms\\n  flash_kda (no state)   : mean=0.6510 ms, min=0.6478 ms, max=0.7388 ms\\n  flash_kda (fp32 state) : mean=0.6740 ms, min=0.6706 ms, max=0.7391 ms\\n  chunk_kda : mean=1.6795 ms, min=1.6606 ms, max=2.1834 ms\\n  chunk_gated_delta_rule : mean=0.9565 ms, min=0.9479 ms, max=1.3019 ms\\nvarlen shape=[8192,64,128] seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.4827 ms, min=0.4795 ms, max=0.5393 ms\\n  flash_kda (no state)   : mean=0.4705 ms, min=0.4676 ms, max=0.5175 ms\\n  flash_kda (fp32 state) : mean=0.4950 ms, min=0.4924 ms, max=0.5437 ms\\n  chunk_kda : mean=1.5767 ms, min=1.5674 ms, max=2.0606 ms\\n  chunk_gated_delta_rule : mean=0.8683 ms, min=0.8587 ms, max=1.2726 ms\\n\", \"stderr\": \"\", \"full_stdout_chars\": 1306, \"full_stderr_chars\": 0}\n{\"command\": [\"/usr/local/bin/python\", \"/tmp/c1-artifacts/bench_fwd_safe_gate.py\", \"--mode\", \"all\", \"--H\", \"64\", \"--warmup\", \"30\", \"--iters\", \"200\", \"--repeats\", \"5\"], \"returncode\": 0, \"stdout\": \"shape=[8192,64,128] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.9882 ms, min=0.9837 ms, max=1.1973 ms\\n  flash_kda (no state)   : mean=0.9405 ms, min=0.9368 ms, max=1.0106 ms\\n  flash_kda (fp32 state) : mean=0.9536 ms, min=0.9500 ms, max=1.0074 ms\\n  chunk_kda : mean=1.4672 ms, min=1.4577 ms, max=1.7842 ms\\n  chunk_gated_delta_rule : mean=0.8811 ms, min=0.8712 ms, max=1.2987 ms\\nvarlen shape=[8192,64,128] seq_lens=[1300, 547, 2048, 963, 271, 3063] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.6704 ms, min=0.6671 ms, max=0.7103 ms\\n  flash_kda (no state)   : mean=0.6503 ms, min=0.6471 ms, max=0.7157 ms\\n  flash_kda (fp32 state) : mean=0.6739 ms, min=0.6701 ms, max=0.7209 ms\\n  chunk_kda : mean=1.4839 ms, min=1.4653 ms, max=1.8697 ms\\n  chunk_gated_delta_rule : mean=0.9564 ms, min=0.9491 ms, max=1.2342 ms\\nvarlen shape=[8192,64,128] seq_lens=[1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024] warmup=30 iters=200 repeats=5\\n  flash_kda (bf16 state) : mean=0.4826 ms, min=0.4784 ms, max=0.5323 ms\\n  flash_kda (no state)   : mean=0.4705 ms, min=0.4658 ms, max=0.5336 ms\\n  flash_kda (fp32 state) : mean=0.4951 ms, min=0.4919 ms, max=0.5581 ms\\n  chunk_kda : mean=1.3869 ms, min=1.3774 ms, max=1.7511 ms\\n  chunk_gated_delta_rule : mean=0.8666 ms, min=0.8568 ms, max=1.2803 ms\\n\", \"stderr\": \"\", \"full_stdout_chars\": 1306, \"full_stderr_chars\": 0}\n",
+    "stderr": ""
+  }
+]

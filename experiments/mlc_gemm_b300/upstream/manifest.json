@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/mlc-ai/modern-gpu-programming-for-mlsys",
+  "commit": "ebccca2e5675966f68fb3d4880d4448194bd638d",
+  "files": {
+    "README.md": "44cef139336b0fafff9ddcf5a672cc546b7797932f2e63de63a62952019de39e",
+    "chapter_gemm_basics/index.md": "d82d50c71d584519b0047d926228a6fe241d9da758c87e959bbad18f0ccfb92b",
+    "chapter_gemm_async/index.md": "db89721ba1885187f6265782a279878035183998777088bb1b6e0da7794271c5",
+    "chapter_gemm_advanced/index.md": "5b2771029106517467eeeeb22935046c1bf1de4168df140a34c8da2240293a6d",
+    "appendix/benchmarking_gpu_kernels.md": "a79eb87e05b17efad5bb4e4bb8e24aaca210cd32427e2bc5f3bb0307fcfd3f51"
+  }
+}

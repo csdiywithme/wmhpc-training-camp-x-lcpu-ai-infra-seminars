@@ -1,0 +1,111 @@
+--- 04i_bn128_s2.cu
++++ 04j_bk128_s2.cu
+@@ -1,3 +1,4 @@
++// Experiment J: BN128 BK128 S2; 3D TMA loads two swizzled K64 slabs per stage.
+ // Experiment I: BN128 BK64 S2; scratch exceeds pipeline storage by 512 bytes.
+ // Experiment H: BN=128, persistent CTA budget=2/SM, derived from 04g.
+ // Experiment G: x8 TMEM reads and coalesced FP32 stores via reused shared memory.
+@@ -17,7 +18,7 @@
+ #ifndef STAGES
+ #define STAGES 2
+ #endif
+-constexpr int BM = 128, BN = 128, BK = 64;
++constexpr int BM = 128, BN = 128, BK = 128;
+ constexpr int NSTAGE = STAGES;
+ 
+ __device__ inline uint64_t make_desc_sm100(uint32_t saddr, uint32_t lbo,
+@@ -51,14 +52,14 @@
+         "mbarrier.arrive.expect_tx.shared::cta.b64 state, [%0], %1;\n}"
+         :: "r"(full), "r"(bytes) : "memory");
+     asm volatile(
+-        "cp.async.bulk.tensor.2d.shared::cluster.global"
+-        ".mbarrier::complete_tx::bytes [%0], [%1, {%2, %3}], [%4];"
+-        :: "r"(dstA), "l"(tmapA), "r"(kBase), "r"(tileM), "r"(full)
++        "cp.async.bulk.tensor.3d.shared::cluster.global"
++        ".mbarrier::complete_tx::bytes [%0], [%1, {0, %3, %2}], [%4];"
++        :: "r"(dstA), "l"(tmapA), "r"(kBase / 64), "r"(tileM), "r"(full)
+         : "memory");
+     asm volatile(
+-        "cp.async.bulk.tensor.2d.shared::cluster.global"
+-        ".mbarrier::complete_tx::bytes [%0], [%1, {%2, %3}], [%4];"
+-        :: "r"(dstB), "l"(tmapB), "r"(kBase), "r"(tileN), "r"(full)
++        "cp.async.bulk.tensor.3d.shared::cluster.global"
++        ".mbarrier::complete_tx::bytes [%0], [%1, {0, %3, %2}], [%4];"
++        :: "r"(dstB), "l"(tmapB), "r"(kBase / 64), "r"(tileN), "r"(full)
+         : "memory");
+ }
+ 
+@@ -133,8 +134,8 @@
+             const uint32_t a = __cvta_generic_to_shared(smem + stage);
+             const uint32_t b = __cvta_generic_to_shared(smem + stage + BM * BK * 2);
+             for (int k0 = 0; k0 < BK; k0 += 16) {
+-                const uint64_t adesc = make_desc_sm100(a + k0 * 2, 0, 1024, 2);
+-                const uint64_t bdesc = make_desc_sm100(b + k0 * 2, 0, 1024, 2);
++                const uint64_t adesc = make_desc_sm100(a + (k0 / 64) * BM * 128 + (k0 % 64) * 2, 0, 1024, 2);
++                const uint64_t bdesc = make_desc_sm100(b + (k0 / 64) * BN * 128 + (k0 % 64) * 2, 0, 1024, 2);
+                 asm volatile(
+                     "{ .reg .pred accumulate;\n"
+                     "setp.ne.u32 accumulate, %4, 0;\n"
+@@ -228,23 +229,20 @@
+     // TODO:tensor map 从你的 4.2 原样复制。
+     alignas(64) CUtensorMap tmapA = {}, tmapB = {};
+ 
+-    // A[M][K]：tensor map 按最内层维度在前描述，即 {K, M}。
+-    const cuuint64_t globalDimA[2] = {
+-        static_cast<cuuint64_t>(K), static_cast<cuuint64_t>(M)};
+-    const cuuint64_t globalStridesA[1] = {
+-        static_cast<cuuint64_t>(K) * sizeof(__nv_bfloat16)}; // 字节
+-    const cuuint32_t boxDimA[2] = {BK, BM};                // 元素数
+-    const cuuint32_t elementStridesA[2] = {1, 1};         // 连续取元素
+-    // B[N][K]
+-    const cuuint64_t globalDimB[2] = {
+-        static_cast<cuuint64_t>(K), static_cast<cuuint64_t>(N)};
+-    const cuuint64_t globalStridesB[1] = {
+-        static_cast<cuuint64_t>(K) * sizeof(__nv_bfloat16)}; // 字节
+-    const cuuint32_t boxDimB[2] = {BK, BN};                // 元素数
+-    const cuuint32_t elementStridesB[2] = {1, 1};         // 连续取元素
++    // TensorMap dimensions: [K-inner=64, M-or-N, K-outer].
++    // Global strides reconstruct original row-major [row][K]; shared storage
++    // contains two consecutive [BM/BN][64] slabs, each using 128B swizzle.
++    const cuuint64_t globalDimA[3] = {64, (cuuint64_t)M, (cuuint64_t)K / 64};
++    const cuuint64_t globalStridesA[2] = {(cuuint64_t)K * 2, 128};
++    const cuuint32_t boxDimA[3] = {64, BM, BK / 64};
++    const cuuint32_t elementStridesA[3] = {1, 1, 1};
++    const cuuint64_t globalDimB[3] = {64, (cuuint64_t)N, (cuuint64_t)K / 64};
++    const cuuint64_t globalStridesB[2] = {(cuuint64_t)K * 2, 128};
++    const cuuint32_t boxDimB[3] = {64, BN, BK / 64};
++    const cuuint32_t elementStridesB[3] = {1, 1, 1};
+ 
+     const CUresult mapAResult = cuTensorMapEncodeTiled(
+-        &tmapA, CU_TENSOR_MAP_DATA_TYPE_BFLOAT16, 2, dA,
++        &tmapA, CU_TENSOR_MAP_DATA_TYPE_BFLOAT16, 3, dA,
+         globalDimA, globalStridesA, boxDimA, elementStridesA,
+         CU_TENSOR_MAP_INTERLEAVE_NONE,
+         CU_TENSOR_MAP_SWIZZLE_128B,
+@@ -262,7 +260,7 @@
+     }
+ 
+     const CUresult mapBResult = cuTensorMapEncodeTiled(
+-        &tmapB, CU_TENSOR_MAP_DATA_TYPE_BFLOAT16, 2, dB,
++        &tmapB, CU_TENSOR_MAP_DATA_TYPE_BFLOAT16, 3, dB,
+         globalDimB, globalStridesB, boxDimB, elementStridesB,
+         CU_TENSOR_MAP_INTERLEAVE_NONE,
+         CU_TENSOR_MAP_SWIZZLE_128B,
+@@ -282,7 +280,7 @@
+     cudaDeviceProp device = {};
+     CUDA_CHECK(cudaGetDeviceProperties(&device, 0));
+     const int total_tiles = (M / BM) * (N / BN);
+-    const int resident_grid = device.multiProcessorCount * 3; // S=2 BK=64: three resident CTAs
++    const int resident_grid = device.multiProcessorCount * 1; // S=2 BK=128: 128 KiB stages, one CTA
+     dim3 grid(total_tiles < resident_grid ? total_tiles : resident_grid);
+     // Dynamic shared memory includes all pipeline stages and alignment slack.
+     const size_t stageBytes = (size_t)NSTAGE * (BM + BN) * BK * 2;
+@@ -323,7 +321,7 @@
+         },
+         iters);
+     double cub_tflops = 2.0 * M * N * K / (cub_ms * 1e9);
+-    printf("[4.4 epilogue BN=128 BK=64 S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
++    printf("[4.4 epilogue BN=128 BK=128 S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
+            "TFLOPS  (cuBLAS %.1f, 达成率 %.0f%%)\n",
+            NSTAGE, M, N, K, bad ? "FAIL" : "PASS", bad, ms, tflops,
+            cub_tflops, 100.0 * tflops / cub_tflops);

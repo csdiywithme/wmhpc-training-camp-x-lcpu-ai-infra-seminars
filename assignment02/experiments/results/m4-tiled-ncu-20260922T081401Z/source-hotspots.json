@@ -1,0 +1,86 @@
+[
+  {
+    "address": "0x2a5f5d5acf30",
+    "sass": "ST.E.U16 desc[UR16][R22.64], R21",
+    "samples": 45569,
+    "long_scoreboard": 45240,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5acd80",
+    "sass": "ST.E.U16 desc[UR16][R26.64], R33",
+    "samples": 44735,
+    "long_scoreboard": 44450,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5acca0",
+    "sass": "ST.E.U16 desc[UR16][R22.64], R31",
+    "samples": 40383,
+    "long_scoreboard": 40080,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ace60",
+    "sass": "ST.E.U16 desc[UR16][R24.64], R31",
+    "samples": 39432,
+    "long_scoreboard": 39155,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ad4c0",
+    "sass": "ST.E.U16 desc[UR16][R24.64+0x4000], R21",
+    "samples": 23990,
+    "long_scoreboard": 23738,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ad330",
+    "sass": "ST.E.U16 desc[UR16][R22.64+0x4000], R31",
+    "samples": 22655,
+    "long_scoreboard": 22535,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ad410",
+    "sass": "ST.E.U16 desc[UR16][R22.64+0x4000], R27",
+    "samples": 20655,
+    "long_scoreboard": 20474,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ad230",
+    "sass": "ST.E.U16 desc[UR16][R22.64+0x4000], R27",
+    "samples": 20234,
+    "long_scoreboard": 19851,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5adb90",
+    "sass": "@!P1  BRA 0x2a5f5d5aeba0",
+    "samples": 1815,
+    "long_scoreboard": 1804,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ad510",
+    "sass": "BAR.SYNC.DEFER_BLOCKING 0x0",
+    "samples": 189,
+    "long_scoreboard": 177,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ae760",
+    "sass": "LDTM R5, tmem[UR4+0x3a]",
+    "samples": 75,
+    "long_scoreboard": 75,
+    "excessive_sectors": 0
+  },
+  {
+    "address": "0x2a5f5d5ae640",
+    "sass": "LDTM R7, tmem[UR4+0x34]",
+    "samples": 72,
+    "long_scoreboard": 72,
+    "excessive_sectors": 0
+  }
+]

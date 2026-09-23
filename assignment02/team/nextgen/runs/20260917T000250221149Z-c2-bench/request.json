@@ -1,0 +1,22 @@
+{
+  "track": "c2",
+  "mode": "bench",
+  "gpu": "B300",
+  "arch": "103a",
+  "profile": "simidawhu",
+  "created_at": "2026-09-17T00:02:50.233712+00:00",
+  "git_head": "3108ba32e293dffe28bed0977808b0055ff2c3f2",
+  "extra_args": [
+    "--repeats",
+    "7"
+  ],
+  "build_args": [
+    "--variant",
+    "coalesced_pad17"
+  ],
+  "status": "PREPARED",
+  "reuse_build": {
+    "original_run": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/team/nextgen/runs/20260916T235940609012Z-c2-verify",
+    "bundle_sha256": "899d0910cfdb9cbb77a4bd0524583393f5b36cf813a9d2c176493fa0cf589e04"
+  }
+}

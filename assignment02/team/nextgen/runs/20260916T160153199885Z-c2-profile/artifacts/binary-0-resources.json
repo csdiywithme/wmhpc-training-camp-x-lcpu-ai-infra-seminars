@@ -1,0 +1,11 @@
+{
+  "command": [
+    "cuobjdump",
+    "--dump-resource-usage",
+    "/tmp/nextgen-build/c2_nextgen_ext.so"
+  ],
+  "returncode": 0,
+  "stdout": "\nFatbin elf code:\n================\narch = sm_103a\ncode version = [1,8]\nhost = linux\ncompile_size = 64bit\nidentifier = /opt/c2/nextgen/partial.cu\n\nResource usage:\n Common:\n  GLOBAL:713 CONSTANT[4]:296\n Function _Z21paged_tcgen05_partialILb1EEv6Params:\n  REG:70 STACK:0 SHARED:1024 LOCAL:0 CONSTANT[0]:1136 TEXTURE:0 SURFACE:0 SAMPLER:0\n Function _Z21paged_tcgen05_partialILb0EEv6Params:\n  REG:70 STACK:0 SHARED:1024 LOCAL:0 CONSTANT[0]:1136 TEXTURE:0 SURFACE:0 SAMPLER:0\n",
+  "stderr": "",
+  "seconds": 0.011343025999991596
+}

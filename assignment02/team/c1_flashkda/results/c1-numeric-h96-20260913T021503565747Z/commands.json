@@ -1,0 +1,47 @@
+[
+  {
+    "command": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Sun Sep 13 02:13:34 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:B2:00.0 Off |                    0 |\n| N/A   33C    P0            189W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "git",
+      "-C",
+      "/opt/fla",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "a3edffc39eb5a3d45e9deab5ff9ec4f14f88474d\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-m",
+      "pip",
+      "freeze"
+    ],
+    "returncode": 0,
+    "stdout": "aiohappyeyeballs==2.6.1\naiohttp==3.12.7\naiosignal==1.3.2\nannotated-doc==0.0.5\nanyio==4.15.1\nattrs==25.3.0\ncbor2==5.7.0\ncertifi==2026.7.22\nclick==8.5.0\ncuda-bindings==13.0.3\ncuda-pathfinder==1.6.0\neinops==0.8.2\nfilelock==3.32.3\nflash-linear-attention @ file:///opt/fla\nflash_kda @ file:///opt/FlashKDA\nfrozenlist==1.6.0\nfsspec==2026.7.0\ngrpclib==0.4.8\nh11==0.16.0\nh2==4.2.0\nhf-xet==1.6.0\nhpack==4.1.0\nhttpcore==1.0.9\nhttpx==0.28.1\nhuggingface_hub==1.31.0\nhyperframe==6.1.0\nidna==3.19\niniconfig==2.3.0\nJinja2==3.1.6\nmarkdown-it-py==4.2.0\nMarkupSafe==3.0.3\nmdurl==0.1.2\nmpmath==1.3.0\nmultidict==6.4.4\nnetworkx==3.6.1\nninja==1.11.1.4\nnumpy==2.4.6\nnvidia-cublas==13.1.0.3\nnvidia-cuda-cupti==13.0.85\nnvidia-cuda-nvrtc==13.0.88\nnvidia-cuda-runtime==13.0.96\nnvidia-cudnn-cu13==9.15.1.9\nnvidia-cufft==12.0.0.61\nnvidia-cufile==1.15.1.6\nnvidia-curand==10.4.0.35\nnvidia-cusolver==12.0.4.66\nnvidia-cusparse==12.6.3.3\nnvidia-cusparselt-cu13==0.8.0\nnvidia-nccl-cu13==2.28.9\nnvidia-nvjitlink==13.0.88\nnvidia-nvshmem-cu13==3.4.5\nnvidia-nvtx==13.0.85\npackaging==26.3\npluggy==1.6.0\npropcache==0.3.1\nprotobuf==6.31.1\nPygments==2.21.0\npytest==9.1.1\nPyYAML==6.0.3\nregex==2026.9.10\nrich==15.0.0\nsafetensors==0.8.0\nshellingham==1.5.4\nsympy==1.14.0\ntokenizers==0.23.2\ntorch==2.10.0+cu130\ntqdm==4.70.1\ntransformers==5.17.0\ntriton==3.6.0\ntyper==0.27.2\ntyping_extensions==4.16.0\nyarl==1.20.0\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python",
+      "-u",
+      "/opt/run_experiments.py",
+      "--mode",
+      "numeric",
+      "--heads",
+      "96"
+    ],
+    "returncode": 0,
+    "stdout": "{\"command\": [\"/usr/local/bin/python\", \"/opt/chunk_numeric_gpu.py\"], \"returncode\": 0, \"stdout\": \"[1/3] g++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=c1_chunk_numeric_sm80_v1 -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -fPIC -std=c++17 -c /root/.cache/torch_extensions/py311_cu130/c1_chunk_numeric_sm80_v1/main.cpp -o main.o \\n[2/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output cuda.cuda.o.d -ccbin gcc -DTORCH_EXTENSION_NAME=c1_chunk_numeric_sm80_v1 -DTORCH_API_INCLUDE_EXTENSION_H -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_103a,code=sm_103a --compiler-options '-fPIC' -O3 --use_fast_math -lineinfo -std=c++17 -c /root/.cache/torch_extensions/py311_cu130/c1_chunk_numeric_sm80_v1/cuda.cu -o cuda.cuda.o \\n[3/3] g++ main.o cuda.cuda.o -shared -L/usr/local/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart -o c1_chunk_numeric_sm80_v1.so\\n{\\\"result\\\": \\\"/tmp/c1-artifacts/chunk-numeric.json\\\", \\\"mma_validation\\\": [{\\\"n\\\": 16, \\\"identity_exact\\\": true, \\\"random_error\\\": {\\\"max_abs\\\": 3.0383860575966537e-05, \\\"relative_l2\\\": 0.00019219686833240815}, \\\"pass\\\": true}, {\\\"n\\\": 32, \\\"identity_exact\\\": true, \\\"random_error\\\": {\\\"max_abs\\\": 8.204055484384298e-05, \\\"relative_l2\\\": 0.0002549505593183815}, \\\"pass\\\": true}, {\\\"n\\\": 64, \\\"identity_exact\\\": true, \\\"random_error\\\": {\\\"max_abs\\\": 0.0002700377954170108, \\\"relative_l2\\\": 0.0003367278226044238}, \\\"pass\\\": true}], \\\"range_cases\\\": 6, \\\"inverse_cases\\\": 45}\\n\", \"stderr\": \"\", \"full_stdout_chars\": 1949, \"full_stderr_chars\": 0}\n",
+    "stderr": ""
+  }
+]

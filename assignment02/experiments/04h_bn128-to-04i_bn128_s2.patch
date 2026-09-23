@@ -1,0 +1,50 @@
+--- 04h_bn128.cu
++++ 04i_bn128_s2.cu
+@@ -1,3 +1,4 @@
++// Experiment I: BN128 BK64 S2; scratch exceeds pipeline storage by 512 bytes.
+ // Experiment H: BN=128, persistent CTA budget=2/SM, derived from 04g.
+ // Experiment G: x8 TMEM reads and coalesced FP32 stores via reused shared memory.
+ // 4.4 combination AB: warp-specialized TMA/MMA plus persistent output-tile loop.
+@@ -14,7 +15,7 @@
+ #include "../common.h"
+ 
+ #ifndef STAGES
+-#define STAGES 3
++#define STAGES 2
+ #endif
+ constexpr int BM = 128, BN = 128, BK = 64;
+ constexpr int NSTAGE = STAGES;
+@@ -158,8 +159,7 @@
+ 
+     // All MMA reads of the stage buffers have completed. Reuse that storage
+     // as a padded FP32 transpose buffer; no next-tile TMA starts before sync.
+-    static_assert(BM * (BN + 1) * sizeof(float) <=
+-                  NSTAGE * (BM + BN) * BK * 2, "epilogue scratch fits stages");
++    // Host allocation covers max(pipeline stages, padded epilogue scratch).
+     float* epilogue = reinterpret_cast<float*>(smem);
+     for (int n = 0; n < BN; n += 8) {
+         const uint32_t read_addr = taddr + ((warp * 32) << 16) + n;
+@@ -282,10 +282,12 @@
+     cudaDeviceProp device = {};
+     CUDA_CHECK(cudaGetDeviceProperties(&device, 0));
+     const int total_tiles = (M / BM) * (N / BN);
+-    const int resident_grid = device.multiProcessorCount * 2; // S=3 shared limit for BN=128
++    const int resident_grid = device.multiProcessorCount * 3; // S=2 BK=64: three resident CTAs
+     dim3 grid(total_tiles < resident_grid ? total_tiles : resident_grid);
+     // Dynamic shared memory includes all pipeline stages and alignment slack.
+-    size_t smemBytes = (size_t)NSTAGE * (BM + BN) * BK * 2 + 1024;
++    const size_t stageBytes = (size_t)NSTAGE * (BM + BN) * BK * 2;
++    const size_t scratchBytes = (size_t)BM * (BN + 1) * sizeof(float);
++    const size_t smemBytes = (stageBytes > scratchBytes ? stageBytes : scratchBytes) + 1024;
+     CUDA_CHECK(cudaFuncSetAttribute(gemm_pipeline,
+                                     cudaFuncAttributeMaxDynamicSharedMemorySize,
+                                     (int)smemBytes));
+@@ -321,7 +323,7 @@
+         },
+         iters);
+     double cub_tflops = 2.0 * M * N * K / (cub_ms * 1e9);
+-    printf("[4.4 epilogue BN=128 S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
++    printf("[4.4 epilogue BN=128 BK=64 S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
+            "TFLOPS  (cuBLAS %.1f, 达成率 %.0f%%)\n",
+            NSTAGE, M, N, K, bad ? "FAIL" : "PASS", bad, ms, tflops,
+            cub_tflops, 100.0 * tflops / cub_tflops);

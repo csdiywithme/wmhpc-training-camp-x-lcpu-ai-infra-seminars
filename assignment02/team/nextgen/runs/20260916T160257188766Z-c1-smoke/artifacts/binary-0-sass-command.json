@@ -1,0 +1,10 @@
+{
+  "command": [
+    "cuobjdump",
+    "--dump-sass",
+    "/tmp/nextgen-build/c1_nextgen_direct_103a.so"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "seconds": 0.8203003899999999
+}

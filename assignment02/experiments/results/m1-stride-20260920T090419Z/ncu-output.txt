@@ -1,0 +1,24 @@
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 84 (/opt/m1_stride/cuda/bin/m1_sm80/05_ldsm_stride)
+stride 32B        9.71 cycles / ldmatrix(8 warp 均摊)
+stride 64B       10.72 cycles / ldmatrix(8 warp 均摊)
+stride 128B      16.00 cycles / ldmatrix(8 warp 均摊)
+stride 128B+pad   9.24 cycles / ldmatrix(8 warp 均摊)
+==PROF== Disconnected from process 84
+"ID","Process ID","Process Name","Host Name","Kernel Name","Context","Stream","Block Size","Grid Size","Device","CC","Section Name","Metric Name","Metric Unit","Metric Value"
+"0","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<32>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","8192"
+"0","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<32>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","16384"
+"1","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<32>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","8192"
+"1","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<32>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","16384"
+"2","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<64>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","24576"
+"2","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<64>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","32768"
+"3","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<64>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","24576"
+"3","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<64>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","32768"
+"4","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<128>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","57344"
+"4","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<128>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","65536"
+"5","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<128>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","57344"
+"5","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<128>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","65536"
+"6","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<144>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","0"
+"6","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<144>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","8192"
+"7","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<144>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum","","0"
+"7","84","05_ldsm_stride","127.0.0.1","void ldsm_kernel<144>(unsigned int *, long long *)","1","7","(256, 1, 1)","(1, 1, 1)","0","10.3","Command line profiler metrics","l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum","","8192"

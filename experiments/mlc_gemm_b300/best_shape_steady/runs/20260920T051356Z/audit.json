@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "cases": 3,
+  "sessions": 1,
+  "candidate_checks": 17,
+  "seed_checks": 18,
+  "post_checks": 6,
+  "formal_samples": 6300,
+  "tuning_samples": 480,
+  "results_sha256": "d02456502ea5ef291676fba88c6567481bc1645a655d4dacd860fd12a480fc96",
+  "build_artifacts_checked": 10
+}

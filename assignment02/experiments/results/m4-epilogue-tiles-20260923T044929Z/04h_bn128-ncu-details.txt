@@ -1,0 +1,210 @@
+[564] 04h_bn128@127.0.0.1
+  gemm_pipeline(const __nv_bfloat16 *, const __nv_bfloat16 *, float *, int, int, int, CUtensorMap_st, CUtensorMap_st) (296, 1, 1)x(128, 1, 1), Context 1, Stream 7, Device 0, CC 10.3
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Warning: The result was collected with the Work ID/Cluster Launch Control (CLC) feature enabled.                   
+    This could lower the count of clusters, blocks, warps and threads launched on the device.                          
+    Metrics that depend on such counts would be affected accordingly. There may be improvements in the future to       
+    address this.                                                                                                      
+
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    DRAM Frequency                   hz      (!) nan
+    SM Frequency                     hz      (!) nan
+    Elapsed Cycles                cycle      (!) nan
+    Memory Throughput                 %      (!) nan
+    DRAM Throughput                   %      (!) nan
+    Duration                         us       120.99
+    L1/TEX Cache Throughput           %      (!) nan
+    L2 Cache Throughput               %      (!) nan
+    SM Active Cycles              cycle      (!) nan
+    Compute (SM) Throughput           %      (!) nan
+    ----------------------- ----------- ------------
+
+    INF   This workload is utilizing greater than 80.0% of the available compute or memory performance of this device.  
+          To further improve performance, work will likely need to be shifted from the most utilized to another unit.   
+          Start by analyzing workloads in the Memory Workload Analysis section.                                         
+
+    Section: GPU Speed Of Light Roofline Chart (Overview)
+    INF   The ratio of peak float (FP32) to double (FP64) performance on this device is 64:1. The workload achieved     
+          close to nan% of this device's FP32 peak performance and  close to nan% of its FP64 peak performance. See     
+          the Profiling Guide (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more      
+          details on roofline analysis.                                                                                 
+
+    Section: PM Sampling
+    ------------------------- ----------- ------------
+    Metric Name               Metric Unit Metric Value
+    ------------------------- ----------- ------------
+    Maximum Buffer Size             Mbyte        30.15
+    Maximum Sampling Interval          us            1
+    # Pass Groups                                    2
+    ------------------------- ----------- ------------
+
+    Section: Compute Workload Analysis
+    -------------------- ----------- ------------
+    Metric Name          Metric Unit Metric Value
+    -------------------- ----------- ------------
+    Executed Ipc Active   inst/cycle      (!) nan
+    Executed Ipc Elapsed  inst/cycle      (!) nan
+    Issue Slots Busy               %      (!) nan
+    Issued Ipc Active     inst/cycle      (!) nan
+    SM Busy                        %      (!) nan
+    -------------------- ----------- ------------
+
+    Section: Memory Workload Analysis
+    --------------------------------------- ----------- ------------
+    Metric Name                             Metric Unit Metric Value
+    --------------------------------------- ----------- ------------
+    Local Memory Spilling Requests                                 0
+    Local Memory Spilling Request Overhead            %            0
+    L2 Sector Promotion Misses                        %            0
+    Shared Memory Spilling Requests                                0
+    Shared Memory Spilling Request Overhead           %            0
+    Memory Throughput                            byte/s      (!) nan
+    Mem Busy                                          %      (!) nan
+    Max Bandwidth                                     %      (!) nan
+    L1/TEX Hit Rate                                   %      (!) nan
+    L2 Persisting Size                            Mbyte        24.87
+    L2 Compression Success Rate                       %      (!) nan
+    L2 Compression Ratio                              %      (!) nan
+    L2 Compression Input Sectors                 sector      (!) nan
+    L2 Hit Rate                                       %      (!) nan
+    Mem Pipes Busy                                    %      (!) nan
+    --------------------------------------- ----------- ------------
+
+    Section: Memory Workload Analysis Tables
+    OPT   Est. Speedup: 0%                                                                                              
+          This workload accesses local memory                                                                           
+          (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#device-memory-accesses). Local memory       
+          refers to a memory space that is private to each thread. Although it is logically distinct, local memory      
+          resides in global memory. This can lead to higher memory latency compared to the usage of registers or        
+          shared memory, a decrease in available bandwidth to global memory, and an increase in executed instructions.  
+          nan% of all local loads and nan% of all local stores spill into the L2 cache, accounting for nan% of all      
+          sectors requested in L2.                                                                                      
+          One common reason for the use of local memory is arrays being too large to fit into registers or not being    
+          indexed using compile time constants (see the "Local Memory" section of the CUDA Programming Guide            
+          (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#device-memory-accesses). For more advice    
+          on how to reduce the usage of local memory refer to the documentation                                         
+          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-hw-memory).                         
+
+    Section: Scheduler Statistics
+    ---------------------------- ----------- ------------
+    Metric Name                  Metric Unit Metric Value
+    ---------------------------- ----------- ------------
+    One or More Eligible                   %      (!) nan
+    Issued Warp Per Scheduler                     (!) nan
+    No Eligible                            %      (!) nan
+    Active Warps Per Scheduler          warp      (!) nan
+    Eligible Warps Per Scheduler        warp      (!) nan
+    ---------------------------- ----------- ------------
+
+    Section: Warp State Statistics
+    ---------------------------------------- ----------- ------------
+    Metric Name                              Metric Unit Metric Value
+    ---------------------------------------- ----------- ------------
+    Warp Cycles Per Issued Instruction             cycle      (!) nan
+    Warp Cycles Per Executed Instruction           cycle      (!) nan
+    Avg. Active Threads Per Warp                              (!) nan
+    Avg. Not Predicated Off Threads Per Warp                  (!) nan
+    ---------------------------------------- ----------- ------------
+
+    Section: Instruction Statistics
+    ---------------------------------------- ----------- ------------
+    Metric Name                              Metric Unit Metric Value
+    ---------------------------------------- ----------- ------------
+    Local Memory Spilling Requests                  byte            0
+    Shared Memory Spilling Requests                 byte            0
+    Avg. Executed Instructions Per Scheduler        inst      (!) nan
+    Executed Instructions                           inst      (!) nan
+    Avg. Issued Instructions Per Scheduler          inst      (!) nan
+    Issued Instructions                             inst      (!) nan
+    ---------------------------------------- ----------- ------------
+
+    OPT   Est. Speedup: -nan%                                                                                           
+          This workload executes 0 fused and 3552 non-fused FP32 instructions. By converting pairs of non-fused         
+          instructions to their fused (https://docs.nvidia.com/cuda/floating-point/#cuda-and-floating-point),           
+          higher-throughput equivalent, the achieved FP32 performance could be increased by up to 50% (relative to its  
+          current performance).                                                                                         
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   128
+    Cluster Scheduling Policy                           PolicySpread
+    Cluster Size                                                   0
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                    296
+    Preferred Cluster Size                                         0
+    Registers Per Thread             register/thread              40
+    Shared Memory Configuration Size           Kbyte          233.47
+    Driver Shared Memory Per Block       Kbyte/block            1.02
+    Dynamic Shared Memory Per Block      Kbyte/block           99.33
+    Static Shared Memory Per Block        byte/block              64
+    # SMs                                         SM             148
+    Stack Size                                                  1024
+    Threads                                   thread           37888
+    # TPCs                                                        74
+    Enabled TPC IDs                                              all
+    Uses Green Context                                             0
+    Waves Per SM                                                   1
+    -------------------------------- --------------- ---------------
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Max Active Clusters                 cluster            0
+    Max Cluster Size                      block            8
+    Overall GPU Occupancy                     %            0
+    Cluster Occupancy                         %            0
+    Block Limit Barriers                  block           32
+    Block Limit SM                        block           32
+    Block Limit Registers                 block           12
+    Block Limit Shared Mem                block            2
+    Block Limit Warps                     block           16
+    Theoretical Active Warps per SM        warp            8
+    Theoretical Occupancy                     %        12.50
+    Achieved Occupancy                        %      (!) nan
+    Achieved Active Warps Per SM           warp      (!) nan
+    ------------------------------- ----------- ------------
+
+    OPT   Est. Local Speedup: -nan%                                                                                     
+          The difference between calculated theoretical (12.5%) and measured achieved occupancy (nan%) can be the       
+          result of warp scheduling overheads or workload imbalances during the kernel execution. Load imbalances can   
+          occur between warps within a block as well as across blocks of the same kernel. See the CUDA Best Practices   
+          Guide (https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#occupancy) for more details on     
+          optimizing occupancy.                                                                                         
+    ----- --------------------------------------------------------------------------------------------------------------
+    OPT   Est. Local Speedup: 87.5%                                                                                     
+          The 2.00 theoretical warps per scheduler this kernel can issue according to its occupancy are below the       
+          hardware maximum of 16. This kernel's theoretical occupancy (12.5%) is limited by the required amount of      
+          shared memory.                                                                                                
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------
+    Metric Name                Metric Unit Metric Value
+    -------------------------- ----------- ------------
+    Average DRAM Active Cycles       cycle      (!) nan
+    Total DRAM Elapsed Cycles        cycle      (!) nan
+    Average L1 Active Cycles         cycle      (!) nan
+    Total L1 Elapsed Cycles          cycle      (!) nan
+    Average L2 Active Cycles         cycle      (!) nan
+    Total L2 Elapsed Cycles          cycle      (!) nan
+    Average SM Active Cycles         cycle      (!) nan
+    Total SM Elapsed Cycles          cycle      (!) nan
+    Average SMSP Active Cycles       cycle      (!) nan
+    Total SMSP Elapsed Cycles        cycle      (!) nan
+    -------------------------- ----------- ------------
+
+    Section: Source Counters
+    ------------------------- ----------- ------------
+    Metric Name               Metric Unit Metric Value
+    ------------------------- ----------- ------------
+    Branch Instructions Ratio           %      (!) nan
+    Branch Instructions              inst      (!) nan
+    Branch Efficiency                   %      (!) nan
+    Avg. Divergent Branches      branches      (!) nan
+    ------------------------- ----------- ------------
+

@@ -1,0 +1,45 @@
+{
+  "verified_additive_metric_sums": true,
+  "source_shared_instruction_pcs": 55,
+  "source_shared_wavefronts_actual": 349354,
+  "source_shared_wavefronts_ideal": 349354,
+  "source_shared_wavefronts_excessive": 0,
+  "source_lds_wavefronts": 44326,
+  "mma_tmem_base_loads": 37888,
+  "mma_tmem_base_load_share_percent": 85.47579298831386,
+  "long_scoreboard_top_pc": {
+    "pc": "0x2b28eb5b2e30",
+    "offset": "0x37b0",
+    "samples": 6478,
+    "total": 7168,
+    "percent": 90.37388392857143
+  },
+  "long_scoreboard_writeback_wait_group": {
+    "offsets": [
+      "0x21c0",
+      "0x21d0",
+      "0x37a0",
+      "0x37b0",
+      "0x37c0",
+      "0x37d0",
+      "0x37e0"
+    ],
+    "samples": 6940,
+    "total": 7168,
+    "percent": 96.81919642857143
+  },
+  "barrier_top_pc": {
+    "pc": "0x2b28eb5b2770",
+    "offset": "0x30f0",
+    "samples": 1701,
+    "total": 1728,
+    "percent": 98.4375
+  },
+  "sleeping_top_pc": {
+    "pc": "0x2b28eb5b26e0",
+    "offset": "0x3060",
+    "samples": 870,
+    "total": 933,
+    "percent": 93.2475884244373
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "records": [
+    {
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": "",
+      "seconds": 0.029844086000000214
+    },
+    {
+      "command": [
+        "python",
+        "-u",
+        "/opt/c2/nextgen/build.py",
+        "--arch",
+        "103a",
+        "--output",
+        "/tmp/nextgen-build",
+        "--variant",
+        "coalesced_pad17"
+      ],
+      "returncode": 0,
+      "stdout": "[1/3] g++ -MMD -MF binding.o.d -DTORCH_EXTENSION_NAME=c2_nextgen_ext -DTORCH_API_INCLUDE_EXTENSION_H -I/opt/FlashKDA/cutlass/include -I/opt/FlashKDA/cutlass/tools/util/include -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -fPIC -std=c++17 -O3 -std=c++17 -c /opt/c2/nextgen/binding.cpp -o binding.o \n[2/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output partial.cuda.o.d -ccbin gcc -DTORCH_EXTENSION_NAME=c2_nextgen_ext -DTORCH_API_INCLUDE_EXTENSION_H -I/opt/FlashKDA/cutlass/include -I/opt/FlashKDA/cutlass/tools/util/include -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -std=c++17 -lineinfo --expt-relaxed-constexpr --expt-extended-lambda --ptxas-options=-v -gencode=arch=compute_103a,code=sm_103a -DC2_DATAFLOW_VARIANT=2 -c /opt/c2/nextgen/partial.cu -o partial.cuda.o \nptxas info    : 713 bytes gmem\nptxas info    : Compiling entry function '_Z21paged_tcgen05_partialILb1EEv6Params' for 'sm_103a'\nptxas info    : Function properties for _Z21paged_tcgen05_partialILb1EEv6Params\n    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads\nptxas info    : Used 72 registers, used 1 barriers\nptxas info    : Compile time = 171.159 ms\nptxas info    : Compiling entry function '_Z21paged_tcgen05_partialILb0EEv6Params' for 'sm_103a'\nptxas info    : Function properties for _Z21paged_tcgen05_partialILb0EEv6Params\n    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads\nptxas info    : Used 115 registers, used 1 barriers\nptxas info    : Compile time = 152.667 ms\n[3/3] g++ binding.o partial.cuda.o -shared -L/usr/local/lib/python3.11/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart -o c2_nextgen_ext.so\n{\"source_hashes\": {\"binding.cpp\": \"000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a\", \"partial.cu\": \"303d8d98b21c9f3c6740dcd233162dbfd164ae7f20c477a8537ff147cbdae151\"}, \"architectures\": [\"103a\"], \"cuda_flags\": [\"-O3\", \"-std=c++17\", \"-lineinfo\", \"--expt-relaxed-constexpr\", \"--expt-extended-lambda\", \"--ptxas-options=-v\", \"-gencode=arch=compute_103a,code=sm_103a\", \"-DC2_DATAFLOW_VARIANT=2\"], \"variant\": \"coalesced_pad17\", \"variant_id\": 2, \"torch\": \"2.10.0+cu130\", \"cuda\": \"13.0\", \"cutlass\": \"/opt/FlashKDA/cutlass\", \"scope\": \"CPU compile only\", \"inverse_layout_coordinate_mismatches\": 0, \"status\": \"COMPILED\", \"module\": \"/tmp/nextgen-build/c2_nextgen_ext.so\", \"sass_returncode\": 0, \"sass_has_tcgen05\": true, \"seconds\": 55.330801539999996}\n",
+      "stderr": "W0916 23:56:22.695000 5 site-packages/torch/utils/cpp_extension.py:118] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'\n",
+      "seconds": 59.532152007
+    }
+  ],
+  "files": [
+    "binding.cpp.source",
+    "build.json",
+    "build.ninja",
+    "c2_nextgen_ext.so",
+    "partial.cu.source",
+    "partial.sass"
+  ],
+  "worker_module": "/root/modal_runner.py",
+  "worker_source_sha256": "32e837f1d5159defbad4978beb55211f65a6e0cf85c12d66c9a733cf38c26ea5",
+  "bundle_sha256": "899d0910cfdb9cbb77a4bd0524583393f5b36cf813a9d2c176493fa0cf589e04"
+}

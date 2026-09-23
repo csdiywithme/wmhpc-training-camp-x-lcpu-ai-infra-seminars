@@ -1,0 +1,14 @@
+stride 32B        9.72 cycles / ldmatrix(8 warp 均摊)
+stride 64B       10.75 cycles / ldmatrix(8 warp 均摊)
+stride 128B      16.06 cycles / ldmatrix(8 warp 均摊)
+stride 128B+pad   9.23 cycles / ldmatrix(8 warp 均摊)
+
+stride 32B        9.72 cycles / ldmatrix(8 warp 均摊)
+stride 64B       10.75 cycles / ldmatrix(8 warp 均摊)
+stride 128B      16.06 cycles / ldmatrix(8 warp 均摊)
+stride 128B+pad   9.23 cycles / ldmatrix(8 warp 均摊)
+
+stride 32B        9.72 cycles / ldmatrix(8 warp 均摊)
+stride 64B       10.75 cycles / ldmatrix(8 warp 均摊)
+stride 128B      16.06 cycles / ldmatrix(8 warp 均摊)
+stride 128B+pad   9.23 cycles / ldmatrix(8 warp 均摊)

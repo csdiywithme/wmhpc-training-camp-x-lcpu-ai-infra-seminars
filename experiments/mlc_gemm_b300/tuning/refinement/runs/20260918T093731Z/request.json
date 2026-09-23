@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "name": "square128",
+      "shape": [
+        4096,
+        4096,
+        4096
+      ],
+      "variants": [
+        "release",
+        "k128"
+      ]
+    },
+    {
+      "name": "aligned148",
+      "shape": [
+        2048,
+        9472,
+        4096
+      ],
+      "variants": [
+        "release",
+        "k128"
+      ]
+    },
+    {
+      "name": "aligned148_k8192",
+      "shape": [
+        2048,
+        9472,
+        8192
+      ],
+      "variants": [
+        "release",
+        "k128"
+      ]
+    },
+    {
+      "name": "aligned592",
+      "shape": [
+        8192,
+        9472,
+        8192
+      ],
+      "variants": [
+        "release",
+        "k128"
+      ]
+    }
+  ],
+  "rounds": 7,
+  "repeat": 150,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "mode": "bench",
+  "sm_count": 148,
+  "arch": "sm_103a",
+  "gpu": "B300",
+  "profile": "simidawhu",
+  "collect_ncu": true,
+  "include_cublas": false,
+  "historical_baseline_run": "../../runs/20260918T092500Z"
+}

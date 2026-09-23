@@ -16,6 +16,7 @@
 #include <cstdlib>
 #include <random>
 #include "../common.h"
+#include "fragment_map.cuh"
 
 // smem 布局:sA 按 [16][32] 行主序;B 备了两种布局——sBk 按 [32][8]
 // (k-major,1.3 用的就是它),sBn 按 [8][32](n-major,每个 n 的 32
@@ -23,22 +24,68 @@
 // 16 byte 连续,B 的 fragment 需要 k 方向相邻的字节成对进 b16——
 // 想清楚哪种布局能满足它。
 //
-// TODO: 实现两个装载函数。
-__device__ void load_manual(const uint8_t* sA, const uint8_t* sBk,
+__device__ __forceinline__ void load_manual(const uint8_t* sA, const uint8_t* sBk,
                             const uint8_t* sBn, unsigned (&a)[4],
                             unsigned (&b)[2]) {
-    (void)sA; (void)sBk; (void)sBn; (void)a; (void)b;
+    (void)sBn;
+    const int lane = threadIdx.x & 31;
+    // 每四个 FP8 原始字节按低位到高位装入一个 32-bit 寄存器。
+    #pragma unroll
+    for (int reg = 0; reg < 4; ++reg) {
+        unsigned packed = 0;
+        #pragma unroll
+        for (int byte = 0; byte < 4; ++byte) {
+            const int i = reg * 4 + byte;
+            packed |= unsigned(sA[a_row_of(lane, i) * 32 + a_col_of(lane, i)])
+                      << (8 * byte);
+        }
+        a[reg] = packed;
+    }
+    #pragma unroll
+    for (int reg = 0; reg < 2; ++reg) {
+        unsigned packed = 0;
+        #pragma unroll
+        for (int byte = 0; byte < 4; ++byte) {
+            const int i = reg * 4 + byte;
+            packed |= unsigned(sBk[b_row_of(lane, i) * 8 + b_col_of(lane, i)])
+                      << (8 * byte);
+        }
+        b[reg] = packed;
+    }
 }
 
-__device__ void load_ldsm(const uint8_t* sA, const uint8_t* sBk,
+__device__ __forceinline__ void load_ldsm(const uint8_t* sA, const uint8_t* sBk,
                           const uint8_t* sBn, unsigned (&a)[4],
                           unsigned (&b)[2]) {
-    (void)sA; (void)sBk; (void)sBn; (void)a; (void)b;
+    (void)sBk;
+    const int lane = threadIdx.x & 31;
+    // 一个 m8n8.b16 tile 是 8 行 x 16 字节，不做 FP8 -> FP16 转换。
+    // A 的四个 tile 依次为左上、左下、右上、右下。
+    const unsigned addrA = static_cast<unsigned>(__cvta_generic_to_shared(
+        sA + (lane & 15) * 32 + (lane >> 4) * 16));
+    asm volatile(
+        "ldmatrix.sync.aligned.m8n8.x4.shared.b16 {%0,%1,%2,%3}, [%4];"
+        : "=r"(a[0]), "=r"(a[1]), "=r"(a[2]), "=r"(a[3])
+        : "r"(addrA) : "memory");
+
+    // sBn[n][k] 已使 K 连续；两个 tile 分别覆盖 K=0..15、16..31。
+    // x2 只取 lane 0..15 的行地址；其余 lane 重复合法地址。
+    int b_row = lane & 7, b_col = (lane >> 3) << 4;
+    const unsigned addrB = static_cast<unsigned>(__cvta_generic_to_shared(
+        sBn + b_row * 32 + b_col)
+    );
+
+    asm volatile(
+        "ldmatrix.sync.aligned.m8n8.x2.shared.b16 {%0,%1}, [%2];"
+        : "=r"(b[0]), "=r"(b[1])
+        : "r"(addrB) : "memory");
 }
 
 template <bool USE_LDSM>
 __global__ void mma_kernel(const uint8_t* A, const uint8_t* B, float* D) {
-    __shared__ uint8_t sA[16 * 32], sBk[32 * 8], sBn[8 * 32];
+    __shared__ __align__(16) uint8_t sA[16 * 32];
+    __shared__ __align__(16) uint8_t sBk[32 * 8];
+    __shared__ __align__(16) uint8_t sBn[8 * 32];
     for (int i = threadIdx.x; i < 16 * 32; i += 32) sA[i] = A[i];
     for (int i = threadIdx.x; i < 32 * 8; i += 32) {
         sBk[i] = B[i];

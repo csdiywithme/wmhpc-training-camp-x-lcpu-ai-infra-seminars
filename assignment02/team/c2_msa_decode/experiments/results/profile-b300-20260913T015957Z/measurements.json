@@ -1,0 +1,9 @@
+[
+  {
+    "batch": 1,
+    "tp": 4,
+    "dtype": "bf16",
+    "pdl": false,
+    "profile_launches_completed": true
+  }
+]

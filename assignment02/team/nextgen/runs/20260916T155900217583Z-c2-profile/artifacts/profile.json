@@ -1,0 +1,65 @@
+{
+  "status": "READY",
+  "target": "tcgen05",
+  "nvtx_range": "c2_nextgen_profile_tcgen05",
+  "tp": 1,
+  "batch": 1,
+  "storage": "bf16",
+  "seed": 101,
+  "splits": 16,
+  "merge": "feature",
+  "pdl": false,
+  "actual_backend": "tcgen05_bf16_qk_and_pv_smem_thread_feed",
+  "fallback": false,
+  "chain_replays": 1,
+  "warmups_per_path": 5,
+  "kernels_per_chain": 2,
+  "before": {
+    "baseline": {
+      "active_rows": 1,
+      "active_nonfinite": 0,
+      "padding_nonfinite": 0,
+      "max_abs": 0.00013486653621446257,
+      "rmse": 3.2880983417007384e-05,
+      "global_nrmse": 0.0028505072369039816,
+      "row_nrmse_max": 0.0031568455989411364,
+      "row_nrmse_p50": 0.002864938868270436,
+      "row_nrmse_p95": 0.0031292268161328,
+      "row_nrmse_p99": 0.003143165101786989,
+      "elementwise_scaled_max": 0.006615019358622913
+    },
+    "merge_only": {
+      "active_rows": 1,
+      "active_nonfinite": 0,
+      "padding_nonfinite": 0,
+      "max_abs": 0.00013486653621446257,
+      "rmse": 3.288098337094049e-05,
+      "global_nrmse": 0.002850507232910366,
+      "row_nrmse_max": 0.0031568455989411364,
+      "row_nrmse_p50": 0.002864938868270436,
+      "row_nrmse_p95": 0.0031292268161328,
+      "row_nrmse_p99": 0.003143165101786989,
+      "elementwise_scaled_max": 0.006615019358622913
+    },
+    "tcgen05": {
+      "active_rows": 1,
+      "active_nonfinite": 0,
+      "padding_nonfinite": 0,
+      "max_abs": 0.00013486653621446257,
+      "rmse": 3.2881036613817087e-05,
+      "global_nrmse": 0.0028505118486240487,
+      "row_nrmse_max": 0.0031568455989411364,
+      "row_nrmse_p50": 0.002864938868270436,
+      "row_nrmse_p95": 0.0031292268161328,
+      "row_nrmse_p99": 0.003143165101786989,
+      "elementwise_scaled_max": 0.006615019358622913
+    }
+  },
+  "frozen_protocol_digest": "430cf4da832b3fb3d2e3eeb2bff0c31959101a05703cc2ede89a1e10c4c54b02",
+  "frozen_family_bounds": {
+    "max_abs": 0.0021006776010356605,
+    "row_nrmse_max": 0.02,
+    "global_nrmse": 0.02
+  },
+  "scope": "NVTX-delimited eager complete chain; profiler mechanism evidence only, not hot-Graph benchmark latency"
+}

@@ -1,0 +1,64 @@
+--- 04ab_warp_persistent.cu
++++ 04g_epilogue.cu
+@@ -1,3 +1,4 @@
++// Experiment G: x8 TMEM reads and coalesced FP32 stores via reused shared memory.
+ // 4.4 combination AB: warp-specialized TMA/MMA plus persistent output-tile loop.
+ // Derived from 04a_warp_specialized.cu; both source versions are retained.
+ // 4.4 experiment A: split the 4.3 TMA and MMA control loops between warps.
+@@ -69,7 +70,7 @@
+     __shared__ uint32_t tmem_addr_slot;
+     __shared__ __align__(8) uint64_t empty[NSTAGE];
+     __shared__ __align__(8) uint64_t full[NSTAGE];
+-    const int tid = threadIdx.x, warp = tid >> 5, lane = tid & 31;
++    const int tid = threadIdx.x, warp = tid >> 5;
+     constexpr uint32_t t_cols = BN;
+ 
+     if (warp == 0) {
+@@ -154,14 +155,32 @@
+     }
+     asm volatile("tcgen05.fence::after_thread_sync;" ::: "memory");
+ 
+-    for (int n = 0; n < BN; ++n) {
++    // All MMA reads of the stage buffers have completed. Reuse that storage
++    // as a padded FP32 transpose buffer; no next-tile TMA starts before sync.
++    static_assert(BM * (BN + 1) * sizeof(float) <=
++                  NSTAGE * (BM + BN) * BK * 2, "epilogue scratch fits stages");
++    float* epilogue = reinterpret_cast<float*>(smem);
++    for (int n = 0; n < BN; n += 8) {
+         const uint32_t read_addr = taddr + ((warp * 32) << 16) + n;
+-        uint32_t bits;
+-        asm volatile("tcgen05.ld.sync.aligned.32x32b.x1.b32 {%0}, [%1];"
+-                     : "=r"(bits) : "r"(read_addr) : "memory");
++        uint32_t r[8];
++        asm volatile(
++            "tcgen05.ld.sync.aligned.32x32b.x8.b32 "
++            "{%0, %1, %2, %3, %4, %5, %6, %7}, [%8];"
++            : "=r"(r[0]), "=r"(r[1]), "=r"(r[2]), "=r"(r[3]),
++              "=r"(r[4]), "=r"(r[5]), "=r"(r[6]), "=r"(r[7])
++            : "r"(read_addr) : "memory");
+         asm volatile("tcgen05.wait::ld.sync.aligned;" ::: "memory");
+-        gD[tileM * N + tileN + (warp * 32 + lane) * N + n] = __uint_as_float(bits);
+-    }
++        #pragma unroll
++        for (int j = 0; j < 8; ++j)
++            epilogue[tid * (BN + 1) + n + j] = __uint_as_float(r[j]);
++    }
++    __syncthreads();
++    for (int i = tid; i < BM * BN; i += blockDim.x) {
++        const int row = i / BN, col = i % BN;
++        gD[(tileM + row) * N + tileN + col] = epilogue[row * (BN + 1) + col];
++    }
++    // Order generic scratch accesses before next tile overwrites it via TMA.
++    asm volatile("fence.proxy.async.shared::cta;" ::: "memory");
+     asm volatile("tcgen05.fence::before_thread_sync;" ::: "memory");
+     __syncthreads();
+     if (tid == 0) {
+@@ -301,7 +320,7 @@
+         },
+         iters);
+     double cub_tflops = 2.0 * M * N * K / (cub_ms * 1e9);
+-    printf("[4.4 warp+persistent S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
++    printf("[4.4 epilogue S=%d] M=%d N=%d K=%d  %s(bad=%ld)  %.2f ms  %.1f "
+            "TFLOPS  (cuBLAS %.1f, 达成率 %.0f%%)\n",
+            NSTAGE, M, N, K, bad ? "FAIL" : "PASS", bad, ms, tflops,
+            cub_tflops, 100.0 * tflops / cub_tflops);

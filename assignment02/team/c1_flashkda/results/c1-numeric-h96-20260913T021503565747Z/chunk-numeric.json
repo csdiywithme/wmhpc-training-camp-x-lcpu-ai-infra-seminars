@@ -1,0 +1,5608 @@
+{
+  "scope": "GPU microbench of isolated range/Neumann mechanisms; no FlashKDA end-to-end claim",
+  "torch": "2.10.0+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA B300 SXM6 AC",
+  "capability": [
+    10,
+    3
+  ],
+  "script_sha256": "807bf9f29155d12764402861f13b92c22ad531a82b9af48a342f5766f7267360",
+  "cuda_source_sha256": "fa966074a9111894aa2790bded1488917b41ea551308c15cf4ef1a191a282e33",
+  "extension": "/root/.cache/torch_extensions/py311_cu130/c1_chunk_numeric_sm80_v1/c1_chunk_numeric_sm80_v1.so",
+  "mma_validation": [
+    {
+      "n": 16,
+      "identity_exact": true,
+      "random_error": {
+        "max_abs": 3.0383860575966537e-05,
+        "relative_l2": 0.00019219686833240815
+      },
+      "pass": true
+    },
+    {
+      "n": 32,
+      "identity_exact": true,
+      "random_error": {
+        "max_abs": 8.204055484384298e-05,
+        "relative_l2": 0.0002549505593183815
+      },
+      "pass": true
+    },
+    {
+      "n": 64,
+      "identity_exact": true,
+      "random_error": {
+        "max_abs": 0.0002700377954170108,
+        "relative_l2": 0.0003367278226044238
+      },
+      "pass": true
+    }
+  ],
+  "range": [
+    {
+      "chunk": 16,
+      "log_gate_per_token": -5.0,
+      "exact_exp_min": 1.8048513878454153e-35,
+      "exact_inverse_max": 5.54062238439351e+34,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.006737946532666683
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 5.5406239702048065e+34
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.006744384765625
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 5.549267267559097e+34
+      },
+      "first_zero_exp_token_1based": null,
+      "first_infinite_inverse_token_1based": null,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 136,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0027621567175959436
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": 2.4079811585467e-05,
+        "relative_l2": 2.4079474272710986e-05
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1583296743997440.0
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 2.353130805301084e+17
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    },
+    {
+      "chunk": 16,
+      "log_gate_per_token": -0.01,
+      "exact_exp_min": 0.8521437889662113,
+      "exact_inverse_max": 1.1735108709918103,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.9900497794151306
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.1735107898712158
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.98828125
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.171875
+      },
+      "first_zero_exp_token_1based": null,
+      "first_infinite_inverse_token_1based": null,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 136,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0026981038973190306
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.99609375
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": 0.00426453133890714,
+        "relative_l2": 0.0029058168484080195
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0703125
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 16,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0859375
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    },
+    {
+      "chunk": 32,
+      "log_gate_per_token": -5.0,
+      "exact_exp_min": 3.257488532207521e-70,
+      "exact_inverse_max": 3.0698496406442424e+69,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 15,
+        "finite_abs_max": 0.006737946532666683
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 32,
+        "nan": 0,
+        "inf": 15,
+        "zeros": 0,
+        "finite_abs_max": 8.222987673831577e+36
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 15,
+        "finite_abs_max": 0.006744384765625
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 15,
+        "zeros": 0,
+        "finite_abs_max": 8.224598223919167e+36
+      },
+      "first_zero_exp_token_1based": 18,
+      "first_infinite_inverse_token_1based": 18,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 528,
+        "nan": 120,
+        "inf": 0,
+        "zeros": 255,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 15,
+        "inf": 0,
+        "zeros": 17,
+        "finite_abs_max": 0.0
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 14,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 3.7268927646709944e+32
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 5.549267267559097e+34
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    },
+    {
+      "chunk": 32,
+      "log_gate_per_token": -0.01,
+      "exact_exp_min": 0.7261490370736909,
+      "exact_inverse_max": 1.3771277643359572,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.9900497794151306
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.3771276473999023
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.98828125
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.375
+      },
+      "first_zero_exp_token_1based": null,
+      "first_infinite_inverse_token_1based": null,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 528,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0028043690527492404
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": 0.0039914349122065484,
+        "relative_l2": 0.002236577658923121
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.1640625
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 32,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.171875
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    },
+    {
+      "chunk": 64,
+      "log_gate_per_token": -5.0,
+      "exact_exp_min": 1.0611231537463512e-139,
+      "exact_inverse_max": 9.423976816163585e+138,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 47,
+        "finite_abs_max": 0.006737946532666683
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 64,
+        "nan": 0,
+        "inf": 47,
+        "zeros": 0,
+        "finite_abs_max": 8.222987673831577e+36
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 47,
+        "finite_abs_max": 0.006744384765625
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 47,
+        "zeros": 0,
+        "finite_abs_max": 8.224598223919167e+36
+      },
+      "first_zero_exp_token_1based": 18,
+      "first_infinite_inverse_token_1based": 18,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 2080,
+        "nan": 1128,
+        "inf": 0,
+        "zeros": 799,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 47,
+        "inf": 0,
+        "zeros": 17,
+        "finite_abs_max": 0.0
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 46,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 14,
+        "zeros": 15,
+        "finite_abs_max": 8.224598223919167e+36
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 15,
+        "zeros": 14,
+        "finite_abs_max": 8.224598223919167e+36
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    },
+    {
+      "chunk": 64,
+      "log_gate_per_token": -0.01,
+      "exact_exp_min": 0.5272924240430485,
+      "exact_inverse_max": 1.8964808793049515,
+      "exp_fp32": {
+        "dtype": "torch.float32",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.9900497794151306
+      },
+      "inverse_fp32": {
+        "dtype": "torch.float32",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.8964807987213135
+      },
+      "exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 0.98828125
+      },
+      "inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.8984375
+      },
+      "first_zero_exp_token_1based": null,
+      "first_infinite_inverse_token_1based": null,
+      "causal_factored_pairs": {
+        "dtype": "torch.bfloat16",
+        "elements": 2080,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0078125
+      },
+      "causal_pair_error": {
+        "max_abs": 0.0078125,
+        "relative_l2": 0.0027752085614654253
+      },
+      "restored_via_product": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_via_difference": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.0
+      },
+      "restored_product_error": {
+        "max_abs": 0.003732504569739503,
+        "relative_l2": 0.002055453353291984
+      },
+      "centered_exp_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.3671875
+      },
+      "centered_inverse_bf16": {
+        "dtype": "torch.bfloat16",
+        "elements": 64,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": 1.375
+      },
+      "centering_scope": "range of factors only; not an implementation of rescaled KDA"
+    }
+  ],
+  "inverse": [
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 14.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 147,
+          "finite_abs_max": 78.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 364.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 189,
+          "finite_abs_max": 1716.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3432.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 225,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "residual_abs_max": 0.0,
+      "corner": 0.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 14.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 147,
+          "finite_abs_max": 78.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 364.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 189,
+          "finite_abs_max": 1716.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3432.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 225,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "residual_abs_max": 0.0,
+      "corner": 0.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 14.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 147,
+          "finite_abs_max": 78.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 364.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 189,
+          "finite_abs_max": 1716.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3432.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 225,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 225,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "residual_abs_max": 0.0,
+      "corner": 0.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 13.7265625
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 133,
+          "finite_abs_max": 75.625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 350.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 156,
+          "finite_abs_max": 1595.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3172.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 173,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 173,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 1.0,
+        "relative_l2": 0.19692598509827733
+      },
+      "residual_abs_max": 0.7422876358032227,
+      "corner": -1.0,
+      "gold_corner": -7.104583214126823e-29
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 13.7265625
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 133,
+          "finite_abs_max": 75.625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 350.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 156,
+          "finite_abs_max": 1595.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3172.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 173,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 173,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 1.0,
+        "relative_l2": 0.19692598509827733
+      },
+      "residual_abs_max": 0.7422876358032227,
+      "corner": -1.0,
+      "gold_corner": -7.104583214126823e-29
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 13.727897644042969
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 75.62228393554688
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 349.98822021484375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 139,
+          "finite_abs_max": 1594.814453125
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 3172.862548828125
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 152,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 152,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.0001220703125,
+        "relative_l2": 3.487318593581108e-05
+      },
+      "residual_abs_max": 0.000156657537445426,
+      "corner": -0.0001220703125,
+      "gold_corner": -7.104583214126823e-29
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 7.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 31.265625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 115.1875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 139,
+          "finite_abs_max": 198.125
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 343.75
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 150,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 150,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.12500000279396772,
+        "relative_l2": 0.03323204804720821
+      },
+      "residual_abs_max": 0.2059326171875,
+      "corner": 0.125,
+      "gold_corner": -2.7939677238464355e-09
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 7.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 31.265625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 115.1875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 139,
+          "finite_abs_max": 198.125
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 343.75
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 150,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 150,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.12500000279396772,
+        "relative_l2": 0.03323204804720821
+      },
+      "residual_abs_max": 0.2059326171875,
+      "corner": 0.125,
+      "gold_corner": -2.7939677238464355e-09
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 7.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 31.265625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 115.171875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 198.17486572265625
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 343.5875244140625
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 130,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 130,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 2.384185791015625e-07,
+        "relative_l2": 1.294662980707276e-07
+      },
+      "residual_abs_max": 2.384185791015625e-07,
+      "corner": 0.0,
+      "gold_corner": -2.7939677238464355e-09
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00012653844806785163
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 147,
+          "finite_abs_max": 17.390625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 81.1875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 166,
+          "finite_abs_max": 383.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 765.5
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 172,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 172,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.250016291795521,
+        "relative_l2": 0.0518231052533554
+      },
+      "residual_abs_max": 0.20356380939483643,
+      "corner": -0.25,
+      "gold_corner": 1.6291795520991194e-05
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00012653844806785163
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 147,
+          "finite_abs_max": 17.390625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 81.1875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 166,
+          "finite_abs_max": 383.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 765.5
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 172,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 172,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.250016291795521,
+        "relative_l2": 0.0518231052533554
+      },
+      "residual_abs_max": 0.20356380939483643,
+      "corner": -0.25,
+      "gold_corner": 1.6291795520991194e-05
+    },
+    {
+      "chunk": 16,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00012653844806785163
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 3.328479290008545
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 17.40257453918457
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 81.21394348144531
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 382.88671875
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 765.76513671875
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 7.732695177099119e-05,
+        "relative_l2": 1.532173059947778e-05
+      },
+      "residual_abs_max": 9.323397534899414e-05,
+      "corner": -6.103515625e-05,
+      "gold_corner": 1.6291795520991194e-05
+    },
+    {
+      "chunk": 16,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 4.793978110814723e-05,
+        "relative_l2": 0.00020013963561031398
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 0.0352783203125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 0.00045609474182128906
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 256,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 5.279197814890557e-05,
+        "relative_l2": 3.8880416890478865e-05
+      },
+      "residual_abs_max": 5.03562914673239e-05,
+      "corner": -0.03094482421875,
+      "gold_corner": -0.030961113331576064,
+      "timing": {
+        "median_us": 12.363519668579102,
+        "samples_us": [
+          13.321599960327148,
+          12.392959594726562,
+          12.363519668579102,
+          12.39359974861145,
+          12.355200052261353,
+          12.347520589828491,
+          12.359679937362671
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 16,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 4.793978110814723e-05,
+        "relative_l2": 0.00020013963561031398
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 0.0352783203125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 0.00045609474182128906
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 256,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 5.279197814890557e-05,
+        "relative_l2": 3.8880416890478865e-05
+      },
+      "residual_abs_max": 5.03562914673239e-05,
+      "corner": -0.03094482421875,
+      "gold_corner": -0.030961113331576064,
+      "timing": {
+        "median_us": 14.419200420379639,
+        "samples_us": [
+          15.281920433044434,
+          14.397439956665039,
+          14.421759843826294,
+          14.40000057220459,
+          14.419200420379639,
+          14.414080381393433,
+          14.425599575042725
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 16,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 4.793978110814723e-05,
+        "relative_l2": 0.00020013963561031398
+      },
+      "dense_gemms": 6,
+      "dense_flops": 49152,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 151,
+          "finite_abs_max": 0.03526412695646286
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 178,
+          "finite_abs_max": 0.00045598382712341845
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 220,
+          "finite_abs_max": 2.3302247242895646e-08
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 256,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 120,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 256,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 120,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 8.36592345399012e-09,
+        "relative_l2": 5.463141961059213e-09
+      },
+      "residual_abs_max": 8.328733258622378e-09,
+      "corner": -0.030961113050580025,
+      "gold_corner": -0.030961113331576064,
+      "timing": {
+        "median_us": 21.103999614715576,
+        "samples_us": [
+          21.91551923751831,
+          21.121280193328857,
+          20.977919101715088,
+          21.18783950805664,
+          21.009280681610107,
+          21.030399799346924,
+          21.103999614715576
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 30.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 555,
+          "finite_abs_max": 406.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 4060.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 36,
+          "zeros": 661,
+          "finite_abs_max": 54304.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 66,
+          "zeros": 724,
+          "finite_abs_max": 50400.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 520,
+          "inf": 0,
+          "zeros": 479,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 583,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 961,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 30.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 555,
+          "finite_abs_max": 406.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 4060.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 36,
+          "zeros": 661,
+          "finite_abs_max": 54272.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 66,
+          "zeros": 724,
+          "finite_abs_max": 50400.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 520,
+          "inf": 0,
+          "zeros": 479,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 583,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 961,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 30.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 555,
+          "finite_abs_max": 406.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 4060.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 661,
+          "finite_abs_max": 475020.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 724,
+          "finite_abs_max": 2035800.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 825,
+          "finite_abs_max": 77558752.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 888,
+          "finite_abs_max": 155117520.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 960,
+          "finite_abs_max": 8.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 960,
+        "finite_abs_max": 8.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 961,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 8.0,
+        "relative_l2": 1.0079052613579391
+      },
+      "residual_abs_max": 8.0,
+      "corner": 8.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 29.421875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 525,
+          "finite_abs_max": 394.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 3904.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 36,
+          "zeros": 579,
+          "finite_abs_max": 50496.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 66,
+          "zeros": 724,
+          "finite_abs_max": 46592.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 520,
+          "inf": 0,
+          "zeros": 444,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 583,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 624,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 29.421875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 525,
+          "finite_abs_max": 394.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 3904.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 36,
+          "zeros": 580,
+          "finite_abs_max": 50496.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 66,
+          "zeros": 724,
+          "finite_abs_max": 46560.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 520,
+          "inf": 0,
+          "zeros": 446,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 583,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 624,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 29.41692352294922
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 393.9532165527344
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 3903.714111328125
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 547,
+          "finite_abs_max": 442580.71875
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 724,
+          "finite_abs_max": 1882084.375
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 592,
+          "finite_abs_max": 66625072.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 888,
+          "finite_abs_max": 132577200.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 612,
+          "finite_abs_max": 12.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 612,
+        "finite_abs_max": 12.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 624,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 12.0,
+        "relative_l2": 1.6119270931644798
+      },
+      "residual_abs_max": 10.098643683828413,
+      "corner": 12.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 16.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 167.375
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 1285.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 547,
+          "finite_abs_max": 59296.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 15,
+          "zeros": 724,
+          "finite_abs_max": 48128.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 159,
+          "inf": 1,
+          "zeros": 566,
+          "finite_abs_max": 21920.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 295,
+          "inf": 0,
+          "zeros": 708,
+          "finite_abs_max": 155.375
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "power_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -6.505213034913027e-19
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 16.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 167.375
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 1285.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 547,
+          "finite_abs_max": 59296.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 15,
+          "zeros": 724,
+          "finite_abs_max": 48128.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 159,
+          "inf": 1,
+          "zeros": 560,
+          "finite_abs_max": 21920.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 295,
+          "inf": 0,
+          "zeros": 708,
+          "finite_abs_max": 155.375
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "power_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -6.505213034913027e-19
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 16.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 167.390625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 1284.609375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 59282.5078125
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 724,
+          "finite_abs_max": 203809.859375
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 570,
+          "finite_abs_max": 892131.25
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 888,
+          "finite_abs_max": 1554680.125
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 587,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 587,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.031249999999999997,
+        "relative_l2": 0.009608994529914401
+      },
+      "residual_abs_max": 0.048681240528821945,
+      "corner": 0.0,
+      "gold_corner": -6.505213034913027e-19
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013597144195183944
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 555,
+          "finite_abs_max": 21.046875
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 182.875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 605,
+          "finite_abs_max": 21392.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 3,
+          "zeros": 724,
+          "finite_abs_max": 65120.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 64,
+          "inf": 15,
+          "zeros": 629,
+          "finite_abs_max": 29008.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 124,
+          "inf": 6,
+          "zeros": 822,
+          "finite_abs_max": 44480.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "power_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -1.8074283795514354e-05
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013597144195183944
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 555,
+          "finite_abs_max": 21.046875
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 182.875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 606,
+          "finite_abs_max": 21392.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 3,
+          "zeros": 724,
+          "finite_abs_max": 65120.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 63,
+          "inf": 16,
+          "zeros": 631,
+          "finite_abs_max": 28992.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 124,
+          "inf": 6,
+          "zeros": 822,
+          "finite_abs_max": 44480.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 1024,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "power_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 1024,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -1.8074283795514354e-05
+    },
+    {
+      "chunk": 32,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013597144195183944
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 3.328479290008545
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 21.052364349365234
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 182.87799072265625
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 21396.197265625
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 724,
+          "finite_abs_max": 91699.0703125
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 3493733.5
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 888,
+          "finite_abs_max": 6987406.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 534,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 534,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.5000180742837955,
+        "relative_l2": 0.07021588024438868
+      },
+      "residual_abs_max": 0.3762094135345251,
+      "corner": 0.5,
+      "gold_corner": -1.8074283795514354e-05
+    },
+    {
+      "chunk": 32,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 6.0918564416923005e-05,
+        "relative_l2": 0.00021365017027513694
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 0.0535888671875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 620,
+          "finite_abs_max": 0.002925872802734375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 993,
+          "finite_abs_max": 1.7881393432617188e-07
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 1024,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.00010553485830033793,
+        "relative_l2": 6.703014962707215e-05
+      },
+      "residual_abs_max": 0.00010702828876674175,
+      "corner": -0.035125732421875,
+      "gold_corner": -0.03513451934158681,
+      "timing": {
+        "median_us": 22.6310396194458,
+        "samples_us": [
+          23.64288091659546,
+          22.663040161132812,
+          22.602880001068115,
+          22.634880542755127,
+          22.6310396194458,
+          22.598400115966797,
+          22.61631965637207
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 32,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 6.0918564416923005e-05,
+        "relative_l2": 0.00021365017027513694
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 0.0535888671875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 621,
+          "finite_abs_max": 0.002925872802734375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 993,
+          "finite_abs_max": 1.7881393432617188e-07
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 1024,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.00010553485830033793,
+        "relative_l2": 6.636197998575681e-05
+      },
+      "residual_abs_max": 0.00010702828876674175,
+      "corner": -0.035125732421875,
+      "gold_corner": -0.03513451934158681,
+      "timing": {
+        "median_us": 18.515199422836304,
+        "samples_us": [
+          19.40608024597168,
+          18.532480001449585,
+          18.509440422058105,
+          18.538880348205566,
+          18.513280153274536,
+          18.508800268173218,
+          18.515199422836304
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 32,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 6.0918564416923005e-05,
+        "relative_l2": 0.00021365017027513694
+      },
+      "dense_gemms": 8,
+      "dense_flops": 524288,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 559,
+          "finite_abs_max": 0.05358362942934036
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 618,
+          "finite_abs_max": 0.0029249682556837797
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 724,
+          "finite_abs_max": 1.661814224007685e-07
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 888,
+          "finite_abs_max": 1.0253417206319051e-16
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 1024,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 496,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 1024,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 496,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 1.4279780663484232e-08,
+        "relative_l2": 9.48229436291415e-09
+      },
+      "residual_abs_max": 1.3449978020219078e-08,
+      "corner": -0.035134512931108475,
+      "gold_corner": -0.03513451934158681,
+      "timing": {
+        "median_us": 30.833280086517334,
+        "samples_us": [
+          31.468160152435303,
+          30.840959548950195,
+          30.810880661010742,
+          30.80575942993164,
+          30.823040008544922,
+          30.833280086517334,
+          30.838398933410645
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 62.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2139,
+          "finite_abs_max": 1830.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 37824.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 820,
+          "zeros": 2373,
+          "finite_abs_max": 54304.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 946,
+          "zeros": 2500,
+          "finite_abs_max": 50400.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3592,
+          "inf": 0,
+          "zeros": 504,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3655,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 3969,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 62.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2139,
+          "finite_abs_max": 1830.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 37824.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 820,
+          "zeros": 2373,
+          "finite_abs_max": 54272.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 946,
+          "zeros": 2500,
+          "finite_abs_max": 50400.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3592,
+          "inf": 0,
+          "zeros": 504,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3655,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 3969,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta1.0",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 62.0
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2139,
+          "finite_abs_max": 1830.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 37820.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2373,
+          "finite_abs_max": 55525368.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2500,
+          "finite_abs_max": 491796160.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2793,
+          "finite_abs_max": 22512758947840.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2920,
+          "finite_abs_max": 93052764946432.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3471,
+          "finite_abs_max": 2.3271417863942963e+17
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3568,
+          "finite_abs_max": 4.6542835727885926e+17
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3471,
+          "finite_abs_max": 2147483648.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 3471,
+        "finite_abs_max": 2147483648.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 3969,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 2147483648.0,
+        "relative_l2": 600348757.5273124
+      },
+      "residual_abs_max": 1855994872.0,
+      "corner": 0.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 60.8125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2077,
+          "finite_abs_max": 1777.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 36384.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 820,
+          "zeros": 2193,
+          "finite_abs_max": 50528.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 946,
+          "zeros": 2500,
+          "finite_abs_max": 46592.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3592,
+          "inf": 0,
+          "zeros": 504,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3655,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2528,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 60.78125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2077,
+          "finite_abs_max": 1776.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 36352.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 820,
+          "zeros": 2196,
+          "finite_abs_max": 50496.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 946,
+          "zeros": 2500,
+          "finite_abs_max": 46560.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3592,
+          "inf": 0,
+          "zeros": 504,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3655,
+          "inf": 0,
+          "zeros": 441,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2528,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.990234375",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 60.79497528076172
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1776.3341064453125
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 36364.15625
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2131,
+          "finite_abs_max": 51788864.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2500,
+          "finite_abs_max": 454662464.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2240,
+          "finite_abs_max": 19387274756096.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2920,
+          "finite_abs_max": 79531150934016.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2356,
+          "finite_abs_max": 1.7084386907049165e+17
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3568,
+          "finite_abs_max": 3.399919819733074e+17
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2389,
+          "finite_abs_max": 120259084288.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2389,
+        "finite_abs_max": 120259084288.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2528,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 120259084288.0,
+        "relative_l2": 11747367035.227116
+      },
+      "residual_abs_max": 95059738491.47998,
+      "corner": -120259084288.0,
+      "gold_corner": 0.0
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 34.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 764.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 11968.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 528,
+          "zeros": 2131,
+          "finite_abs_max": 59296.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 703,
+          "zeros": 2500,
+          "finite_abs_max": 48128.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3232,
+          "inf": 0,
+          "zeros": 864,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3367,
+          "inf": 0,
+          "zeros": 729,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -3.5264830524668625e-38
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 34.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 764.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 11968.0
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 528,
+          "zeros": 2131,
+          "finite_abs_max": 59296.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 703,
+          "zeros": 2500,
+          "finite_abs_max": 48128.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3232,
+          "inf": 0,
+          "zeros": 864,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3367,
+          "inf": 0,
+          "zeros": 729,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -3.5264830524668625e-38
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_gate0_beta0.75",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.0,
+        "relative_l2": 0.0
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 34.875
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 763.640625
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 11966.484375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 7175335.5
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2500,
+          "finite_abs_max": 49235136.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2218,
+          "finite_abs_max": 279389011968.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2920,
+          "finite_abs_max": 932630364160.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2393,
+          "finite_abs_max": 26769805541376.0
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3568,
+          "finite_abs_max": 46753394982912.0
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2390,
+          "finite_abs_max": 10485760.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2390,
+        "finite_abs_max": 10485760.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 10485760.0,
+        "relative_l2": 1105189.4741417314
+      },
+      "residual_abs_max": 9421881.987391986,
+      "corner": -10485760.0,
+      "gold_corner": -3.5264830524668625e-38
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013985420403903344
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2139,
+          "finite_abs_max": 21.046875
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 183.25
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 190,
+          "zeros": 2251,
+          "finite_abs_max": 64384.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 595,
+          "zeros": 2500,
+          "finite_abs_max": 65120.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 2746,
+          "inf": 0,
+          "zeros": 1310,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3196,
+          "inf": 0,
+          "zeros": 900,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -6.412805082214969e-07
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013985420403903344
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 3.328125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2139,
+          "finite_abs_max": 21.046875
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 183.125
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 190,
+          "zeros": 2254,
+          "finite_abs_max": 64352.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 595,
+          "zeros": 2500,
+          "finite_abs_max": 65120.0
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 2746,
+          "inf": 0,
+          "zeros": 1310,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 3196,
+          "inf": 0,
+          "zeros": 900,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 4096,
+          "inf": 0,
+          "zeros": 0,
+          "finite_abs_max": null
+        }
+      ],
+      "first_nonfinite_stage": "partial_inverse_8",
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 4096,
+        "inf": 0,
+        "zeros": 0,
+        "finite_abs_max": null
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": null,
+        "relative_l2": null
+      },
+      "residual_abs_max": null,
+      "corner": null,
+      "gold_corner": -6.412805082214969e-07
+    },
+    {
+      "chunk": 64,
+      "case": "aligned_decay0.1_beta1",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 0.00011690317201817901,
+        "relative_l2": 0.00013985420403903344
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 3.328479290008545
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 21.052364349365234
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 183.20445251464844
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 101942.6875
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2500,
+          "finite_abs_max": 902895.875
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 41329405952.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2920,
+          "finite_abs_max": 170829545472.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2246,
+          "finite_abs_max": 427263245942784.0
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3568,
+          "finite_abs_max": 854519378345984.0
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2298,
+          "finite_abs_max": 67108864.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2298,
+        "finite_abs_max": 67108864.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 67108863.99999967,
+        "relative_l2": 9544320.429503862
+      },
+      "residual_abs_max": 104238978.9206976,
+      "corner": -33554432.0,
+      "gold_corner": -6.412805082214969e-07
+    },
+    {
+      "chunk": 64,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "explicit_sm80_fp16_acc",
+      "input_rounding": {
+        "max_abs": 6.0848988081341204e-05,
+        "relative_l2": 0.0002010588865777394
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 0.0987548828125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2271,
+          "finite_abs_max": 0.0200042724609375
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3315,
+          "finite_abs_max": 2.104043960571289e-05
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 4096,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 4096,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.00010040593386789753,
+        "relative_l2": 9.847782773784068e-05
+      },
+      "residual_abs_max": 0.00010095618199557066,
+      "corner": -0.10333251953125,
+      "gold_corner": -0.10331611583331703,
+      "timing": {
+        "median_us": 39.01247978210449,
+        "samples_us": [
+          39.971840381622314,
+          39.01247978210449,
+          39.01439905166626,
+          39.01247978210449,
+          38.99199962615967,
+          38.998401165008545,
+          38.97984027862549
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 64,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp16_output_fp32_acc",
+      "input_rounding": {
+        "max_abs": 6.0848988081341204e-05,
+        "relative_l2": 0.0002010588865777394
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 0.0987548828125
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2271,
+          "finite_abs_max": 0.019989013671875
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3310,
+          "finite_abs_max": 2.09808349609375e-05
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 4096,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 4096,
+          "finite_abs_max": 0.0
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float16",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float16",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 0.00011932795568184162,
+        "relative_l2": 9.605083158954125e-05
+      },
+      "residual_abs_max": 0.0001150821044575423,
+      "corner": -0.10333251953125,
+      "gold_corner": -0.10331611583331703,
+      "timing": {
+        "median_us": 22.613120079040527,
+        "samples_us": [
+          23.207039833068848,
+          22.615680694580078,
+          22.60672092437744,
+          22.636799812316895,
+          22.58944034576416,
+          22.60416030883789,
+          22.613120079040527
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    },
+    {
+      "chunk": 64,
+      "case": "random_normalized_keys_gate0_beta0.7",
+      "mode": "torch_fp32_tf32_off",
+      "input_rounding": {
+        "max_abs": 6.0848988081341204e-05,
+        "relative_l2": 0.0002010588865777394
+      },
+      "dense_gemms": 10,
+      "dense_flops": 5242880,
+      "stages": [
+        {
+          "stage": "power_2",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2143,
+          "finite_abs_max": 0.09877434372901917
+        },
+        {
+          "stage": "partial_inverse_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_4",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2266,
+          "finite_abs_max": 0.019993513822555542
+        },
+        {
+          "stage": "partial_inverse_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_8",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2500,
+          "finite_abs_max": 2.0958706954843365e-05
+        },
+        {
+          "stage": "partial_inverse_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_16",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2920,
+          "finite_abs_max": 5.41553130464778e-13
+        },
+        {
+          "stage": "partial_inverse_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        },
+        {
+          "stage": "power_32",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 3638,
+          "finite_abs_max": 4.677155370703599e-33
+        },
+        {
+          "stage": "partial_inverse_64",
+          "dtype": "torch.float32",
+          "elements": 4096,
+          "nan": 0,
+          "inf": 0,
+          "zeros": 2016,
+          "finite_abs_max": 1.0
+        }
+      ],
+      "first_nonfinite_stage": null,
+      "result": {
+        "dtype": "torch.float32",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "gold": {
+        "dtype": "torch.float64",
+        "elements": 4096,
+        "nan": 0,
+        "inf": 0,
+        "zeros": 2016,
+        "finite_abs_max": 1.0
+      },
+      "inverse_error": {
+        "max_abs": 2.8720896085021597e-08,
+        "relative_l2": 1.669762703010564e-08
+      },
+      "residual_abs_max": 2.92883086672191e-08,
+      "corner": -0.10331612080335617,
+      "gold_corner": -0.10331611583331703,
+      "timing": {
+        "median_us": 45.1200008392334,
+        "samples_us": [
+          46.312317848205566,
+          45.158400535583496,
+          45.136637687683105,
+          45.09632110595703,
+          45.119361877441406,
+          45.10784149169922,
+          45.1200008392334
+        ],
+        "scope": "CUDA Graph replay of dense global-intermediate doubling; not fused K1 latency"
+      }
+    }
+  ],
+  "sass": {
+    "path": "/tmp/c1-artifacts/chunk-numeric.sass",
+    "returncode": 0,
+    "stderr": "",
+    "scope": "inspect actual HMMA type before attributing precision"
+  }
+}

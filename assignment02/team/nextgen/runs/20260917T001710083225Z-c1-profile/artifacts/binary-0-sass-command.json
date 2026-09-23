@@ -1,0 +1,10 @@
+{
+  "command": [
+    "cuobjdump",
+    "--dump-sass",
+    "/tmp/nextgen-build/c1_nextgen_direct_wide_rowmajor_103a.so"
+  ],
+  "returncode": 0,
+  "stderr": "",
+  "seconds": 0.654450642999997
+}

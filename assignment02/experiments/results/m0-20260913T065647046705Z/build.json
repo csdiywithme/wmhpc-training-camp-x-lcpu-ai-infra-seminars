@@ -1,0 +1,171 @@
+{
+  "built_at_utc": "2026-09-13T06:54:27.274003+00:00",
+  "base_image": "nvidia/cuda:13.1.0-devel-ubuntu24.04",
+  "python": "3.11.5",
+  "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+  "commands": [
+    {
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:17.047238+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": "",
+      "elapsed_seconds": 0.12202594900000019
+    },
+    {
+      "command": [
+        "cuobjdump",
+        "--version"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:17.169632+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "cuobjdump: NVIDIA (R) fat binary listing tool\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": "",
+      "elapsed_seconds": 0.013188759000000161
+    },
+    {
+      "command": [
+        "g++",
+        "--version"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:17.183040+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "stderr": "",
+      "elapsed_seconds": 0.014150708999999928
+    },
+    {
+      "command": [
+        "make",
+        "--version"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:17.197351+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "stderr": "",
+      "elapsed_seconds": 0.009948328999999756
+    },
+    {
+      "command": [
+        "make",
+        "-B",
+        "ARCH=100f",
+        "bin/m0_env/01_first_mma"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:17.207374+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "nvcc -O2 -std=c++17 -I. --expt-relaxed-constexpr -gencode arch=compute_100f,code=sm_100f -o bin/m0_env/01_first_mma m0_env/01_first_mma.cu\n",
+      "stderr": "",
+      "elapsed_seconds": 7.337497281000001
+    },
+    {
+      "command": [
+        "cuobjdump",
+        "--list-elf",
+        "/opt/m0/artifacts/first_mma_100f"
+      ],
+      "cwd": null,
+      "started_at_utc": "2026-09-13T06:54:24.545587+00:00",
+      "timeout_seconds": 10,
+      "returncode": 0,
+      "stdout": "ELF file    1: first_mma_100f.1.sm_100.cubin\nELF file    2: first_mma_100f.2.sm_100.cubin\n",
+      "stderr": "",
+      "elapsed_seconds": 0.011448099999999073
+    },
+    {
+      "command": [
+        "cuobjdump",
+        "--list-ptx",
+        "/opt/m0/artifacts/first_mma_100f"
+      ],
+      "cwd": null,
+      "started_at_utc": "2026-09-13T06:54:24.557039+00:00",
+      "timeout_seconds": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "cuobjdump info    : No PTX file found to extract from '/opt/m0/artifacts/first_mma_100f'. You may try with -all option.\n",
+      "elapsed_seconds": 0.008971888999999678
+    },
+    {
+      "command": [
+        "make",
+        "-B",
+        "ARCH=120a",
+        "bin/m0_env/01_first_mma"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:24.566032+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "nvcc -O2 -std=c++17 -I. --expt-relaxed-constexpr -gencode arch=compute_120a,code=sm_120a -o bin/m0_env/01_first_mma m0_env/01_first_mma.cu\n",
+      "stderr": "",
+      "elapsed_seconds": 2.037503214999999
+    },
+    {
+      "command": [
+        "cuobjdump",
+        "--list-elf",
+        "/opt/m0/artifacts/first_mma_120a"
+      ],
+      "cwd": null,
+      "started_at_utc": "2026-09-13T06:54:26.603913+00:00",
+      "timeout_seconds": 10,
+      "returncode": 0,
+      "stdout": "ELF file    1: first_mma_120a.1.sm_120a.cubin\nELF file    2: first_mma_120a.2.sm_120a.cubin\n",
+      "stderr": "",
+      "elapsed_seconds": 0.009508040000000051
+    },
+    {
+      "command": [
+        "cuobjdump",
+        "--list-ptx",
+        "/opt/m0/artifacts/first_mma_120a"
+      ],
+      "cwd": null,
+      "started_at_utc": "2026-09-13T06:54:26.613430+00:00",
+      "timeout_seconds": 10,
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "cuobjdump info    : No PTX file found to extract from '/opt/m0/artifacts/first_mma_120a'. You may try with -all option.\n",
+      "elapsed_seconds": 0.010173690000000235
+    },
+    {
+      "command": [
+        "make",
+        "-B",
+        "ARCH=100f",
+        "ptx/m0_env/01_first_mma"
+      ],
+      "cwd": "/opt/m0/cuda",
+      "started_at_utc": "2026-09-13T06:54:26.623594+00:00",
+      "timeout_seconds": 90,
+      "returncode": 0,
+      "stdout": "nvcc -O2 -std=c++17 -I. --expt-relaxed-constexpr -gencode arch=compute_100f,code=sm_100f -ptx -o m0_env/01_first_mma.ptx m0_env/01_first_mma.cu\n已生成 m0_env/01_first_mma.ptx\n",
+      "stderr": "",
+      "elapsed_seconds": 0.6499545690000001
+    }
+  ],
+  "input_sha256": {
+    "common.h": "80017b942556fdea270cb4b3790d0f22c05043a675c471ed1a17ef82e9c86619",
+    "Makefile": "8fdb776dc7a235fec41a4db457b0b1efe15b4defed92f0cb57db207a09b7342c",
+    "m0_env/01_first_mma.cu": "d5e1c032f1ddfdafaf950255a8a40a643c4cfe5a4c5ef2d7271f58cfff0e8f9b"
+  },
+  "artifact_sha256": {
+    "first_mma_100f": "4cc1ea0470d4997b3f519ab35f3c9d0a401e2a050958e520cf0b968c39e524aa",
+    "first_mma_100f.ptx": "23c728f41e35e70f72cde03b1378b8c78bc3bdf4f73b0bc16373599020ef6529",
+    "first_mma_120a": "a3012f1278448b6cfa82737d7bd5de88b1c6ae1e803f04dc89c3231fb95cb5db"
+  }
+}

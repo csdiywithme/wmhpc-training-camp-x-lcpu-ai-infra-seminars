@@ -1,0 +1,36 @@
+{
+  "units": {
+    "gpu__time_duration.sum": "us",
+    "launch__registers_per_thread": "register/thread",
+    "launch__shared_mem_per_block": "Kbyte/block",
+    "derived__memory_l2_theoretical_sectors_global_excessive": "Kbyte",
+    "derived__memory_l1_wavefronts_shared_excessive": "",
+    "smsp__inst_executed.sum": "inst",
+    "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "",
+    "smsp__sass_inst_executed_op_tmem_ldt.sum": "inst"
+  },
+  "kernels": [
+    {
+      "name": "void paged_tcgen05_partial<0>(Params)",
+      "gpu__time_duration.sum": "129.952000",
+      "launch__registers_per_thread": "115",
+      "launch__shared_mem_per_block": "59.136000",
+      "derived__memory_l2_theoretical_sectors_global_excessive": "0.000000",
+      "derived__memory_l1_wavefronts_shared_excessive": "208896",
+      "smsp__inst_executed.sum": "2150656.000000",
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "70400",
+      "smsp__sass_inst_executed_op_tmem_ldt.sum": "8192.000000"
+    },
+    {
+      "name": "_merge_feature_tiles",
+      "gpu__time_duration.sum": "4.928000",
+      "launch__registers_per_thread": "39",
+      "launch__shared_mem_per_block": "1.152000",
+      "derived__memory_l2_theoretical_sectors_global_excessive": "1.536000",
+      "derived__memory_l1_wavefronts_shared_excessive": "0",
+      "smsp__inst_executed.sum": "33024.000000",
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": "1152",
+      "smsp__sass_inst_executed_op_tmem_ldt.sum": "0.000000"
+    }
+  ]
+}

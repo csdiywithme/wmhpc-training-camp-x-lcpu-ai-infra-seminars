@@ -1,0 +1,39 @@
+{
+  "source": "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/cuda/m1_sm80/01_fragment_map.cu",
+  "sha256": "4bf52af0fb546e9a8f07d700b47711a932a196fbcaea536544497377ff5fc944",
+  "kind": "host-only",
+  "commands": [
+    {
+      "command": [
+        "clang++",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "Apple clang version 17.0.0 (clang-1700.6.4.2)\nTarget: arm64-apple-darwin25.5.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "clang++",
+        "-O2",
+        "-std=c++17",
+        "-x",
+        "c++",
+        "assignment02/experiments/results/m1-fragment-20260915T120220Z/01_fragment_map.cu",
+        "-o",
+        "assignment02/experiments/results/m1-fragment-20260915T120220Z/fragment_map"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/Users/simida/csdiy/wmhpc-training-camp-x-lcpu-ai-infra-seminars/assignment02/experiments/results/m1-fragment-20260915T120220Z/fragment_map"
+      ],
+      "returncode": 0,
+      "stdout": "PASS\n",
+      "stderr": ""
+    }
+  ]
+}

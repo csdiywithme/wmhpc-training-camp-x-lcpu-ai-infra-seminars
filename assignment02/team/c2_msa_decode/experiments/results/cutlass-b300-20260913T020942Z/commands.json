@@ -1,0 +1,76 @@
+[
+  {
+    "label": "nvidia-smi",
+    "argv": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Sun Sep 13 02:09:46 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:A3:00.0 Off |                    0 |\n| N/A   39C    P0            188W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": "",
+    "elapsed_seconds": 0.07125850700000003
+  },
+  {
+    "label": "pip-freeze",
+    "argv": [
+      "python",
+      "-m",
+      "pip",
+      "freeze"
+    ],
+    "returncode": 0,
+    "stdout": "aiohappyeyeballs==2.6.1\naiohttp==3.12.7\naiosignal==1.3.2\napache-tvm-ffi==0.1.13.post3\nattrs==25.3.0\ncbor2==5.7.0\ncertifi==2025.4.26\ncuda-bindings==13.0.3\ncuda-pathfinder==1.6.0\nfilelock==3.32.3\nfrozenlist==1.6.0\nfsspec==2026.7.0\ngrpclib==0.4.8\nh2==4.2.0\nhpack==4.1.0\nhyperframe==6.1.0\nidna==3.10\nJinja2==3.1.6\nMarkupSafe==3.0.3\nmpmath==1.3.0\nmultidict==6.4.4\nnetworkx==3.6.1\nninja==1.13.0\nnumpy==2.2.6\nnvidia-cublas==13.1.0.3\nnvidia-cuda-cupti==13.0.85\nnvidia-cuda-nvrtc==13.0.88\nnvidia-cuda-runtime==13.0.96\nnvidia-cudnn-cu13==9.15.1.9\nnvidia-cufft==12.0.0.61\nnvidia-cufile==1.15.1.6\nnvidia-curand==10.4.0.35\nnvidia-cusolver==12.0.4.66\nnvidia-cusparse==12.6.3.3\nnvidia-cusparselt-cu13==0.8.0\nnvidia-nccl-cu13==2.28.9\nnvidia-nvjitlink==13.0.88\nnvidia-nvshmem-cu13==3.4.5\nnvidia-nvtx==13.0.85\npropcache==0.3.1\nprotobuf==6.31.1\npybind11==3.0.1\nsympy==1.14.0\ntorch==2.10.0+cu130\ntriton==3.6.0\ntyping_extensions==4.16.0\nyarl==1.20.0\n",
+    "stderr": "",
+    "elapsed_seconds": 0.610242159
+  },
+  {
+    "label": "nvcc",
+    "argv": [
+      "nvcc",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+    "stderr": "",
+    "elapsed_seconds": 0.018216446999999913
+  },
+  {
+    "label": "archive-sha256",
+    "argv": [
+      "cat",
+      "/opt/provenance/sha256.txt"
+    ],
+    "returncode": 0,
+    "stdout": "ffe392246cc3517017c4b91d14bbcb28aae28d26d1847b333371eb13bfec52eb  /opt/provenance/cutlass.tar.gz\n32efbae22ce41f85adf01dfd3ad98494a774591b10d00ea558a94d34170d579a  /opt/provenance/msa.tar.gz\n",
+    "stderr": "",
+    "elapsed_seconds": 0.006475707999999969
+  },
+  {
+    "label": "cutlass",
+    "argv": [
+      "python",
+      "-u",
+      "/opt/c2/experiments/cutlass_workload.py",
+      "--output",
+      "/tmp/c2-cutlass",
+      "--batches",
+      "16,32,64",
+      "--tps",
+      "1,4",
+      "--pdl"
+    ],
+    "returncode": 0,
+    "stdout": "{\"batch\": 16, \"tp\": 1, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.0013909200781757683, \"nrmse\": 0.026425728274434464}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.0013856632729094156, \"nrmse\": 0.027220156740120228}}, \"cutlass_us\": 17.062999308109283, \"cutlass_full_us\": 27.139000594615936, \"triton_us\": 32.08699822425842}\n{\"batch\": 32, \"tp\": 1, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.0016327023981194608, \"nrmse\": 0.026555121100606635}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.0016635934949321626, \"nrmse\": 0.027369766744808614}}, \"cutlass_us\": 19.502000883221626, \"cutlass_full_us\": 31.082000583410263, \"triton_us\": 43.588001281023026}\n{\"batch\": 64, \"tp\": 1, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.0013916031732379743, \"nrmse\": 0.02690908155072385}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.001523707831539654, \"nrmse\": 0.027757592438719385}}, \"cutlass_us\": 36.11399978399277, \"cutlass_full_us\": 51.10900104045868, \"triton_us\": 89.64499831199646}\n{\"batch\": 16, \"tp\": 4, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.0015037428142412185, \"nrmse\": 0.02673527043471568}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.001551857166346829, \"nrmse\": 0.027552021088331862}}, \"cutlass_us\": 16.892999410629272, \"cutlass_full_us\": 27.022000402212143, \"triton_us\": 12.130999937653542}\n{\"batch\": 32, \"tp\": 4, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.001288302829130155, \"nrmse\": 0.026129006188876303}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.0014428229738548768, \"nrmse\": 0.026909442143775383}}, \"cutlass_us\": 17.06000044941902, \"cutlass_full_us\": 27.269000187516212, \"triton_us\": 20.080000162124634}\n{\"batch\": 64, \"tp\": 4, \"correctness\": {\"against_effective_fp8_q\": {\"finite\": true, \"max_abs\": 0.0012784651554052003, \"nrmse\": 0.026512666981430046}, \"against_original_bf16_q\": {\"finite\": true, \"max_abs\": 0.001385607738934029, \"nrmse\": 0.027344186270996614}}, \"cutlass_us\": 18.27000081539154, \"cutlass_full_us\": 28.90699915587902, \"triton_us\": 32.15400129556656}\nC2_CUTLASS_DONE\n",
+    "stderr": "/usr/local/lib/python3.11/site-packages/torch/profiler/profiler.py:217: UserWarning: Warning: Profiler clears events at the end of each cycle.Only events from the current cycle will be reported.To keep events across cycles, set acc_events=True.\n  _warn_once(\n",
+    "elapsed_seconds": 367.15967969900004
+  },
+  {
+    "label": "nvidia-smi-after",
+    "argv": [
+      "nvidia-smi"
+    ],
+    "returncode": 0,
+    "stdout": "Sun Sep 13 02:16:04 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.1     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA B300 SXM6 AC            On  |   00000000:A3:00.0 Off |                    0 |\n| N/A   40C    P0            188W / 1100W |       4MiB / 275040MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n",
+    "stderr": "",
+    "elapsed_seconds": 0.09934395299995913
+  }
+]

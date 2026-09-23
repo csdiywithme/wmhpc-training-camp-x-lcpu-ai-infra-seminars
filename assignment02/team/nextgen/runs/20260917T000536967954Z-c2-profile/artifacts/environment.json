@@ -1,0 +1,77 @@
+{
+  "gpu": "NVIDIA B300 SXM6 AC",
+  "capability": [
+    10,
+    3
+  ],
+  "torch": "2.10.0+cu130",
+  "triton": "3.6.0",
+  "cuda": "13.0",
+  "arguments": {
+    "mode": "profile",
+    "output": "/tmp/nextgen-artifacts",
+    "build_dir": "/tmp/nextgen-build",
+    "manifest": "/opt/c2/validation/frozen_calibration.json",
+    "tier": "full",
+    "tps": [
+      1
+    ],
+    "batches": [
+      1
+    ],
+    "storages": [
+      "bf16"
+    ],
+    "seeds": [
+      101
+    ],
+    "splits": null,
+    "merge": "feature",
+    "calls": 64,
+    "repeats": 21,
+    "sample_ms": 10.0,
+    "max_replays": 64,
+    "profile_target": "tcgen05",
+    "profile_replays": 1
+  },
+  "sources": {
+    "build.py": "1c058f68e5b057cd18812debfb4824feba1849739c7f19766bb9327c130e95be",
+    "partial.cu": "371756b03f3a71e1dfd147b1be7fad2376bd717e2d14f30b65a17486dbd51bc0",
+    "adapter.py": "8b829a43544d51bb510903f6a85efb2adcee7ac8f35195f67c568ee1047cb0cc",
+    "binding.cpp": "000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a",
+    "run.py": "dcd55bcef5a094a79658dd98fc22ad2ede481f7fc44d0a1b01ec58c43e284d4b",
+    "__init__.py": "90a582c07cd2323c93b07a5525d3f2ae27d6c40c5755f84d677381086e5b566d"
+  },
+  "scope": "Single GPU, PDL off, complete partial+merge; BF16 MMA/P and FP32 accumulators; hot fixed-address Graph; no model/service E2E",
+  "build": {
+    "source_hashes": {
+      "binding.cpp": "000dd88030603378e79dd1b8e070fc21b820b0fb6814eb76aac4a8ef4c1c857a",
+      "partial.cu": "371756b03f3a71e1dfd147b1be7fad2376bd717e2d14f30b65a17486dbd51bc0"
+    },
+    "architectures": [
+      "103a"
+    ],
+    "cuda_flags": [
+      "-O3",
+      "-std=c++17",
+      "-lineinfo",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--ptxas-options=-v",
+      "-gencode=arch=compute_103a,code=sm_103a",
+      "-DC2_DATAFLOW_VARIANT=1"
+    ],
+    "variant": "coalesced",
+    "variant_id": 1,
+    "torch": "2.10.0+cu130",
+    "cuda": "13.0",
+    "cutlass": "/opt/FlashKDA/cutlass",
+    "scope": "CPU compile only",
+    "inverse_layout_coordinate_mismatches": 0,
+    "status": "COMPILED",
+    "module": "/tmp/nextgen-build/c2_nextgen_ext.so",
+    "sass_returncode": 0,
+    "sass_has_tcgen05": true,
+    "seconds": 64.52609108200001
+  }
+}

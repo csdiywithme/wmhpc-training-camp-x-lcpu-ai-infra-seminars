@@ -1,0 +1,9 @@
+{
+  "status": "STARTUP_FAILED",
+  "app_id": "ap-MDBzd3QFI4znISgTGPlqYz",
+  "local_exit_code": 1,
+  "function_submitted": false,
+  "gpu_submitted": false,
+  "reason": "Serialized functions require matching Python minor version: local3.13 vs image3.11.",
+  "updated_at": "2026-09-16T15:43:05.273785+00:00"
+}

@@ -1,0 +1,23 @@
+{
+  "04ab_warp_persistent": {
+    "gpu__time_duration.sum": 213.152,
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": 48.791395,
+    "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": 524288.0,
+    "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": 16777216.0,
+    "launch__occupancy_limit_shared_mem": 3.0
+  },
+  "04g_epilogue": {
+    "gpu__time_duration.sum": 142.24,
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": 71.401118,
+    "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": 524288.0,
+    "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": 2097152.0,
+    "launch__occupancy_limit_shared_mem": 3.0
+  },
+  "04h_bn128": {
+    "gpu__time_duration.sum": 120.992,
+    "sm__throughput.avg.pct_of_peak_sustained_elapsed": 0.0,
+    "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": NaN,
+    "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": 0.0,
+    "launch__occupancy_limit_shared_mem": 2.0
+  }
+}

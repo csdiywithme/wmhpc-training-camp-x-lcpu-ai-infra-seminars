@@ -1,0 +1,51 @@
+{
+  "units": {
+    "gpu__time_duration.sum": "ms",
+    "launch__registers_per_thread": "register/thread",
+    "launch__shared_mem_per_block": "Kbyte/block",
+    "launch__grid_size": "",
+    "launch__occupancy_limit_shared_mem": "block",
+    "sm__warps_active.avg.pct_of_peak_sustained_active": "%",
+    "derived__memory_l1_wavefronts_shared_excessive": "",
+    "smsp__inst_executed.sum": "inst",
+    "smsp__sass_inst_executed_op_tmem_ldt.sum": "inst"
+  },
+  "kernels": [
+    {
+      "name": "void at::elementwise_kernel<128, 4, void at::gpu_kernel_impl_nocast<at::direct_c",
+      "gpu__time_duration.sum": "0.007168",
+      "launch__registers_per_thread": "20",
+      "launch__shared_mem_per_block": "1.024000",
+      "launch__grid_size": "1536",
+      "launch__occupancy_limit_shared_mem": "32.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "58.222275",
+      "derived__memory_l1_wavefronts_shared_excessive": "0",
+      "smsp__inst_executed.sum": "983040.000000",
+      "smsp__sass_inst_executed_op_tmem_ldt.sum": "0.000000"
+    },
+    {
+      "name": "void _flash_kda_fwd_prepare<cute::TiledCopy<cute::Copy_Atom<cute::Copy_Traits<cu",
+      "gpu__time_duration.sum": "0.272032",
+      "launch__registers_per_thread": "32",
+      "launch__shared_mem_per_block": "22.272000",
+      "launch__grid_size": "49152",
+      "launch__occupancy_limit_shared_mem": "9.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "96.473375",
+      "derived__memory_l1_wavefronts_shared_excessive": "0",
+      "smsp__inst_executed.sum": "215871620.000000",
+      "smsp__sass_inst_executed_op_tmem_ldt.sum": "0.000000"
+    },
+    {
+      "name": "void c1_nextgen::kernel<1, 1>(const cutlass::bfloat16_t *, const cutlass::bfloat",
+      "gpu__time_duration.sum": "8.038112",
+      "launch__registers_per_thread": "168",
+      "launch__shared_mem_per_block": "91.264000",
+      "launch__grid_size": "96",
+      "launch__occupancy_limit_shared_mem": "2.000000",
+      "sm__warps_active.avg.pct_of_peak_sustained_active": "6.250070",
+      "derived__memory_l1_wavefronts_shared_excessive": "254803968",
+      "smsp__inst_executed.sum": "564750720.000000",
+      "smsp__sass_inst_executed_op_tmem_ldt.sum": "2359296.000000"
+    }
+  ]
+}

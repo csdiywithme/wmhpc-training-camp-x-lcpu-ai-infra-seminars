@@ -1,0 +1,204 @@
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(506): warning #177-D: variable "cse_v6" was declared but never referenced
+              int cse_v6 = (k * 64);
+                  ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(524): warning #177-D: variable "cse_v8" was declared but never referenced
+            int cse_v8 = (rem_1 & 3);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(525): warning #177-D: variable "tile_row_1" was declared but never referenced
+            int tile_row_1 = (rem_1 & 3);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(526): warning #177-D: variable "cse_v9" was declared but never referenced
+            int cse_v9 = (rem_1 >> 2);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(527): warning #177-D: variable "tile_col_1" was declared but never referenced
+            int tile_col_1 = (rem_1 >> 2);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(554): warning #177-D: variable "cse_v17" was declared but never referenced
+                  int cse_v17 = ((warp_id_in_cta & 3) * 1024);
+                      ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(555): warning #177-D: variable "cse_v22" was declared but never referenced
+                  unsigned int cse_v22 = (mma_tmem_base + ((unsigned int)((warp_id_in_cta & 3) * 256)));
+                               ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(571): warning #177-D: variable "cse_v10" was declared but never referenced
+                int cse_v10 = (rem_2 & 3);
+                    ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(572): warning #177-D: variable "tile_row_2" was declared but never referenced
+                int tile_row_2 = (rem_2 & 3);
+                    ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(573): warning #177-D: variable "cse_v11" was declared but never referenced
+                int cse_v11 = (rem_2 >> 2);
+                    ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(574): warning #177-D: variable "tile_col_2" was declared but never referenced
+                int tile_col_2 = (rem_2 >> 2);
+                    ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(545): warning #177-D: variable "mma_tmem" was declared but never referenced
+              float* mma_tmem = ((float*)((float*)mma_tmem_base));
+                     ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(538): warning #550-D: variable "ld_ps_stage_ptr" was set but never used
+          alignas(64) int ld_ps_stage_ptr[1];
+                          ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(600): warning #550-D: variable "dst_lane_indices_0_0_ptr" was set but never used
+            alignas(64) int dst_lane_indices_0_0_ptr[1];
+                            ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(601): warning #177-D: variable "cse_v12" was declared but never referenced
+            int cse_v12 = (f * 2);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(603): warning #550-D: variable "dst_lane_indices_1_0_ptr" was set but never used
+            alignas(64) int dst_lane_indices_1_0_ptr[1];
+                            ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(636): warning #550-D: variable "dst_lane_indices_0_0_ptr_1" was set but never used
+            alignas(64) int dst_lane_indices_0_0_ptr_1[1];
+                            ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(637): warning #177-D: variable "cse_v13" was declared but never referenced
+            int cse_v13 = (f_2 * 2);
+                ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(639): warning #550-D: variable "dst_lane_indices_1_0_ptr_1" was set but never used
+            alignas(64) int dst_lane_indices_1_0_ptr_1[1];
+                            ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(596): warning #177-D: variable "cse_v18" was declared but never referenced
+          int cse_v18 = ((warp_id_in_cta >> 2) * 256);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(608): warning #177-D: variable "cse_v19" was declared but never referenced
+          int cse_v19 = ((warp_id_in_cta >> 2) * 16384);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(609): warning #177-D: variable "cse_v23" was declared but never referenced
+          int cse_v23 = ((((warp_id_in_cta >> 2) * 16384) + ((warp_id_in_cta & 3) * 2048)) + ((((int)threadIdx.x) & 31) * 64));
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(621): warning #177-D: variable "cse_v20" was declared but never referenced
+          int cse_v20 = ((warp_id_in_cta >> 2) + 10);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(623): warning #177-D: variable "cse_v21" was declared but never referenced
+          int cse_v21 = (((warp_id_in_cta >> 2) * 16384) + 74240);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(671): warning #177-D: variable "cse_v14" was declared but never referenced
+          int cse_v14 = (rem_3 & 3);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(672): warning #177-D: variable "tile_row_3" was declared but never referenced
+          int tile_row_3 = (rem_3 & 3);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(673): warning #177-D: variable "cse_v15" was declared but never referenced
+          int cse_v15 = (rem_3 >> 2);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(674): warning #177-D: variable "tile_col_3" was declared but never referenced
+          int tile_col_3 = (rem_3 >> 2);
+              ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(584): warning #550-D: variable "wb_ps_stage_ptr" was set but never used
+        alignas(64) int wb_ps_stage_ptr[1];
+                        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(436): warning #177-D: variable "bx" was declared but never referenced
+    int bx = ((int)blockIdx.x);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(438): warning #177-D: variable "cby" was declared but never referenced
+    int cby = 0;
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(439): warning #177-D: variable "cse_v1" was declared but never referenced
+    int cse_v1 = (warp_id_in_cta >> 2);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(440): warning #177-D: variable "wg_id" was declared but never referenced
+    int wg_id = (warp_id_in_cta >> 2);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(441): warning #177-D: variable "cse_v2" was declared but never referenced
+    int cse_v2 = (warp_id_in_cta & 3);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(442): warning #177-D: variable "warp_id" was declared but never referenced
+    int warp_id = (warp_id_in_cta & 3);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(443): warning #177-D: variable "cse_v3" was declared but never referenced
+    int cse_v3 = (((int)threadIdx.x) & 31);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(444): warning #177-D: variable "lane_id" was declared but never referenced
+    int lane_id = (((int)threadIdx.x) & 31);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(476): warning #177-D: variable "tmem" was declared but never referenced
+    float* tmem = ((float*)((float*)((unsigned int*)pool_buf_ptr)[0]));
+           ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(481): warning #177-D: variable "cse_v4" was declared but never referenced
+    int cse_v4 = (((int)blockIdx.x) >> 1);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(484): warning #177-D: variable "rem" was declared but never referenced
+    int rem = (((int)blockIdx.x) >> 1);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(485): warning #177-D: variable "cse_v16" was declared but never referenced
+    int cse_v16 = ((((int)blockIdx.x) & 7) >> 1);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(486): warning #177-D: variable "tile_row" was declared but never referenced
+    int tile_row = ((((int)blockIdx.x) & 7) >> 1);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(487): warning #177-D: variable "cse_v5" was declared but never referenced
+    int cse_v5 = (((int)blockIdx.x) >> 3);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(488): warning #177-D: variable "tile_col" was declared but never referenced
+    int tile_col = (((int)blockIdx.x) >> 3);
+        ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(56): warning #177-D: function "__pack_half2" was declared but never referenced
+  __pack_half2(const half x, const half y) {
+  ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(82): warning #177-D: function "hpow" was declared but never referenced
+  static inline __attribute__((device)) __attribute__((host)) half hpow(half x, half y) { float tmp_x = __half2float(x); float tmp_y = __half2float(y); float result = powf(tmp_x, tmp_y); return __float2half(result); }
+                                                                   ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(86): warning #177-D: function "htan" was declared but never referenced
+  static inline __attribute__((device)) __attribute__((host)) half htan(half x) { float tmp_x = __half2float(x); float result = tanf(tmp_x); return __float2half(result); }
+                                                                   ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(87): warning #177-D: function "hatan" was declared but never referenced
+  static inline __attribute__((device)) __attribute__((host)) half hatan(half x) { float tmp_x = __half2float(x); float result = atanf(tmp_x); return __float2half(result); }
+                                                                   ^
+
+/results/20260920T113042Z_ac3ab378/build/hoisted.cu(88): warning #177-D: function "herf" was declared but never referenced
+  static inline __attribute__((device)) __attribute__((host)) half herf(half x) { float tmp_x = __half2float(x); float result = erf(tmp_x); return __float2half(result); }
+                                                                   ^
+
+ptxas info    : 2 bytes gmem
+ptxas info    : Compiling entry function 'kernel_kernel' for 'sm_103a'
+ptxas info    : Function properties for kernel_kernel
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 161 registers, used 16 barriers
+ptxas info    : Compile time = 85.319 ms

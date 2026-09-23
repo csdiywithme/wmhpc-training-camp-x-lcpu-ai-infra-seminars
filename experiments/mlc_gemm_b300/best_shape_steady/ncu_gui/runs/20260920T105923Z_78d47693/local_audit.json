@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "kernel_count": 1,
+  "report_bytes": 517620,
+  "report_sha256": "a38f656aeb22b6d50b310a8de534a32854ff2bb9e52aa2ec456dc5c0212b84be",
+  "csv_columns_including_metadata": 1603,
+  "nan_count": 0,
+  "validated_metrics": {
+    "gpu__time_duration.sum": 175328.0,
+    "sm__cycles_elapsed.avg": 298705.95,
+    "sm__cycles_active.avg.pct_of_peak_sustained_elapsed": 95.54,
+    "sm__pipe_tensor_cycles_active.avg.pct_of_peak_sustained_elapsed": 87.76,
+    "dram__cycles_elapsed.avg": 700536.0,
+    "dram__bytes_read.sum": 225751296.0,
+    "lts__t_sector_hit_rate.pct": 75.74,
+    "gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed": 20.25
+  },
+  "source_manifest_checked": 7,
+  "validation": {
+    "seed": 2,
+    "passed": true,
+    "checked_elements": 19398656,
+    "atol": 0.01,
+    "rtol": 0.02,
+    "row_chunk": 1024,
+    "mismatch_count": 0,
+    "nonfinite_count": 0,
+    "max_abs_error": 0.25,
+    "rms_error": 0.007104554217938084,
+    "relative_l2_error": 7.849416356419245e-05
+  },
+  "sections": [
+    "Section: Command line profiler metrics",
+    "Section: GPU Speed Of Light Throughput",
+    "Section: GPU Speed Of Light Roofline Chart (Overview)",
+    "Section: Compute Workload Analysis",
+    "Section: Memory Workload Analysis",
+    "Section: Memory Workload Analysis Chart",
+    "Section: Memory Workload Analysis Tables",
+    "Section: Scheduler Statistics",
+    "Section: Warp State Statistics",
+    "Section: Instruction Statistics",
+    "Section: Launch Statistics",
+    "Section: Occupancy",
+    "Section: GPU and Memory Workload Distribution",
+    "Section: Source Counters"
+  ],
+  "remote_status_note": "Preserved remote failed status: validator incorrectly required dram__throughput.avg.pct_of_peak_sustained_elapsed, which was not requested by these sections. Actual DRAM counters, all core metrics, CLI report imports and application validation are valid. This read-only audit corrects the validator without rerunning the GPU. The actual section metric gpu__dram_throughput.avg.pct_of_peak_sustained_elapsed is 20.25%."
+}

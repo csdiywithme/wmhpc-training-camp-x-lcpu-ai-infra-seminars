@@ -1,0 +1,14 @@
+[
+  [
+    "/usr/local/bin/python",
+    "-u",
+    "/opt/c2/validation/run_validation.py",
+    "verify",
+    "--manifest",
+    "/opt/c2/validation/frozen_calibration.json",
+    "--adapter",
+    "nextgen.adapter:run",
+    "--output",
+    "/tmp/nextgen-artifacts/heldout.json"
+  ]
+]

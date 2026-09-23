@@ -1,0 +1,21 @@
+{
+  "size": 4096,
+  "versions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "rounds": 5,
+  "repeat": 200,
+  "mode": "bench",
+  "sm_count": 148,
+  "arch": "sm_103a",
+  "gpu": "B300",
+  "profile": "simidawhu"
+}

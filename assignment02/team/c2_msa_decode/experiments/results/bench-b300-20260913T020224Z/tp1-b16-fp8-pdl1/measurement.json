@@ -1,0 +1,269 @@
+{
+  "batch": 16,
+  "tp": 1,
+  "query_heads": 64,
+  "kv_heads": 4,
+  "dtype": "fp8",
+  "q_dtype": "torch.bfloat16",
+  "pdl": true,
+  "seq_len": 8192,
+  "topk": 16,
+  "page": 128,
+  "dql": 1,
+  "seed": 0,
+  "splits": 4,
+  "compiled": [
+    {
+      "label": "partial",
+      "grid": [
+        64,
+        4
+      ],
+      "metadata": {
+        "allowed_dot_input_precisions": [
+          "tf32",
+          "tf32x3",
+          "ieee",
+          "bf16x3",
+          "bf16x6"
+        ],
+        "arch": "sm103",
+        "backend_name": "cuda",
+        "debug": false,
+        "default_dot_input_precision": "tf32",
+        "deprecated_fp8_dot_operand_dtypes": [
+          "fp8e4b15"
+        ],
+        "enable_fp_fusion": true,
+        "enable_reflect_ftz": true,
+        "extern_libs": [
+          [
+            "libdevice",
+            "/usr/local/lib/python3.11/site-packages/triton/backends/nvidia/lib/libdevice.10.bc"
+          ]
+        ],
+        "global_scratch_align": 1,
+        "global_scratch_size": 0,
+        "hash": "86f085fd47e3295e5d7a7f62c35697d6e704261704cf9d4d3fe0298fd47520cf",
+        "instrumentation_mode": "",
+        "ir_override": null,
+        "launch_cooperative_grid": false,
+        "launch_pdl": true,
+        "max_num_imprecise_acc_default": 0,
+        "maxnreg": null,
+        "name": "_gqa_sparse_decode_kernel",
+        "num_ctas": 1,
+        "num_stages": 3,
+        "num_warps": 4,
+        "profile_scratch_align": 1,
+        "profile_scratch_size": 0,
+        "ptx_options": null,
+        "ptx_version": null,
+        "sanitize_overflow": true,
+        "shared": 73732,
+        "supported_fp8_dtypes": [
+          "fp8e4b15",
+          "fp8e4nv",
+          "fp8e5"
+        ],
+        "target": "GPUTarget(backend='cuda', arch=103, warp_size=32)",
+        "tensordesc_meta": [],
+        "tmem_size": 0,
+        "triton_version": "3.6.0",
+        "warp_size": 32
+      },
+      "n_regs": 168,
+      "n_spills": 0,
+      "launch_kwargs": {
+        "BLOCK_SIZE_K": 128,
+        "NUM_TOPK_CHUNKS": 4,
+        "USE_FP8": true,
+        "KV_SCALE_MODE": 1,
+        "USE_PDL": true,
+        "launch_pdl": true
+      },
+      "ptx_sha256": "50e04cebaf4f4504dacc863cbd8bcb0398915f2875e4620115fa23d68864e309",
+      "cubin_sha256": "f82007697b925f3df78cf6b5141d976943a6fa5aa88555716f965f54f6dd7ee3",
+      "ttgir_sha256": "f65405ad4ffbbd38d133461f2f9c9e438b32978d6f7414c5b5c28a866a1bc6e6",
+      "sass_returncode": 0,
+      "sass_stderr": ""
+    },
+    {
+      "label": "merge",
+      "grid": [
+        16,
+        64
+      ],
+      "metadata": {
+        "allowed_dot_input_precisions": [
+          "tf32",
+          "tf32x3",
+          "ieee",
+          "bf16x3",
+          "bf16x6"
+        ],
+        "arch": "sm103",
+        "backend_name": "cuda",
+        "debug": false,
+        "default_dot_input_precision": "tf32",
+        "deprecated_fp8_dot_operand_dtypes": [
+          "fp8e4b15"
+        ],
+        "enable_fp_fusion": true,
+        "enable_reflect_ftz": true,
+        "extern_libs": [
+          [
+            "libdevice",
+            "/usr/local/lib/python3.11/site-packages/triton/backends/nvidia/lib/libdevice.10.bc"
+          ]
+        ],
+        "global_scratch_align": 1,
+        "global_scratch_size": 0,
+        "hash": "dd4f2d2c939cb71754ef7925fe0c681b044c0a1f40b89b105e7e419c75ec0dbc",
+        "instrumentation_mode": "",
+        "ir_override": null,
+        "launch_cooperative_grid": false,
+        "launch_pdl": true,
+        "max_num_imprecise_acc_default": 0,
+        "maxnreg": null,
+        "name": "_merge_topk_attn_out_kernel",
+        "num_ctas": 1,
+        "num_stages": 3,
+        "num_warps": 4,
+        "profile_scratch_align": 1,
+        "profile_scratch_size": 0,
+        "ptx_options": null,
+        "ptx_version": null,
+        "sanitize_overflow": true,
+        "shared": 2048,
+        "supported_fp8_dtypes": [
+          "fp8e4b15",
+          "fp8e4nv",
+          "fp8e5"
+        ],
+        "target": "GPUTarget(backend='cuda', arch=103, warp_size=32)",
+        "tensordesc_meta": [],
+        "tmem_size": 0,
+        "triton_version": "3.6.0",
+        "warp_size": 32
+      },
+      "n_regs": 22,
+      "n_spills": 0,
+      "launch_kwargs": {
+        "NUM_TOPK_CHUNKS": 4,
+        "USE_PDL": true,
+        "launch_pdl": true
+      },
+      "ptx_sha256": "188b4205f12f4ae771c4490e005f8e65ffb539a7e01c5ca0e66248f580a9fd51",
+      "cubin_sha256": "d2c7d0e59234b0a6399579865b68cf7374170edcd0c88d99c3cea0e844871d50",
+      "ttgir_sha256": "5b516c9aa4ddda4bc9a700d6547044c53faee8434b304108d8576ab09fa0b3a9",
+      "sass_returncode": 0,
+      "sass_stderr": ""
+    }
+  ],
+  "correctness": {
+    "finite": true,
+    "max_abs": 0.0002110195152107211,
+    "nrmse": 0.0028625589963146144
+  },
+  "partial_graph": {
+    "mean_us": 21.42055539621247,
+    "median_us": 21.421000361442566,
+    "p05_us": 21.37339971959591,
+    "p95_us": 21.48060016334057,
+    "min_us": 21.362999454140663,
+    "max_us": 21.50700055062771,
+    "samples_us": [
+      21.50700055062771,
+      21.39499969780445,
+      21.389000117778778,
+      21.44099958240986,
+      21.421000361442566,
+      21.407999098300934,
+      21.43700048327446,
+      21.362999454140663,
+      21.423999220132828
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "merge_graph": {
+    "mean_us": 3.5448888989372387,
+    "median_us": 3.5310001112520695,
+    "p05_us": 3.512999974191189,
+    "p95_us": 3.5877999383956194,
+    "min_us": 3.510999958962202,
+    "max_us": 3.594999900087714,
+    "samples_us": [
+      3.594999900087714,
+      3.524000057950616,
+      3.5310001112520695,
+      3.527000080794096,
+      3.510999958962202,
+      3.515999997034669,
+      3.576999995857477,
+      3.558000084012747,
+      3.5649999044835567
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "chain_graph": {
+    "mean_us": 31.613111082050537,
+    "median_us": 31.599998474121094,
+    "p05_us": 31.540000438690186,
+    "p95_us": 31.702199578285217,
+    "min_us": 31.534001231193542,
+    "max_us": 31.70900046825409,
+    "samples_us": [
+      31.69199824333191,
+      31.70900046825409,
+      31.635001301765442,
+      31.54899924993515,
+      31.534001231193542,
+      31.598001718521118,
+      31.640999019145966,
+      31.599998474121094,
+      31.560000032186508
+    ],
+    "graph_calls": 32,
+    "repeats": 9,
+    "scope": "CUDA-event average per invocation of a repeated CUDA Graph; hot fixed data"
+  },
+  "public_api": {
+    "device": {
+      "mean_us": 101.99743747711182,
+      "median_us": 101.78320407867432,
+      "p05_us": 101.29263639450073,
+      "p95_us": 102.84703493118286,
+      "min_us": 101.22959613800049,
+      "max_us": 102.93519496917725,
+      "samples_us": [
+        102.93519496917725,
+        102.49439477920532,
+        101.54479742050171,
+        101.78320407867432,
+        101.22959613800049
+      ]
+    },
+    "synchronized_wall": {
+      "mean_us": 102.57337999998839,
+      "median_us": 102.30727499997982,
+      "p05_us": 101.80748999992772,
+      "p95_us": 103.57979000001905,
+      "min_us": 101.7436749998879,
+      "max_us": 103.71525000003601,
+      "samples_us": [
+        103.71525000003601,
+        103.03794999995121,
+        102.06275000008702,
+        102.30727499997982,
+        101.7436749998879
+      ]
+    },
+    "calls": 40,
+    "scope": "allocating output and upstream partial workspace; Python submission included"
+  }
+}

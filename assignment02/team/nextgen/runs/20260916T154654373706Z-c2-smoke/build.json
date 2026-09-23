@@ -1,0 +1,37 @@
+{
+  "success": false,
+  "records": [
+    {
+      "command": [
+        "nvcc",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Fri_Nov__7_07:23:37_PM_PST_2025\nCuda compilation tools, release 13.1, V13.1.80\nBuild cuda_13.1.r13.1/compiler.36836380_0\n",
+      "stderr": "",
+      "seconds": 0.144382797
+    },
+    {
+      "command": [
+        "python",
+        "-u",
+        "/opt/c2/nextgen/build.py",
+        "--arch",
+        "103a",
+        "--output",
+        "/tmp/nextgen-build"
+      ],
+      "returncode": 1,
+      "stdout": "[1/3] g++ -MMD -MF binding.o.d -DTORCH_EXTENSION_NAME=c2_nextgen_ext -DTORCH_API_INCLUDE_EXTENSION_H -I/opt/FlashKDA/cutlass/include -I/opt/FlashKDA/cutlass/tools/util/include -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -fPIC -std=c++17 -O3 -std=c++17 -c /opt/c2/nextgen/binding.cpp -o binding.o \n[2/3] /usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output partial.cuda.o.d -ccbin gcc -DTORCH_EXTENSION_NAME=c2_nextgen_ext -DTORCH_API_INCLUDE_EXTENSION_H -I/opt/FlashKDA/cutlass/include -I/opt/FlashKDA/cutlass/tools/util/include -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -std=c++17 -lineinfo --expt-relaxed-constexpr --expt-extended-lambda --ptxas-options=-v -gencode=arch=compute_103a,code=sm_103a -c /opt/c2/nextgen/partial.cu -o partial.cuda.o \nFAILED: partial.cuda.o \n/usr/local/cuda/bin/nvcc --generate-dependencies-with-compile --dependency-output partial.cuda.o.d -ccbin gcc -DTORCH_EXTENSION_NAME=c2_nextgen_ext -DTORCH_API_INCLUDE_EXTENSION_H -I/opt/FlashKDA/cutlass/include -I/opt/FlashKDA/cutlass/tools/util/include -isystem /usr/local/lib/python3.11/site-packages/torch/include -isystem /usr/local/lib/python3.11/site-packages/torch/include/torch/csrc/api/include -isystem /usr/local/cuda/include -isystem /usr/local/include/python3.11 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr --compiler-options '-fPIC' -O3 -std=c++17 -lineinfo --expt-relaxed-constexpr --expt-extended-lambda --ptxas-options=-v -gencode=arch=compute_103a,code=sm_103a -c /opt/c2/nextgen/partial.cu -o partial.cuda.o \n/opt/c2/nextgen/partial.cu(102): error: identifier \"CUDART_INF_F\" is undefined\n      if (tid < GROUP) p.lse[lse_base + tid] = -CUDART_INF_F;\n                                                ^\n\n/opt/c2/nextgen/partial.cu(123): error: identifier \"CUDART_INF_F\" is undefined\n    if (tid < GROUP) { s.maximum[tid] = -CUDART_INF_F; s.logsumexp[tid] = -CUDART_INF_F; }\n                                         ^\n\n/opt/c2/nextgen/partial.cu(171): error: identifier \"CUDART_INF_F\" is undefined\n        float logits[4], local_max = -CUDART_INF_F;\n                                      ^\n\n3 errors detected in the compilation of \"/opt/c2/nextgen/partial.cu\".\nninja: build stopped: subcommand failed.\n{\"source_hashes\": {\"binding.cpp\": \"2308e37cb6d6df51535f9efa221feccfbfc988ea738d9c912936e7a2c0f4b62d\", \"partial.cu\": \"9e8d17032e5dca7af7d1784e6514a983babefba4884fd620ac27d9681896f235\"}, \"architectures\": [\"103a\"], \"cuda_flags\": [\"-O3\", \"-std=c++17\", \"-lineinfo\", \"--expt-relaxed-constexpr\", \"--expt-extended-lambda\", \"--ptxas-options=-v\", \"-gencode=arch=compute_103a,code=sm_103a\"], \"torch\": \"2.10.0+cu130\", \"cuda\": \"13.0\", \"cutlass\": \"/opt/FlashKDA/cutlass\", \"scope\": \"CPU compile only\", \"status\": \"BUILD_FAILED\", \"error\": \"RuntimeError(\\\"Error building extension 'c2_nextgen_ext'\\\")\", \"seconds\": 17.843752786000003}\n",
+      "stderr": "W0916 15:47:35.428000 5 site-packages/torch/utils/cpp_extension.py:118] No CUDA runtime is found, using CUDA_HOME='/usr/local/cuda'\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2693, in _run_ninja_build\n    subprocess.run(\n  File \"/usr/local/lib/python3.11/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v', '-j', '4']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/opt/c2/nextgen/build.py\", line 66, in <module>\n    main()\n  File \"/opt/c2/nextgen/build.py\", line 43, in main\n    module = load(name=\"c2_nextgen_ext\", sources=[str(p) for p in files],\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 1767, in load\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2207, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/usr/local/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2362, in _write_ninja_file_and_build_library\n    _run_ninja_build(\n  File \"/usr/local/lib/python3.11/site-packages/torch/utils/cpp_extension.py\", line 2710, in _run_ninja_build\n    raise RuntimeError(message) from e\nRuntimeError: Error building extension 'c2_nextgen_ext'\n",
+      "seconds": 21.840354243
+    }
+  ],
+  "files": [
+    "build.json",
+    "build.ninja"
+  ],
+  "worker_module": "/root/modal_runner.py",
+  "worker_source_sha256": "930dbf9562ebdeef40dc6fed9e280d6e50249614e05ad9c06bf314760293c68f",
+  "bundle_sha256": "b53a0c091d55da9c1c4c8e39870c524e7a32ba427c0c1891968d0690d8add941"
+}

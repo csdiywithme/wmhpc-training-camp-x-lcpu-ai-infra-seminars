@@ -1,0 +1,531 @@
+{
+  "status": "SMOKE_SCOPE_SAME_ROUNDING",
+  "mode": "smoke",
+  "suite": "quick",
+  "started_unix": 1789602994.3547075,
+  "build": {
+    "module": "c1_nextgen_direct_release_103a",
+    "variant": "direct-release",
+    "arch": "103a",
+    "started_unix": 1789602927.6537905,
+    "argv": [
+      "/opt/nextgen/c1/build.py",
+      "--arch",
+      "103a",
+      "--output",
+      "/tmp/nextgen-build",
+      "--variant",
+      "direct-release"
+    ],
+    "k2_source_sha256": "43b774ffd93357d85224ec1be8cef689d4fb393fb714522795cb567f7ad0a5e8",
+    "k2_source_file": "k2_tcgen05_direct.cuh",
+    "generated_launcher_sha256": "bdd9f99e30d6f55c8213810c3180915cc6635ce9649c5d4520a8d22c91249d2f",
+    "upstream_launcher_sha256": "dbaf9ba867fc8c799cf147b7e17bd2aba4a08b1b63c5f7df0cca1173a0df5562",
+    "nvcc_flags": [
+      "-O3",
+      "-std=c++17",
+      "--expt-relaxed-constexpr",
+      "--expt-extended-lambda",
+      "--use_fast_math",
+      "-U__CUDA_NO_HALF_OPERATORS__",
+      "-U__CUDA_NO_HALF_CONVERSIONS__",
+      "-U__CUDA_NO_HALF2_OPERATORS__",
+      "-U__CUDA_NO_BFLOAT16_CONVERSIONS__",
+      "--ptxas-options=-v,--register-usage-level=10,--warn-on-spills",
+      "-lineinfo",
+      "--threads=4",
+      "-gencode=arch=compute_103a,code=sm_103a",
+      "-DC1_FUSE_QK=1",
+      "-DC1_FUSE_FINAL=1",
+      "-DC1_TRANSPOSE_SHARED=1",
+      "-DNDEBUG"
+    ],
+    "status": "built",
+    "tmem_primitive_audit": null,
+    "flash_commit": "1ce47ea3bb22c84eb9cc665028399cf35e8ffb0b",
+    "cutlass_commit": "5c149f52a436782210263fb2f19b354443a61c6a",
+    "module_path": "c1_nextgen_direct_release_103a.so",
+    "finished_unix": 1789602979.3121111
+  },
+  "baseline_build": {
+    "module": "flash_kda_C"
+  },
+  "argv": [
+    "/opt/nextgen/c1/run.py",
+    "--mode",
+    "smoke",
+    "--output",
+    "/tmp/nextgen-artifacts",
+    "--build-dir",
+    "/tmp/nextgen-build"
+  ],
+  "environment": {
+    "gpu": "NVIDIA B300 SXM6 AC",
+    "capability": [
+      10,
+      3
+    ],
+    "torch": "2.10.0+cu130",
+    "cuda": "13.0",
+    "python": "3.11.5"
+  },
+  "same_rounding_gate": "finite and torch.equal for output AND state; baseline official prerequisite",
+  "new_rounding_contract": "NONE; numerical metrics are research diagnostics, never old-gate PASS",
+  "timing_method": "CUDA events around eager full forward; no workspace allocation; includes beta transpose",
+  "rows": [
+    {
+      "case": {
+        "heads": 2,
+        "length": 17,
+        "batch": 1,
+        "lengths": null,
+        "seed": 0,
+        "state_in": true,
+        "state_out": true,
+        "state_fp32": false,
+        "gate": "random"
+      },
+      "baseline_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "baseline_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.640625,
+        "same_rounding_pass": true
+      },
+      "output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.640625,
+        "same_rounding_pass": true
+      },
+      "candidate_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "candidate_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.640625,
+        "same_rounding_pass": true
+      },
+      "baseline_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 4352,
+        "first_difference_flat": 0,
+        "rmse": 2.7273013984085992e-05,
+        "relative_rmse": 0.005975417312822972,
+        "max_abs": 0.00021905452013015747,
+        "reference_peak": 0.03371649235486984,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 4352,
+        "first_difference_flat": 0,
+        "rmse": 2.7273013984085992e-05,
+        "relative_rmse": 0.005975417312822972,
+        "max_abs": 0.00021905452013015747,
+        "reference_peak": 0.03371649235486984,
+        "same_rounding_pass": false
+      },
+      "baseline_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 32768,
+        "first_difference_flat": 0,
+        "rmse": 0.0002761089999694377,
+        "relative_rmse": 0.005069486943842827,
+        "max_abs": 0.006083369255065918,
+        "reference_peak": 0.6345416307449341,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 32768,
+        "first_difference_flat": 0,
+        "rmse": 0.0002761089999694377,
+        "relative_rmse": 0.005069486943842827,
+        "max_abs": 0.006083369255065918,
+        "reference_peak": 0.6345416307449341,
+        "same_rounding_pass": false
+      },
+      "workspace_oracle_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "workspace_oracle_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.640625,
+        "same_rounding_pass": true
+      },
+      "finite": true,
+      "same_rounding_pass": true,
+      "qualification": "SAME_ROUNDING_CASE_PASS"
+    },
+    {
+      "case": {
+        "heads": 2,
+        "length": 33,
+        "batch": 1,
+        "lengths": null,
+        "seed": 0,
+        "state_in": false,
+        "state_out": true,
+        "state_fp32": false,
+        "gate": "random"
+      },
+      "baseline_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "baseline_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.44921875,
+        "same_rounding_pass": true
+      },
+      "output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.44921875,
+        "same_rounding_pass": true
+      },
+      "candidate_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": true
+      },
+      "candidate_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.44921875,
+        "same_rounding_pass": true
+      },
+      "baseline_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 8448,
+        "first_difference_flat": 0,
+        "rmse": 2.4974086045403965e-05,
+        "relative_rmse": 0.006099946282135463,
+        "max_abs": 0.00021535158157348633,
+        "reference_peak": 0.033720195293426514,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 8448,
+        "first_difference_flat": 0,
+        "rmse": 2.4974086045403965e-05,
+        "relative_rmse": 0.006099946282135463,
+        "max_abs": 0.00021535158157348633,
+        "reference_peak": 0.033720195293426514,
+        "same_rounding_pass": false
+      },
+      "baseline_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 32768,
+        "first_difference_flat": 0,
+        "rmse": 0.0002148661733372137,
+        "relative_rmse": 0.004700587541360993,
+        "max_abs": 0.0033386647701263428,
+        "reference_peak": 0.4494078457355499,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 32768,
+        "first_difference_flat": 0,
+        "rmse": 0.0002148661733372137,
+        "relative_rmse": 0.004700587541360993,
+        "max_abs": 0.0033386647701263428,
+        "reference_peak": 0.4494078457355499,
+        "same_rounding_pass": false
+      },
+      "workspace_oracle_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 2,
+        "first_difference_flat": 7365,
+        "rmse": 1.8560861292371555e-07,
+        "relative_rmse": 4.5407326591690263e-05,
+        "max_abs": 1.52587890625e-05,
+        "reference_peak": 0.033935546875,
+        "same_rounding_pass": false
+      },
+      "workspace_oracle_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.44921875,
+        "same_rounding_pass": true
+      },
+      "finite": true,
+      "same_rounding_pass": true,
+      "qualification": "SAME_ROUNDING_CASE_PASS"
+    },
+    {
+      "case": {
+        "heads": 2,
+        "length": 51,
+        "batch": 1,
+        "lengths": [
+          1,
+          17,
+          33
+        ],
+        "seed": 0,
+        "state_in": true,
+        "state_out": true,
+        "state_fp32": true,
+        "gate": "random"
+      },
+      "baseline_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.03515625,
+        "same_rounding_pass": true
+      },
+      "baseline_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.53515625,
+        "same_rounding_pass": true
+      },
+      "output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.03515625,
+        "same_rounding_pass": true
+      },
+      "state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.53515625,
+        "same_rounding_pass": true
+      },
+      "candidate_official_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.03515625,
+        "same_rounding_pass": true
+      },
+      "candidate_official_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.53515625,
+        "same_rounding_pass": true
+      },
+      "baseline_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 13056,
+        "first_difference_flat": 0,
+        "rmse": 2.4092068997561e-05,
+        "relative_rmse": 0.005723225608052267,
+        "max_abs": 0.00023659318685531616,
+        "reference_peak": 0.03509437292814255,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_output": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 13056,
+        "first_difference_flat": 0,
+        "rmse": 2.4092068997561e-05,
+        "relative_rmse": 0.005723225608052267,
+        "max_abs": 0.00023659318685531616,
+        "reference_peak": 0.03509437292814255,
+        "same_rounding_pass": false
+      },
+      "baseline_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 98303,
+        "first_difference_flat": 0,
+        "rmse": 0.00023884852998889983,
+        "relative_rmse": 0.004942333447945806,
+        "max_abs": 0.004393637180328369,
+        "reference_peak": 0.531869649887085,
+        "same_rounding_pass": false
+      },
+      "candidate_naive_state": {
+        "finite": true,
+        "bitwise_equal": false,
+        "different_elements": 98303,
+        "first_difference_flat": 0,
+        "rmse": 0.00023884852998889983,
+        "relative_rmse": 0.004942333447945806,
+        "max_abs": 0.004393637180328369,
+        "reference_peak": 0.531869649887085,
+        "same_rounding_pass": false
+      },
+      "workspace_oracle_output": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.03515625,
+        "same_rounding_pass": true
+      },
+      "workspace_oracle_state": {
+        "finite": true,
+        "bitwise_equal": true,
+        "different_elements": 0,
+        "first_difference_flat": null,
+        "rmse": 0.0,
+        "relative_rmse": 0.0,
+        "max_abs": 0.0,
+        "reference_peak": 0.53515625,
+        "same_rounding_pass": true
+      },
+      "finite": true,
+      "same_rounding_pass": true,
+      "qualification": "SAME_ROUNDING_CASE_PASS"
+    }
+  ],
+  "expected_cases": 3,
+  "expected_old_precision_cases": 0,
+  "scope": "SMOKE_SCOPE_ONLY",
+  "completed_cases": 3,
+  "completed_old_precision_cases": 0,
+  "finished_unix": 1789603091.490479
+}

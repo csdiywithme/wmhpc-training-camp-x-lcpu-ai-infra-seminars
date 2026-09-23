@@ -1,0 +1,116 @@
+[
+  {
+    "kernel": "void paged_tcgen05_partial<0>(Params)",
+    "metrics": {
+      "gpu__time_duration.sum": {
+        "value": "81.728000",
+        "unit": "us"
+      },
+      "launch__registers_per_thread": {
+        "value": "70",
+        "unit": "register/thread"
+      },
+      "launch__shared_mem_per_block": {
+        "value": "58.624000",
+        "unit": "Kbyte/block"
+      },
+      "launch__shared_mem_per_block_allocated": {
+        "value": "58.624000",
+        "unit": "Kbyte/block"
+      },
+      "launch__occupancy_limit_shared_mem": {
+        "value": "3.000000",
+        "unit": "block"
+      },
+      "sm__warps_active.avg.pct_of_peak_sustained_active": {
+        "value": "6.268030",
+        "unit": "%"
+      },
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": {
+        "value": "2.146915",
+        "unit": "%"
+      },
+      "derived__memory_l1_conflicts_shared_nway": {
+        "value": "353",
+        "unit": ""
+      },
+      "derived__memory_l1_wavefronts_shared_excessive": {
+        "value": "413696",
+        "unit": ""
+      },
+      "derived__memory_l2_theoretical_sectors_global_excessive": {
+        "value": "1.040384",
+        "unit": "Mbyte"
+      },
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+        "value": "70400",
+        "unit": ""
+      },
+      "dram__bytes_read.sum": {
+        "value": "4.255488",
+        "unit": "Mbyte"
+      },
+      "dram__bytes_write.sum": {
+        "value": "0",
+        "unit": "byte"
+      }
+    }
+  },
+  {
+    "kernel": "_merge_feature_tiles",
+    "metrics": {
+      "gpu__time_duration.sum": {
+        "value": "4.960000",
+        "unit": "us"
+      },
+      "launch__registers_per_thread": {
+        "value": "39",
+        "unit": "register/thread"
+      },
+      "launch__shared_mem_per_block": {
+        "value": "1.152000",
+        "unit": "Kbyte/block"
+      },
+      "launch__shared_mem_per_block_allocated": {
+        "value": "1.152000",
+        "unit": "Kbyte/block"
+      },
+      "launch__occupancy_limit_shared_mem": {
+        "value": "56.000000",
+        "unit": "block"
+      },
+      "sm__warps_active.avg.pct_of_peak_sustained_active": {
+        "value": "1.708224",
+        "unit": "%"
+      },
+      "sm__throughput.avg.pct_of_peak_sustained_elapsed": {
+        "value": "0.558891",
+        "unit": "%"
+      },
+      "derived__memory_l1_conflicts_shared_nway": {
+        "value": "5",
+        "unit": ""
+      },
+      "derived__memory_l1_wavefronts_shared_excessive": {
+        "value": "0",
+        "unit": ""
+      },
+      "derived__memory_l2_theoretical_sectors_global_excessive": {
+        "value": "0.001536",
+        "unit": "Mbyte"
+      },
+      "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+        "value": "1152",
+        "unit": ""
+      },
+      "dram__bytes_read.sum": {
+        "value": "0.272896",
+        "unit": "Mbyte"
+      },
+      "dram__bytes_write.sum": {
+        "value": "0",
+        "unit": "byte"
+      }
+    }
+  }
+]

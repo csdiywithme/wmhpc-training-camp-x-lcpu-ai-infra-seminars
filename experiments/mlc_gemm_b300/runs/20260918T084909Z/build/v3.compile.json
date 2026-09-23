@@ -1,0 +1,41 @@
+{
+  "accumulator_dtype": "float32",
+  "arch": "sm_103a",
+  "compile_seconds": 0.2377157340000018,
+  "dtype": "float16",
+  "entrypoint": "main",
+  "export_seconds": 0.0859658379999999,
+  "factory_seconds": 0.18509338500000183,
+  "factory_source_sha256": "7f87c74318f591b3edee411da320a5e045f490e7f1edf8796da71c5d72667660",
+  "files": {
+    "cuda": "v3.cu",
+    "library": "v3.so",
+    "metadata": "v3.compile.json",
+    "tirx": "v3.tirx.py"
+  },
+  "finished_at_utc": "2026-09-18T08:49:34.411592+00:00",
+  "gpu_launched": false,
+  "host_target": "{\"kind\":\"llvm\",\"tag\":\"\",\"keys\":[\"cpu\"],\"mtriple\":\"x86_64-conda-linux-gnu\"}",
+  "machine": "x86_64",
+  "operation": "D = A @ B.T",
+  "platform": "Linux-4.19.0-gvisor-x86_64-with-glibc2.39",
+  "python_version": "3.11.5",
+  "sha256": {
+    "cuda": "ac97498547941e9bd8be3a8033a22192e2e22e03ecf28ba4883af6b5dbf6c70a",
+    "library": "7ec07a7568926daf7468915d2cbe0f586a9aa2266ecd3a567b6af8efa8d5e61b",
+    "tirx": "50b0ba59d8ea9ee9b783459d7fd62c7b25afa537f3dbc81e69da57c52079d7f9"
+  },
+  "shape": [
+    4096,
+    4096,
+    4096
+  ],
+  "sm_count": 148,
+  "started_at_utc": "2026-09-18T08:49:29.728934+00:00",
+  "status": "compiled",
+  "target": "{\"kind\":\"cuda\",\"tag\":\"\",\"keys\":[\"cuda\",\"gpu\"],\"host\":{\"kind\":\"llvm\",\"tag\":\"\",\"keys\":[\"cpu\"],\"mtriple\":\"x86_64-conda-linux-gnu\"},\"max_num_threads\":1024,\"thread_warp_size\":32,\"arch\":\"sm_103a\"}",
+  "total_seconds": 4.675174885000001,
+  "tvm_version": "0.26.0",
+  "upstream_revision": "ebccca2e5675966f68fb3d4880d4448194bd638d",
+  "version": 3
+}

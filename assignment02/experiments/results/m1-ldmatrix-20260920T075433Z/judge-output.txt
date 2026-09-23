@@ -1,0 +1,3 @@
+seed=1      manual PASS(0)  ldsm PASS(0)
+seed=7      manual PASS(0)  ldsm PASS(0)
+seed=42     manual PASS(0)  ldsm PASS(0)

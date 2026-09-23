@@ -1,0 +1,34 @@
+{
+  "state": "build_failed",
+  "started_at": "2026-09-20T11:30:48.594199+00:00",
+  "manifest": {
+    "input/aligned148_k8192__wide.so": "292e320fc1373aa69b4df5e9ebaef849300c740774f8dfc11099ca464439b683",
+    "input/aligned148_k8192__wide.cu": "3cd33dd7eb902f63b2ee5e8093790ecb936e1781d30b8699f314c2921f49de96",
+    "input/aligned148_k8192__wide.tirx.py": "74f93965d98f5a189e0ffcc1d98a97101f0d1d7a596a20779ba7ea326269d42d",
+    "input/aligned148_k8192__wide.compile.json": "05499c9efb0fa1d6bb82db82d6530a6e9b1e438843f945ec2679c188e2e91653",
+    "input/kernels_tuned.py": "bb26b68335a4e97702f51e9df05510a8675b917bd41e697f58a2af68f7d08081",
+    "input/base_image.py": "14920305fb9ef3825c5e9effe0cc8e761612921014c781a3561c0ffcc7e3bb91",
+    "modal_runner.py": "c712dae0f779dd2b3d64590763b88c22ad1866a9d8160709134a94a99689178c",
+    "kernels_hoisted.py": "d711c8416450ba786c16875ad3e7ad0f3406fc327ecb6b63ec10091192b5195f",
+    "compile_variants.py": "b818929c546293671524f2f2e2c4e7023af86d84c413a8320d5f1e01728f55b9",
+    "benchmark.py": "4850fcad9b940ddad6ed4ea2defa0d7d1d4947eca74ee9bc1c52692a51283364"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/usr/local/bin/python",
+        "-u",
+        "/opt/tmem_hoist/compile_variants.py",
+        "--output",
+        "/results/20260920T113042Z_ac3ab378/build"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "seconds": 17.215578417000003,
+      "log": "compile.log"
+    }
+  ],
+  "error": "RuntimeError('SASS/build gate not satisfied; no GPU started')",
+  "traceback": "Traceback (most recent call last):\n  File \"/root/modal_runner.py\", line 131, in cpu_build\n    raise RuntimeError('SASS/build gate not satisfied; no GPU started')\nRuntimeError: SASS/build gate not satisfied; no GPU started\n",
+  "finished_at": "2026-09-20T11:31:07.388854+00:00"
+}

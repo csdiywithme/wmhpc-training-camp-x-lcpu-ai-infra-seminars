@@ -23,18 +23,28 @@ def build_tensor(n: int = 10000, outlier: float = 3000.0) -> torch.Tensor:
 def quant_dequant_per_tensor(x: torch.Tensor) -> torch.Tensor:
     """per-tensor E4M3 量化再反量化。
 
-    TODO: 实现。步骤:算 scale = amax / 448;除 scale 后 cast 到
+    步骤:算 scale = amax / 448;除 scale 后 cast 到
     torch.float8_e4m3fn;cast 回 float 再乘 scale。
     """
-    raise NotImplementedError
+    scale = x.abs().max() / E4M3_MAX  # 逐元素取绝对值，再取整个张量的最大值
+    if scale.item() == 0:  # 全零输入不需要缩放，避免除零
+        return torch.zeros_like(x, dtype=torch.float32)
+    q = (x / scale).to(torch.float8_e4m3fn)  # 标量 scale 自动广播到每个元素
+    return q.float() * scale  # 转回 float32，再还原数值尺度
 
 
 def rel_err_at(x: torch.Tensor, y: torch.Tensor, value: float) -> float:
     """取 x 中最接近 value 的元素,返回该点的相对误差。
 
-    TODO: 实现(表格的每一格都从这里来)。
+    表格的每一格都从这里来。
     """
-    raise NotImplementedError
+    x_flat, y_flat = x.flatten(), y.flatten()
+    idx = (x_flat - value).abs().argmin()  # 距离目标值最近的元素下标
+    error = (y_flat[idx] - x_flat[idx]).abs()
+    magnitude = x_flat[idx].abs()
+    if magnitude.item() == 0:
+        return 0.0 if error.item() == 0 else float("inf")
+    return (error / magnitude).item()  # 单元素 Tensor 转成 Python float
 
 
 def main() -> None:

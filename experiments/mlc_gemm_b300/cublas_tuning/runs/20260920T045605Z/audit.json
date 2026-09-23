@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "case_count": 7,
+  "session_count": 1,
+  "method_count": 12,
+  "candidate_seed0_checks": 56,
+  "selected_seed_checks": 36,
+  "post_timing_checks": 12,
+  "tuning_samples": 1680,
+  "formal_samples": 7195,
+  "results_sha256": "22f9764227a09eed209d0f7e22acc97906206fdfe4cd82c15ce5fb2d654f4d5d",
+  "source_hashes_verified": true,
+  "checks": [
+    "all cases complete",
+    "all raw durations positive and finite",
+    "five formal rounds per method",
+    "raw samples reproduce exact recorded round means and medians",
+    "three seeds passed per method",
+    "post-timing correctness passed",
+    "Lt reduction NONE or COMPUTE_TYPE",
+    "native FP16 accumulator rejection enabled",
+    "cuBLAS reduced precision reduction flag read back",
+    "source and binary hashes match frozen build"
+  ]
+}

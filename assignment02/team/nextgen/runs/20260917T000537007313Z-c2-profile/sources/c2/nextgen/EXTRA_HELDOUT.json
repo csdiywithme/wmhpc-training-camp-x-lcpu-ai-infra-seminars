@@ -1,0 +1,26 @@
+{
+  "version": "c2-nextgen-extra-heldout-v1",
+  "registered_on_local_date": "2026-09-17",
+  "status_at_registration": "not executed; reserved for the frozen final candidate",
+  "seeds": [20260917, 20261003],
+  "excluded_development_seeds": [0, 11, 29, 101, 307],
+  "base_specs": "unchanged validation.suite.build_specs('full')",
+  "original_protocol_digest": "430cf4da832b3fb3d2e3eeb2bff0c31959101a05703cc2ede89a1e10c4c54b02",
+  "numeric_policy": "reuse the original frozen per-family thresholds; never recalibrate",
+  "additional_shape_families": [
+    {"name": "extra_b2_dql3", "seq_lens": [2047, 4097], "decode_query_len": 3},
+    {"name": "extra_b7_varlen", "seq_lens": [127, 129, 255, 257, 4095, 4097, 8191], "decode_query_len": 1}
+  ],
+  "kv_heads": [4, 1],
+  "storages": ["bf16", "fp8_scalar", "fp8_token"],
+  "expected_records_per_adapter": 192,
+  "expected_existing_shape_new_seed_records": 168,
+  "expected_additional_shape_records": 24,
+  "rules": [
+    "Run only after candidate and dispatch sources are frozen and archived.",
+    "First complete baseline validation in the same execution; baseline failure blocks candidate PASS.",
+    "Keep seeds101/307 verification labeled fixed regression, separate from this output.",
+    "A change motivated by these results consumes these heldout inputs; do not call a tuned rerun unseen.",
+    "A PASS concerns represented-input correctness in this domain, not production PDL, sanitizer, model quality or performance."
+  ]
+}
